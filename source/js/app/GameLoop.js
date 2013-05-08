@@ -4,12 +4,13 @@
  */
 define(function () {
 
-	function GameLoop(game_board, control_sys, motion_sys, collision_sys, render_sys) {
+	function GameLoop(game_board, control_sys, motion_sys, collision_sys, timeout_sys, render_sys) {
 		this.board = game_board;
 
 		this.controlSystem = control_sys;
 		this.motionSystem = motion_sys;
 		this.collisionSystem = collision_sys;
+		this.timeoutSystem = timeout_sys;
 		this.renderSystem = render_sys;
 	}
 
@@ -21,6 +22,7 @@ define(function () {
 		this.motionSystem.update(dt);
 		this.board.update(dt);
 		this.collisionSystem.update(dt);
+		this.timeoutSystem.update(dt);
 		this.renderSystem.update(dt);
 	};
 

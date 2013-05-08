@@ -6,8 +6,10 @@
  * To change this template use File | Settings | File Templates.
  */
 define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/control/ControlSystem', 'app/motion/MotionSystem',
-	'app/rules/CollisionRules', 'app/collisions/CollisionSystem','app/render/RenderSystem', 'app/entities/EntityPool', 'app/entities/EntityFactory', 'app/LevelGenerator', 'app/control/SpaceshipControl'],
-	function (KeyPoll, Config, GameLoop, GameBoard, ControlSystem, MotionSystem, CollisionRules, CollisionSystem, RenderSystem, EntityPool, EntityFactory, LevelGenerator, SpaceshipControl) {
+	'app/rules/CollisionRules', 'app/collisions/CollisionSystem', 'app/timeout/TimeoutSystem', 'app/render/RenderSystem',
+	'app/entities/EntityPool', 'app/entities/EntityFactory', 'app/LevelGenerator', 'app/control/SpaceshipControl'],
+	function (KeyPoll, Config, GameLoop, GameBoard, ControlSystem, MotionSystem, CollisionRules, CollisionSystem,
+			  TimeoutSystem, RenderSystem, EntityPool, EntityFactory, LevelGenerator, SpaceshipControl) {
 
 		function AsteroidsGame() {
 			this.stage = null;
@@ -39,8 +41,9 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/contr
 			var input = new ControlSystem(board);
 			var motion = new MotionSystem(board);
 			var collisions = new CollisionSystem(board);
+			var timeout = new TimeoutSystem(board);
 			var render = new RenderSystem(this.stage, board);
-			var game = new GameLoop(board, input, motion, collisions, render);
+			var game = new GameLoop(board, input, motion, collisions, timeout, render);
 
 			// stage updates
 			createjs.Ticker.setFPS(60);
@@ -60,7 +63,7 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/contr
 
 			var collisionRules = new CollisionRules(board, this.ship, this.explodingShip);
 			collisions.collisionDetected.add(function (active, passive) {
-				collisionRules.handleCollision(active,passive);
+				collisionRules.handleCollision(active, passive);
 			});
 
 

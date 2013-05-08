@@ -7,21 +7,23 @@
  */
 define(function () {
 
-	function SpaceshipViewController() {
-
+	function SpaceshipViewController(view) {
+		//this.view = view;
+		this.thruster = view.getChildByName('thruster');
 	}
 
 	var api = SpaceshipViewController.prototype;
 
-	api.update = function update(entity, dt) {
+	api.handleAdded = function handleAdded(entity){
 
-		if (entity.view) {
-			var thrusting = (entity.state == 'thrusting');
-			var thruster = entity.view.getChildByName('thruster');
-			if (thruster) {
-				thruster.visible = thrusting;
-			}
-		}
-	}
+	};
+	api.handleRemoved = function handleRemoved(entity){
+
+	};
+
+	api.update = function update(entity, dt) {
+		var thrusting = (entity.state == 'thrusting');
+		if (this.thruster)  this.thruster.visible = thrusting;
+	};
 	return SpaceshipViewController;
 });

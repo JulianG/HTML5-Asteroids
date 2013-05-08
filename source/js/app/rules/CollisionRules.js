@@ -22,7 +22,7 @@ define(function () {
 
 			this.explodingShip.position.clone(this.ship.position);
 			this.explodingShip.motion.clone(this.ship.motion);
-
+			this.explodingShip.motion.damping = 0.95;
 			this.board.removeEntity(this.ship);
 			this.board.addEntity(this.explodingShip);
 

@@ -5,7 +5,7 @@
  * Time: 10:34
  */
 
-define(['app/render/SpaceshipViewController'], function (SpaceshipViewController) {
+define(['app/render/SpaceshipViewController','app/render/ExplodingSpaceshipViewController'], function (SpaceshipViewController,ExplodingSpaceshipViewController) {
 
 	function EntityFactory(atlas, pool) {
 		this.atlas = atlas;
@@ -29,25 +29,27 @@ define(['app/render/SpaceshipViewController'], function (SpaceshipViewController
 		view.addChild(ship_body);
 		view.addChild(thruster);
 		entity.view = view;
-		entity.viewController = new SpaceshipViewController();
+		entity.viewController = new SpaceshipViewController(view);
 		entity.state = 'idle';
 		entity.collider.active = true;
 		entity.collider.radius = 15;
-
+		entity.timeout.active = false;
+		entity.timeout.remainingTime = 0;
 		return entity;
 	};
 
 	api.createExplodingShip = function createExplodingShip() {
 		var entity = this.availableObjects.getEntity();
 
-		var view = this.atlas.getDisplayObject('ship-explosion');
-		view.regX = 25;
-		view.regY = 35;
+		var view = new createjs.Container();
+		entity.viewController = new ExplodingSpaceshipViewController(view, this.atlas);
 		entity.view = view;
-		//entity.viewController = new SpaceshipViewController();
+
 		entity.state = 'idle';
 		entity.collider.active = false;
 		entity.collider.radius = 0;
+		entity.timeout.active = true;
+		entity.timeout.remainingTime = 1;
 
 		return entity;
 	};
@@ -67,7 +69,10 @@ define(['app/render/SpaceshipViewController'], function (SpaceshipViewController
 
 		entity.motion.va = 50;
 		entity.collider.active = false;
-		entity.collider.radius = scale * 3 * 45 / 2;
+		entity.collider.radius = scale * 3 * 22 / 2;
+
+		entity.timeout.active = false;
+		entity.timeout.remainingTime = 0;
 
 		return entity;
 	};

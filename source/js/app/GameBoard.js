@@ -7,6 +7,7 @@ define(function () {
 	function GameBoard(width, height, wrap_margin) {
 
 		this.entityRemoved = new signals.Signal();
+		this.entityAdded = new signals.Signal();
 
 		this.width = width;
 		this.height = height;
@@ -21,6 +22,7 @@ define(function () {
 		{
 			entity.active = true;
 			this.entities.push(entity);
+			this.entityAdded.dispatch(entity);
 		}
 	};
 

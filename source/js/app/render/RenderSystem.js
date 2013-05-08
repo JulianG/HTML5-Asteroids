@@ -16,7 +16,9 @@ define(function () {
 		this.board.entityRemoved.add(function(entity){
 			self.remove(entity);
 		});
-		//this.board.entityAdded.add(function(entity){}); // new entities are added to the container in the update method
+		this.board.entityAdded.add(function(entity){
+			self.add(entity);
+		});
 	}
 
 	var api = RenderSystem.prototype;
@@ -48,12 +50,22 @@ define(function () {
 		}
 	};
 
+	api.add = function add(entity){
+		if (entity.view){
+			if (!this.container.contains(entity.view)) {
+				this.container.addChild(entity.view);
+			}
+		}
+		if (entity.viewController) entity.viewController.handleAdded(entity);
+	};
+
 	api.remove = function remove(entity){
 		if (entity.view){
 			if (this.container.contains(entity.view)) {
 				this.container.removeChild(entity.view);
 			}
 		}
+		if (entity.viewController) entity.viewController.handleRemoved(entity);
 	};
 
 	return RenderSystem;

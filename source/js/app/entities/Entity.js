@@ -5,7 +5,7 @@
  * Time: 10:31
  * To change this template use File | Settings | File Templates.
  */
-define(['app/entities/Position','app/entities/Motion','app/collisions/Collider'], function (Position,Motion,Collider) {
+define(['app/components/Position','app/components/Motion','app/components/Collider','app/components/Timeout'], function (Position,Motion,Collider,Timeout) {
 
 	function Entity() {
 		this.active = true;
@@ -14,6 +14,7 @@ define(['app/entities/Position','app/entities/Motion','app/collisions/Collider']
 		this.collider = new Collider();
 		this.motion = new Motion();
 		this.control = null;
+		this.timeout = new Timeout();
 		this.view = null;
 		this.viewController = null;
 	}
