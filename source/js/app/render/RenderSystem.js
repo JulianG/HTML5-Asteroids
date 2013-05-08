@@ -11,17 +11,23 @@ define(function () {
 		this.container = container;
 		this.board = board;
 		//
+
+		var self = this;
+		this.board.entityRemoved.add(function(entity){
+			self.remove(entity);
+		});
+		//this.board.entityAdded.add(function(entity){}); // new entities are added to the container in the update method
 	}
 
 	var api = RenderSystem.prototype;
 
-	api.update = function update(board, dt) {
+	api.update = function update(dt) {
 		//console.log("Renderer.renderBoard...");
 
-		var n = board.entities.length;
+		var n = this.board.entities.length;
 		for (var i = 0; i < n; i++) {
 
-			var entity = board.entities[i];
+			var entity = this.board.entities[i];
 
 			if (entity.view && entity.position) {
 				var sp = entity.view;
@@ -38,6 +44,14 @@ define(function () {
 					}
 				}
 				if (entity.viewController) entity.viewController.update(entity, dt);
+			}
+		}
+	};
+
+	api.remove = function remove(entity){
+		if (entity.view){
+			if (this.container.contains(entity.view)) {
+				this.container.removeChild(entity.view);
 			}
 		}
 	};

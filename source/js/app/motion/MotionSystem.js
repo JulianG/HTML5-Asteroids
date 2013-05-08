@@ -7,16 +7,16 @@
  */
 define(function () {
 
-	function MotionSystem() {
-
+	function MotionSystem(board) {
+		this.board = board;
 	}
 
 	var api = MotionSystem.prototype;
 
-	api.update = function (board, dt) {
-		var n = board.entities.length;
+	api.update = function (dt) {
+		var n = this.board.entities.length;
 		for (var i = 0; i < n; i++) {
-			var entity = board.entities[i];
+			var entity = this.board.entities[i];
 			if (entity) {
 				if (entity.active && entity.motion && entity.position) {
 					entity.position.x += entity.motion.vx * dt;

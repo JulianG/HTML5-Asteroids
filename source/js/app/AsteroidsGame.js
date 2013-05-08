@@ -6,8 +6,8 @@
  * To change this template use File | Settings | File Templates.
  */
 define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/control/ControlSystem', 'app/motion/MotionSystem',
-	'app/collisions/CollisionSystem', 'app/render/RenderSystem', 'app/entities/EntityPool', 'app/entities/EntityFactory', 'app/LevelGenerator', 'app/control/SpaceshipControl'],
-	function (KeyPoll, Config, GameLoop, GameBoard, ControlSystem, MotionSystem, CollisionSystem, RenderSystem, EntityPool, EntityFactory, LevelGenerator, SpaceshipControl) {
+	'app/rules/CollisionRules', 'app/collisions/CollisionSystem','app/render/RenderSystem', 'app/entities/EntityPool', 'app/entities/EntityFactory', 'app/LevelGenerator', 'app/control/SpaceshipControl'],
+	function (KeyPoll, Config, GameLoop, GameBoard, ControlSystem, MotionSystem, CollisionRules, CollisionSystem, RenderSystem, EntityPool, EntityFactory, LevelGenerator, SpaceshipControl) {
 
 		function AsteroidsGame() {
 			this.stage = null;
@@ -36,9 +36,9 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/contr
 
 			var board = new GameBoard(c.spaceWidth, c.spaceHeight, c.spaceWrapMargin);
 			this.board = board;
-			var input = new ControlSystem();
-			var motion = new MotionSystem();
-			var collisions = new CollisionSystem();
+			var input = new ControlSystem(board);
+			var motion = new MotionSystem(board);
+			var collisions = new CollisionSystem(board);
 			var render = new RenderSystem(this.stage, board);
 			var game = new GameLoop(board, input, motion, collisions, render);
 
@@ -58,6 +58,11 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/contr
 
 			this._startLevel(1);
 
+			var collisionRules = new CollisionRules(board, this.ship, this.explodingShip);
+			collisions.collisionDetected.add(function (active, passive) {
+				collisionRules.handleCollision(active,passive);
+			});
+
 
 		};
 
@@ -66,6 +71,8 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/contr
 			this.ship.position.x = this.config.spaceWidth / 2;
 			this.ship.position.y = this.config.spaceHeight / 2;
 			this.ship.control = new SpaceshipControl(this.config, this.keypoll);
+
+			this.explodingShip = factory.createExplodingShip();
 		};
 
 		api._startLevel = function _startLevel(level) {

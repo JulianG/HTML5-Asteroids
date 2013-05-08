@@ -37,6 +37,21 @@ define(['app/render/SpaceshipViewController'], function (SpaceshipViewController
 		return entity;
 	};
 
+	api.createExplodingShip = function createExplodingShip() {
+		var entity = this.availableObjects.getEntity();
+
+		var view = this.atlas.getDisplayObject('ship-explosion');
+		view.regX = 25;
+		view.regY = 35;
+		entity.view = view;
+		//entity.viewController = new SpaceshipViewController();
+		entity.state = 'idle';
+		entity.collider.active = false;
+		entity.collider.radius = 0;
+
+		return entity;
+	};
+
 	api.createAsteroid = function createAsteroid(size) {
 		var entity = this.availableObjects.getEntity();
 		entity.viewController = null;

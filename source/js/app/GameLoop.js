@@ -17,11 +17,11 @@ define(function () {
 
 	api.update = function update(dt) {
 
-		this.controlSystem.update(this.board, dt);
-		this.motionSystem.update(this.board, dt);
+		this.controlSystem.update(dt);
+		this.motionSystem.update(dt);
 		this.board.update(dt);
-		this.collisionSystem.update(this.board, dt);
-		this.renderSystem.update(this.board, dt);
+		this.collisionSystem.update(dt);
+		this.renderSystem.update(dt);
 	};
 
 	return GameLoop;

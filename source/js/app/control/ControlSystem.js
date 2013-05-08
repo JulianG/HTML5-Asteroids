@@ -7,18 +7,18 @@
  */
 define(function () {
 
-	function ControlSystem() {
-
+	function ControlSystem(board) {
+		this.board = board;
 	}
 
 	var api = ControlSystem.prototype;
 
-	api.update = function update(board, dt) {
+	api.update = function update(dt) {
 		//console.log('ControlSystem.processInput...' );
 
-		var n = board.entities.length;
+		var n = this.board.entities.length;
 		for (var i = 0; i < n; i++) {
-			var entity = board.entities[i];
+			var entity = this.board.entities[i];
 			if (entity) {
 				if (entity.control) {
 					entity.control.update(entity, dt);

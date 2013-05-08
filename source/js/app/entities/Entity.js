@@ -5,14 +5,14 @@
  * Time: 10:31
  * To change this template use File | Settings | File Templates.
  */
-define(function () {
+define(['app/entities/Position','app/entities/Motion','app/collisions/Collider'], function (Position,Motion,Collider) {
 
 	function Entity() {
 		this.active = true;
 		this.state = '';
-		this.position = {x: 0, y: 0, rotation: 0};
-		this.collider = {active:false, radius: 0};
-		this.motion = {vx: 0, vy: 0, av: 0, damping: 1};
+		this.position = new Position();
+		this.collider = new Collider();
+		this.motion = new Motion();
 		this.control = null;
 		this.view = null;
 		this.viewController = null;

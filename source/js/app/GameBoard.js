@@ -6,7 +6,8 @@ define(function () {
 
 	function GameBoard(width, height, wrap_margin) {
 
-		//this.collected = new signals.Signal();
+		this.entityRemoved = new signals.Signal();
+
 		this.width = width;
 		this.height = height;
 		this.wrapMargin = wrap_margin;
@@ -18,6 +19,7 @@ define(function () {
 	api.addEntity = function addEntity(entity) {
 		if(entity!==null)
 		{
+			entity.active = true;
 			this.entities.push(entity);
 		}
 	};
@@ -31,7 +33,11 @@ define(function () {
 
 	api.removeEntity = function removeEntity(entity) {
 		var index = this.entities.indexOf(entity);
-		if (index > -1) this.entities.splice(index, 1);
+		if (index > -1) {
+			entity.active = false;
+			this.entityRemoved.dispatch(entity);
+			this.entities.splice(index, 1);
+		}
 	};
 
 	api.update = function update(dt) {

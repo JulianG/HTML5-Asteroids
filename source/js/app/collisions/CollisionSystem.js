@@ -4,38 +4,39 @@
  */
 define([], function () {
 
-		function CollisionSystem() {
+		function CollisionSystem(board) {
+			this.board = board;
 			this.collisionDetected = new signals.Signal();
 		}
 
 		var api = CollisionSystem.prototype;
 
-		api.update = function update(board, dt) {
-			var n = board.entities.length;
+		api.update = function update(dt) {
+			var n = this.board.entities.length;
 			for (i = 0; i < n; i++) {
-				var entity = board.entities[i];
+				var entity = this.board.entities[i];
 				if (entity.collider.active) {
-					this._checkCollisionsFor(entity, board.entities);
+					this._checkCollisionsFor(entity);
 				}
 			}
 		};
 
-		api._checkCollisionsFor = function _checkCollisionsFor(active_entity, entities) {
-			var n = entities.length;
+		api._checkCollisionsFor = function _checkCollisionsFor(active_entity) {
+			var n = this.board.entities.length;
 			for (i = 0; i < n; i++) {
-				var passive_entity = entities[i];
-				if (active_entity !== passive_entity) {
-					this._checkCollisions(active_entity, passive_entity);
+				var passive_entity = this.board.entities[i];
+				if (active_entity !== passive_entity && active_entity && passive_entity) {
+					var collision = this._checkCollisions(active_entity, passive_entity);
+					if(collision) this.collisionDetected.dispatch(active_entity,passive_entity);
+					//break;
 				}
 			}
 		};
 
 		api._checkCollisions = function _checkCollisions(active_entity, passive_entity) {
 			var distance = this._getDistance(active_entity.position, passive_entity.position);
-			if (distance < active_entity.collider.radius + passive_entity.collider.radius) {
-				// collision!
-				console.log("collision!");
-			}
+			var threshold = active_entity.collider.radius + passive_entity.collider.radius;
+			return (distance < threshold);
 		}
 
 		api._getDistance = function _getDistance(position_a, position_b) {
