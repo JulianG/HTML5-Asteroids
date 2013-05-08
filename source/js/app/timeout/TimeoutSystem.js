@@ -17,7 +17,7 @@ define(function () {
 		var n = this.board.entities.length;
 		for (var i = 0; i < n; i++) {
 			var entity = this.board.entities[i];
-			if (entity) {
+			if (entity && entity.active) {
 				var t = entity.timeout;
 				if (t) {
 					t.update(dt);

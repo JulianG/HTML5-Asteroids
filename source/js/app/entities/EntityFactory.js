@@ -5,7 +5,7 @@
  * Time: 10:34
  */
 
-define(['app/render/SpaceshipViewController','app/render/ExplodingSpaceshipViewController'], function (SpaceshipViewController,ExplodingSpaceshipViewController) {
+define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipViewController'], function (SpaceshipViewController, ExplodingSpaceshipViewController) {
 
 	function EntityFactory(atlas, pool) {
 		this.atlas = atlas;
@@ -49,7 +49,7 @@ define(['app/render/SpaceshipViewController','app/render/ExplodingSpaceshipViewC
 		entity.collider.active = false;
 		entity.collider.radius = 0;
 		entity.timeout.active = true;
-		entity.timeout.remainingTime = 1;
+		entity.timeout.remainingTime = 0.5;
 
 		return entity;
 	};
@@ -57,7 +57,7 @@ define(['app/render/SpaceshipViewController','app/render/ExplodingSpaceshipViewC
 	api.createAsteroid = function createAsteroid(size) {
 		var entity = this.availableObjects.getEntity();
 		entity.viewController = null;
-		entity.state = '';
+		entity.state = size;
 
 		var symbol = this.asteroidSymbols[Math.floor(Math.random() * this.asteroidSymbols.length)];
 		entity.view = this.atlas.getDisplayObject(symbol);
@@ -76,6 +76,30 @@ define(['app/render/SpaceshipViewController','app/render/ExplodingSpaceshipViewC
 
 		return entity;
 	};
+
+	api.createExplodingAsteroid = function createExplodingAsteroid(size) {
+		var entity = this.availableObjects.getEntity();
+		entity.viewController = null;
+		entity.timeout.active = true;
+		entity.timeout.remainingTime = 1;
+
+		var symbol = 'explosion';
+		entity.view = this.atlas.getDisplayObject(symbol);
+		entity.view.regX = 45;
+		entity.view.regY = 45;
+
+		var scale = size / 2;
+		entity.view.scaleX = entity.view.scaleY = scale;
+
+		entity.motion.va = 50;
+		entity.collider.active = false;
+		entity.collider.radius = 0;
+
+		entity.timeout.active = true;
+		entity.timeout.remainingTime = 0.233;
+
+		return entity;
+	}
 
 	return EntityFactory;
 });

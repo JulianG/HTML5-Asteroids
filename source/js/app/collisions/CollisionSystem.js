@@ -15,8 +15,10 @@ define([], function () {
 			var n = this.board.entities.length;
 			for (i = 0; i < n; i++) {
 				var entity = this.board.entities[i];
-				if (entity.collider.active) {
-					this._checkCollisionsFor(entity);
+				if (entity && entity.active) {
+					if (entity.collider.active) {
+						this._checkCollisionsFor(entity);
+					}
 				}
 			}
 		};

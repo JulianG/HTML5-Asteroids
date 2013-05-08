@@ -8,8 +8,7 @@
 define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/control/ControlSystem', 'app/motion/MotionSystem',
 	'app/rules/CollisionRules', 'app/collisions/CollisionSystem', 'app/timeout/TimeoutSystem', 'app/render/RenderSystem',
 	'app/entities/EntityPool', 'app/entities/EntityFactory', 'app/LevelGenerator', 'app/control/SpaceshipControl'],
-	function (KeyPoll, Config, GameLoop, GameBoard, ControlSystem, MotionSystem, CollisionRules, CollisionSystem,
-			  TimeoutSystem, RenderSystem, EntityPool, EntityFactory, LevelGenerator, SpaceshipControl) {
+	function (KeyPoll, Config, GameLoop, GameBoard, ControlSystem, MotionSystem, CollisionRules, CollisionSystem, TimeoutSystem, RenderSystem, EntityPool, EntityFactory, LevelGenerator, SpaceshipControl) {
 
 		function AsteroidsGame() {
 			this.stage = null;
@@ -61,7 +60,7 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/contr
 
 			this._startLevel(1);
 
-			var collisionRules = new CollisionRules(board, this.ship, this.explodingShip);
+			var collisionRules = new CollisionRules(board, this.ship, this.explodingShip, factory);
 			collisions.collisionDetected.add(function (active, passive) {
 				collisionRules.handleCollision(active, passive);
 			});

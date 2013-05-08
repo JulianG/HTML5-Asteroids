@@ -13,13 +13,14 @@ define(function () {
 		this.height = height;
 		this.wrapMargin = wrap_margin;
 		this.entities = [];
+
+		this._trash = [];
 	}
 
 	var api = GameBoard.prototype;
 
 	api.addEntity = function addEntity(entity) {
-		if(entity!==null)
-		{
+		if (entity !== null) {
 			entity.active = true;
 			this.entities.push(entity);
 			this.entityAdded.dispatch(entity);
@@ -34,11 +35,10 @@ define(function () {
 	};
 
 	api.removeEntity = function removeEntity(entity) {
-		var index = this.entities.indexOf(entity);
-		if (index > -1) {
+		if (entity.active) {
 			entity.active = false;
+			this._trash.push(entity);
 			this.entityRemoved.dispatch(entity);
-			this.entities.splice(index, 1);
 		}
 	};
 
@@ -50,6 +50,7 @@ define(function () {
 				this._wrapAround(entity.position);
 			}
 		}
+		this._emptyTrash();
 	};
 
 	api._wrapAround = function _wrapAround(position) {
@@ -65,6 +66,17 @@ define(function () {
 		if (position.y < -this.wrapMargin) {
 			position.y = position.y + this.height + this.wrapMargin * 2;
 		}
+	};
+
+	api._emptyTrash = function _emptyTrash() {
+		var i;
+		var n = this._trash.length;
+		for (i = 0; i < n; i++) {
+			var entity = this._trash[i];
+			var index = this.entities.indexOf(entity);
+			this.entities.splice(index, 1);
+		}
+		for (i = 0; i < n; i++) this._trash.pop();
 	};
 
 

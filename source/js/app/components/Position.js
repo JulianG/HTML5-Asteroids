@@ -7,7 +7,7 @@
  */
 define(function () {
 
-	function Position(){
+	function Position() {
 		this.x = 0;
 		this.y = 0;
 		this.rotation = 0;
@@ -15,7 +15,9 @@ define(function () {
 
 	var api = Position.prototype;
 
-	api.clone = function clone( that ){
+	api.clone = function clone(that) {
+		console.log("cloning");
+		console.log(that);
 		this.x = that.x;
 		this.y = that.y;
 		this.rotation = that.rotation;

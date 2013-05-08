@@ -13,10 +13,10 @@ define(function () {
 		//
 
 		var self = this;
-		this.board.entityRemoved.add(function(entity){
+		this.board.entityRemoved.add(function (entity) {
 			self.remove(entity);
 		});
-		this.board.entityAdded.add(function(entity){
+		this.board.entityAdded.add(function (entity) {
 			self.add(entity);
 		});
 	}
@@ -31,27 +31,29 @@ define(function () {
 
 			var entity = this.board.entities[i];
 
-			if (entity.view && entity.position) {
-				var sp = entity.view;
-				if (entity.active) {
-					if (!this.container.contains(sp)) {
-						this.container.addChild(sp);
+			if (entity && entity.active) {
+				if (entity.view && entity.position) {
+					var sp = entity.view;
+					if (entity.active) {
+						if (!this.container.contains(sp)) {
+							this.container.addChild(sp);
+						}
+						sp.x = entity.position.x;
+						sp.y = entity.position.y;
+						sp.rotation = entity.position.rotation;
+					} else {
+						if (this.container.contains(sp)) {
+							this.container.removeChild(sp);
+						}
 					}
-					sp.x = entity.position.x;
-					sp.y = entity.position.y;
-					sp.rotation = entity.position.rotation;
-				} else {
-					if (this.container.contains(sp)) {
-						this.container.removeChild(sp);
-					}
+					if (entity.viewController) entity.viewController.update(entity, dt);
 				}
-				if (entity.viewController) entity.viewController.update(entity, dt);
 			}
 		}
 	};
 
-	api.add = function add(entity){
-		if (entity.view){
+	api.add = function add(entity) {
+		if (entity.view) {
 			if (!this.container.contains(entity.view)) {
 				this.container.addChild(entity.view);
 			}
@@ -59,8 +61,8 @@ define(function () {
 		if (entity.viewController) entity.viewController.handleAdded(entity);
 	};
 
-	api.remove = function remove(entity){
-		if (entity.view){
+	api.remove = function remove(entity) {
+		if (entity.view) {
 			if (this.container.contains(entity.view)) {
 				this.container.removeChild(entity.view);
 			}
