@@ -47,7 +47,8 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/contr
 			createjs.Ticker.addListener(this.stage);
 			createjs.Ticker.addEventListener("tick", function (event) {
 				// Actions carried out each frame
-				game.update(event.delta / 1000);
+				var dt = event.delta / 1000;
+				game.update(dt);
 			});
 
 			var factory = new EntityFactory(this.atlas, new EntityPool());

@@ -38,6 +38,9 @@ define(function () {
 						this.container.removeChild(sp);
 					}
 				}
+
+				if (entity.viewController) entity.viewController.update(entity, dt);
+
 			}
 		}
 	};

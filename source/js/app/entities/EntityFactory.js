@@ -5,7 +5,7 @@
  * Time: 10:34
  */
 
-define(function () {
+define(['app/render/SpaceshipViewController'], function (SpaceshipViewController) {
 
 	function EntityFactory(atlas, pool) {
 		this.atlas = atlas;
@@ -26,9 +26,12 @@ define(function () {
 		var thruster = this.atlas.getDisplayObject('thruster');
 		thruster.x = -26;
 		thruster.y = -13;
+		thruster.name = 'thruster';
 		view.addChild(ship_body);
 		view.addChild(thruster);
 		entity.view = view;
+		entity.viewController = new SpaceshipViewController();
+		entity.state = 'idle';
 		entity.collider.radius = 15;
 
 		return entity;
@@ -36,11 +39,14 @@ define(function () {
 
 	api.createAsteroid = function createAsteroid(size) {
 		var entity = this.availableObjects.getEntity();
+		entity.viewController = null;
+		entity.state = '';
 
 		var symbol = this.asteroidSymbols[Math.floor(Math.random()*this.asteroidSymbols.length)];
 		entity.view = this.atlas.getDisplayObject(symbol);
 		entity.view.regX = 45;
 		entity.view.regY = 45;
+
 		var scale = size/3;
 		entity.view.scaleX = entity.view.scaleY = scale;
 
