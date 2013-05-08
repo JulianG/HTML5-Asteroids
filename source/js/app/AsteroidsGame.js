@@ -6,9 +6,9 @@
  * To change this template use File | Settings | File Templates.
  */
 define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/control/ControlSystem', 'app/motion/MotionSystem',
-	'app/rules/CollisionRules', 'app/collisions/CollisionSystem', 'app/timeout/TimeoutSystem', 'app/render/RenderSystem',
+	'app/space/SpaceSystem', 'app/rules/CollisionRules', 'app/collisions/CollisionSystem', 'app/timeout/TimeoutSystem', 'app/render/RenderSystem',
 	'app/entities/EntityPool', 'app/entities/EntityFactory', 'app/LevelGenerator', 'app/control/SpaceshipControl'],
-	function (KeyPoll, Config, GameLoop, GameBoard, ControlSystem, MotionSystem, CollisionRules, CollisionSystem, TimeoutSystem, RenderSystem, EntityPool, EntityFactory, LevelGenerator, SpaceshipControl) {
+	function (KeyPoll, Config, GameLoop, GameBoard, ControlSystem, MotionSystem, SpaceSystem, CollisionRules, CollisionSystem, TimeoutSystem, RenderSystem, EntityPool, EntityFactory, LevelGenerator, SpaceshipControl) {
 
 		function AsteroidsGame() {
 			this.stage = null;
@@ -39,10 +39,19 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/contr
 			this.board = board;
 			var input = new ControlSystem(board);
 			var motion = new MotionSystem(board);
+			var space = new SpaceSystem(board);
 			var collisions = new CollisionSystem(board);
 			var timeout = new TimeoutSystem(board);
 			var render = new RenderSystem(this.stage, board);
-			var game = new GameLoop(board, input, motion, collisions, timeout, render);
+			
+			var game_loop = new GameLoop();
+			game_loop.addSystem(board);
+			game_loop.addSystem(input);
+			game_loop.addSystem(motion);
+			game_loop.addSystem(space);
+			game_loop.addSystem(collisions);
+			game_loop.addSystem(timeout);
+			game_loop.addSystem(render);
 
 			// stage updates
 			createjs.Ticker.setFPS(60);
@@ -50,7 +59,7 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/contr
 			createjs.Ticker.addEventListener("tick", function (event) {
 				// Actions carried out each frame
 				var dt = event.delta / 1000;
-				game.update(dt);
+				game_loop.update(dt);
 			});
 
 			var factory = new EntityFactory(this.atlas, new EntityPool());

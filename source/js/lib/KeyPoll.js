@@ -14,6 +14,7 @@ define(function () {
 		this.keys = keys;
 
 		function _onKeyDown(event) {
+			console.log('event.keyCode:' + event.keyCode);
 			event.preventDefault();
 			keys[event.keyCode] = true;
 		}
@@ -35,6 +36,9 @@ define(function () {
 	KeyPoll.DOWN = "40";
 	KeyPoll.LEFT = "37";
 	KeyPoll.RIGHT = "39";
+	KeyPoll.FIRE = "90";
+	KeyPoll.FIRE1 = "88";
+	KeyPoll.FIRE2 = "32";
 
 	var api = KeyPoll.prototype;
 

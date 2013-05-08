@@ -20,11 +20,16 @@ define(['lib/KeyPoll'], function (KeyPoll) {
 		if (entity.motion) {
 			var thruster = false;
 			var steering = 0;
+			var fire = false;
 
 			if (this.keypoll.isDown(KeyPoll.UP)) thruster = true;
 
 			if (this.keypoll.isDown(KeyPoll.LEFT)) steering = -this.config.shipSteeringSpeed;
 			if (this.keypoll.isDown(KeyPoll.RIGHT)) steering = this.config.shipSteeringSpeed;
+
+			if (this.keypoll.isDown(KeyPoll.FIRE)) fire = true;
+			if (this.keypoll.isDown(KeyPoll.FIRE1)) fire = true;
+			if (this.keypoll.isDown(KeyPoll.FIRE2)) fire = true;
 
 			entity.motion.av = steering;
 

@@ -80,8 +80,6 @@ define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipView
 	api.createExplodingAsteroid = function createExplodingAsteroid(size) {
 		var entity = this.availableObjects.getEntity();
 		entity.viewController = null;
-		entity.timeout.active = true;
-		entity.timeout.remainingTime = 1;
 
 		var symbol = 'explosion';
 		entity.view = this.atlas.getDisplayObject(symbol);
@@ -99,7 +97,25 @@ define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipView
 		entity.timeout.remainingTime = 0.233;
 
 		return entity;
-	}
+	};
+
+	api.createBullet = function createBullet(){
+		var entity = this.availableObjects.getEntity();
+		entity.viewController = null;
+
+		var symbol = 'bullet';
+		entity.view = this.atlas.getDisplayObject(symbol);
+		entity.view.regX = 6;
+		entity.view.regY = 2;
+
+		entity.motion.va = 0;
+		entity.collider.active = true;
+		entity.collider.radius = 2;
+
+		entity.timeout.active = true;
+		entity.timeout.remainingTime = 2;
+
+	};
 
 	return EntityFactory;
 });

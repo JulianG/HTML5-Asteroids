@@ -43,29 +43,7 @@ define(function () {
 	};
 
 	api.update = function update(dt) {
-		var n = this.entities.length;
-		for (i = 0; i < n; i++) {
-			var entity = this.entities[i];
-			if (entity.position) {
-				this._wrapAround(entity.position);
-			}
-		}
 		this._emptyTrash();
-	};
-
-	api._wrapAround = function _wrapAround(position) {
-		if (position.x > this.width + this.wrapMargin) {
-			position.x = position.x - this.width - this.wrapMargin * 2;
-		}
-		if (position.x < -this.wrapMargin) {
-			position.x = position.x + this.width + this.wrapMargin * 2;
-		}
-		if (position.y > this.height + this.wrapMargin) {
-			position.y = position.y - this.height - this.wrapMargin * 2;
-		}
-		if (position.y < -this.wrapMargin) {
-			position.y = position.y + this.height + this.wrapMargin * 2;
-		}
 	};
 
 	api._emptyTrash = function _emptyTrash() {
