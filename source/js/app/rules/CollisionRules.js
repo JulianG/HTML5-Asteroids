@@ -54,9 +54,11 @@ define(function () {
 				angle0 = angle0 + Math.floor(Math.random() * 4) * Math.PI / 2;
 				debris0.motion.vx = debris_speed * Math.cos(angle0);
 				debris0.motion.vy = debris_speed * Math.sin(angle0);
+				debris0.motion.av = asteroid.motion.av * 1.5;
 				var angle1 = Math.PI + angle0;
 				debris1.motion.vx = debris_speed * Math.cos(angle1);
 				debris1.motion.vy = debris_speed * Math.sin(angle1);
+				debris1.motion.av = -asteroid.motion.av * 1.5;
 			}
 			this.board.addEntity(debris0);
 			this.board.addEntity(debris1);

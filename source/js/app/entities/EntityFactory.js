@@ -67,7 +67,7 @@ define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipView
 		var scale = size / 3;
 		entity.view.scaleX = entity.view.scaleY = scale;
 
-		entity.motion.va = 50;
+		entity.motion.av = 50;
 		entity.collider.active = false;
 		entity.collider.radius = scale * 3 * 22 / 2;
 
@@ -89,7 +89,7 @@ define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipView
 		var scale = size / 2;
 		entity.view.scaleX = entity.view.scaleY = scale;
 
-		entity.motion.va = 50;
+		entity.motion.av = 50;
 		entity.collider.active = false;
 		entity.collider.radius = 0;
 
@@ -108,7 +108,7 @@ define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipView
 		entity.view.regX = 6;
 		entity.view.regY = 2;
 
-		entity.motion.va = 0;
+		entity.motion.av = 0;
 		entity.collider.active = true;
 		entity.collider.radius = 2;
 
