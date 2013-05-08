@@ -7,11 +7,12 @@
  */
 define(['lib/KeyPoll'], function (KeyPoll) {
 
-	function HeroControl(keypoll) {
+	function SpaceshipControl(config, keypoll) {
+		this.config = config;
 		this.keypoll = keypoll;
 	}
 
-	var api = HeroControl.prototype;
+	var api = SpaceshipControl.prototype;
 
 	api.processInput = function processInput(entity, dt) {
 
@@ -22,15 +23,39 @@ define(['lib/KeyPoll'], function (KeyPoll) {
 
 			if (this.keypoll.isDown(KeyPoll.UP)) thruster = true;
 
-			if (this.keypoll.isDown(KeyPoll.LEFT)) steering = -250;
-			if (this.keypoll.isDown(KeyPoll.RIGHT)) steering = 250;
+			if (this.keypoll.isDown(KeyPoll.LEFT)) steering = -this.config.shipSteeringSpeed;
+			if (this.keypoll.isDown(KeyPoll.RIGHT)) steering = this.config.shipSteeringSpeed;
 
 			entity.motion.av = steering;
-			//entity.motion.thruster = thruster;
 
+			if (thruster) {
+
+				var angle = entity.position.rotation * Math.PI / 180;
+				var cosA = Math.cos(angle);
+				var sinA = Math.sin(angle);
+
+				var xx = cosA * this.config.shipAcceleration * dt;
+				var yy = sinA * this.config.shipAcceleration * dt;
+
+				var vx = entity.motion.vx + xx;
+				var vy = entity.motion.vy + yy;
+				var speed = Math.sqrt(vx * vx + vy * vy);
+
+				if (speed > this.config.shipMaxSpeed) {
+					speed = this.config.shipMaxSpeed;
+					vx = speed * cosA;
+					vy = speed * sinA;
+				}
+
+				entity.motion.vx = vx;
+				entity.motion.vy = vy;
+				entity.motion.damping = this.config.shipFriction;
+			} else {
+				entity.motion.damping = 1;
+			}
 		}
 
 	};
 
-	return HeroControl;
+	return SpaceshipControl;
 });

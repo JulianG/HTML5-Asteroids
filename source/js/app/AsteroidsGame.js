@@ -64,7 +64,7 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/contr
 			this.ship = factory.createShip();
 			this.ship.position.x = this.config.spaceWidth / 2;
 			this.ship.position.y = this.config.spaceHeight / 2;
-			this.ship.control = new SpaceshipControl(this.keypoll);
+			this.ship.control = new SpaceshipControl(this.config, this.keypoll);
 		};
 
 		api._startLevel = function _startLevel(level) {
