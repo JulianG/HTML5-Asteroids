@@ -25,7 +25,7 @@ define(function () {
 
 	api.getAsteroid = function getAsteroid(position, speed, av, target_center) {
 		var asteroid = this.factory.createAsteroid(3);
-		asteroid.motion.av = av * (Math.random() * 1 - 0.5);
+
 		var position_angle = Math.random() * Math.PI * 2;
 		var distance_from_center = Math.random() * 100 + 100;
 		asteroid.position.x = position.x + Math.cos(position_angle) * distance_from_center;
@@ -41,6 +41,7 @@ define(function () {
 		}
 		asteroid.motion.vx = speed * Math.cos(angle);
 		asteroid.motion.vy = speed * Math.sin(angle);
+		asteroid.motion.av = (Math.random()>0.5)? av : -av ;
 
 		return asteroid;
 	};

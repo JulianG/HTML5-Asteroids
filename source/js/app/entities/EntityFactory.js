@@ -67,7 +67,7 @@ define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipView
 		var scale = size / 3;
 		entity.view.scaleX = entity.view.scaleY = scale;
 
-		entity.motion.av = 50;
+		entity.motion.av = 0;
 		entity.collider.active = false;
 		entity.collider.radius = scale * 3 * 22 / 2;
 
