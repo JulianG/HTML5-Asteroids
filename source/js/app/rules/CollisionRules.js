@@ -17,8 +17,6 @@ define(function () {
 	var api = CollisionRules.prototype;
 
 	api.handleCollision = function handleCollision(active_entity, passive_entity) {
-		console.log("collision handled!");
-
 		if (active_entity == this.ship) {
 
 			this.explodingShip.position.clone(this.ship.position);

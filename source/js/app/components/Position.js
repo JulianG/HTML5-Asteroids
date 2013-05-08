@@ -16,8 +16,6 @@ define(function () {
 	var api = Position.prototype;
 
 	api.clone = function clone(that) {
-		console.log("cloning");
-		console.log(that);
 		this.x = that.x;
 		this.y = that.y;
 		this.rotation = that.rotation;

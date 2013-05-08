@@ -14,7 +14,7 @@ define(function () {
 		this.keys = keys;
 
 		function _onKeyDown(event) {
-			console.log('event.keyCode:' + event.keyCode);
+			//console.log('event.keyCode:' + event.keyCode);
 			event.preventDefault();
 			keys[event.keyCode] = true;
 		}

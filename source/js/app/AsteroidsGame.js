@@ -5,8 +5,8 @@
  * Time: 16:44
  * To change this template use File | Settings | File Templates.
  */
-define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/control/ControlSystem', 'app/motion/MotionSystem',
-	'app/space/SpaceSystem', 'app/rules/CollisionRules', 'app/collisions/CollisionSystem', 'app/timeout/TimeoutSystem', 'app/render/RenderSystem',
+define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/systems/ControlSystem', 'app/systems/MotionSystem',
+	'app/systems/SpaceSystem', 'app/rules/CollisionRules', 'app/systems/CollisionSystem', 'app/systems/TimeoutSystem', 'app/systems/RenderSystem',
 	'app/entities/EntityPool', 'app/entities/EntityFactory', 'app/LevelGenerator', 'app/control/SpaceshipControl'],
 	function (KeyPoll, Config, GameLoop, GameBoard, ControlSystem, MotionSystem, SpaceSystem, CollisionRules, CollisionSystem, TimeoutSystem, RenderSystem, EntityPool, EntityFactory, LevelGenerator, SpaceshipControl) {
 
