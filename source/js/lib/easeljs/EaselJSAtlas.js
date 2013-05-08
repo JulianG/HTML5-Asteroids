@@ -5,7 +5,7 @@
  * Time: 15:26
  * To change this template use File | Settings | File Templates.
  */
-define(['lib/signals.min','lib/easeljs/DisplayObjectPool'], function (signals,DisplayObjectPool) {
+define(['lib/easeljs/DisplayObjectPool'], function (DisplayObjectPool) {
 
 	function EaselJSAtlas() {
 		this.completed = new signals.Signal();

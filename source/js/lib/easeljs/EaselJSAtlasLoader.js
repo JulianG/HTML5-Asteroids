@@ -5,7 +5,7 @@
  * Time: 18:20
  * To change this template use File | Settings | File Templates.
  */
-define(['lib/loadJSON', 'lib/signals.min', 'lib/easeljs/EaselJSAtlas'], function (loadJSON, signals, EaselJSAtlas) {
+define(['lib/loadJSON', 'lib/easeljs/EaselJSAtlas'], function (loadJSON, EaselJSAtlas) {
 
 	function EaselJSAtlasLoader(){
 		this.complete = new signals.Signal();
