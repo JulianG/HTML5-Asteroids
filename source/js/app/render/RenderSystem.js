@@ -7,15 +7,15 @@
  */
 define(function () {
 
-	function Renderer(container, board) {
+	function RenderSystem(container, board) {
 		this.container = container;
 		this.board = board;
 		//
 	}
 
-	var api = Renderer.prototype;
+	var api = RenderSystem.prototype;
 
-	api.renderBoard = function renderBoard(board, dt) {
+	api.update = function update(board, dt) {
 		//console.log("Renderer.renderBoard...");
 
 		var n = board.entities.length;
@@ -42,5 +42,5 @@ define(function () {
 		}
 	};
 
-	return Renderer;
+	return RenderSystem;
 });

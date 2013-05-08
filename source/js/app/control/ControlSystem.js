@@ -7,14 +7,14 @@
  */
 define(function () {
 
-	function InputProcessor() {
+	function ControlSystem() {
 
 	}
 
-	var api = InputProcessor.prototype;
+	var api = ControlSystem.prototype;
 
-	api.processInput = function processInput( board, dt ){
-		console.log('InputProcessor.processInput...' );
+	api.update = function update( board, dt ){
+		console.log('ControlSystem.processInput...' );
 
 		var n = board.entities.length;
 		for (var i = 0; i < n; i++) {
@@ -29,5 +29,5 @@ define(function () {
 
 	};
 
-	return InputProcessor;
+	return ControlSystem;
 });

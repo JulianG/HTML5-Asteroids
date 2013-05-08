@@ -39,10 +39,18 @@ define(['lib/signals.min','lib/easeljs/DisplayObjectPool'], function (signals,Di
 		if(pool){
 			obj = pool.getObject();
 			obj.gotoAndPlay(name);
+			obj.poolname = name;
 		}else{
-			throw('[EaselJSAtlas] Error. Cannot find an object pool named: ' + name);
+			throw('[EaselJSAtlas] Error. Cannot find an object availableObjects named: ' + name);
 		}
 		return obj;
+	};
+
+	api.disposeDisplayObject = function disposeDisplayObject(obj){
+		var pool = this.objectPools[obj.poolname];
+		if(pool){
+			pool.disposeObject(obj);
+		}
 	};
 
 	api._prependPath = function _prependPath(path) {
@@ -87,12 +95,12 @@ define(['lib/signals.min','lib/easeljs/DisplayObjectPool'], function (signals,Di
 	};
 
 	/*api._initBitmap = function _initBitmap(ss, name) {
-		var pool = new DisplayObjectPool();
-		pool.instantiate = function(){
+		var availableObjects = new DisplayObjectPool();
+		availableObjects.instantiate = function(){
 			return new createjs.Bitmap();
 		};
-		pool.init(10);
-		this.objectPools[name] = pool;
+		availableObjects.init(10);
+		this.objectPools[name] = availableObjects;
 	};*/
 	api._initBitmapAnimation = function _initBitmapAnimation(ss, name) {
 		//var bmpa = new createjs.BitmapAnimation(ss);

@@ -4,35 +4,20 @@
  */
 define(function () {
 
-	function GameLoop(game_board, input_processor, game_analyser, render) {
+	function GameLoop(game_board, control_sys, collision_sys, render_sys) {
 		this.board = game_board;
-		this.inputProcessor = input_processor;
-		this.analyser = game_analyser;
-		this.render = render;
-
-		this._elapsedSteps = 0;
+		this.controlSystem = control_sys;
+		this.collisionSystem = collision_sys;
+		this.renderSystem = render_sys;
 	}
 
 	var api = GameLoop.prototype;
 
-	api.step = function step(dt) {
+	api.update = function update(dt) {
 
-		this.processInput(dt);
-		this.analyseBoard(dt);
-		this.renderBoard(dt);
-		this._elapsedSteps++;
-	};
-
-	api.processInput = function processInput(dt) {
-		this.inputProcessor.processInput(this.board, dt);
-	};
-
-	api.analyseBoard = function analyseBoard(dt) {
-		this.analyser.analyse(this.board, dt);
-	};
-
-	api.renderBoard = function renderBoard(dt) {
-		this.render.renderBoard(this.board, dt);
+		this.controlSystem.update(this.board, dt);
+		this.collisionSystem.update(this.board, dt);
+		this.renderSystem.update(this.board, dt);
 	};
 
 	return GameLoop;

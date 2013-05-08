@@ -5,8 +5,8 @@
  * Time: 16:44
  * To change this template use File | Settings | File Templates.
  */
-define(['lib/KeyPoll', 'app/GameLoop', 'app/GameBoard', 'app/control/InputProcessor', 'app/rules/BoardAnalyser', 'app/render/Renderer'],
-	function (KeyPoll, GameLoop, GameBoard, InputProcessor, BoardAnalyser, Renderer) {
+define(['lib/KeyPoll', 'app/GameLoop', 'app/GameBoard', 'app/control/ControlSystem', 'app/collisions/CollisionSystem', 'app/render/RenderSystem'],
+	function (KeyPoll, GameLoop, GameBoard, ControlSystem, CollisionSystem, RenderSystem) {
 
 		function AsteroidsGame() {
 			this.stage = null;
@@ -32,9 +32,9 @@ define(['lib/KeyPoll', 'app/GameLoop', 'app/GameBoard', 'app/control/InputProces
 		api._initGame = function _initGame() {
 
 			var board = new GameBoard();
-			var input = new InputProcessor();
-			var analyser = new BoardAnalyser();
-			var renderer = new Renderer(this.stage, board);
+			var input = new ControlSystem();
+			var analyser = new CollisionSystem();
+			var renderer = new RenderSystem(this.stage, board);
 			var game = new GameLoop(board, input, analyser, renderer);
 
 			// stage updates
@@ -42,7 +42,7 @@ define(['lib/KeyPoll', 'app/GameLoop', 'app/GameBoard', 'app/control/InputProces
 			createjs.Ticker.addListener(this.stage);
 			createjs.Ticker.addEventListener("tick", function (event) {
 				// Actions carried out each frame
-				game.step(event.delta);
+				game.update(event.delta);
 			});
 		};
 

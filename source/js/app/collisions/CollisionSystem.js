@@ -4,20 +4,20 @@
  */
 define([], function () {
 
-		function BoardAnalyser() {
+		function CollisionSystem() {
 
 		}
 
-		var api = BoardAnalyser.prototype;
+		var api = CollisionSystem.prototype;
 
-		api.analyse = function analyse(board, dt) {
+		api.update = function update(board, dt) {
 
 			console.log('BoardAnalyser.analyse... must check collisions after ' + dt);
 
 
 		};
 
-		return BoardAnalyser;
+		return CollisionSystem;
 
 	}
 )
