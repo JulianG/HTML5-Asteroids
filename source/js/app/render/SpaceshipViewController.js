@@ -7,25 +7,21 @@
  */
 define(function () {
 
-	function SpaceshipViewController(){
+	function SpaceshipViewController() {
 
 	}
 
 	var api = SpaceshipViewController.prototype;
 
-	api.update = function update(entity, dt){
+	api.update = function update(entity, dt) {
 
-		if(entity.view){
-			var thrusting = (entity.state=='thrusting');
-
+		if (entity.view) {
+			var thrusting = (entity.state == 'thrusting');
 			var thruster = entity.view.getChildByName('thruster');
-
-			if(thruster){
+			if (thruster) {
 				thruster.visible = thrusting;
 			}
 		}
-
-
 	}
 	return SpaceshipViewController;
 });

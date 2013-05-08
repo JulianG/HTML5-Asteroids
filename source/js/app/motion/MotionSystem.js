@@ -17,15 +17,16 @@ define(function () {
 		var n = board.entities.length;
 		for (var i = 0; i < n; i++) {
 			var entity = board.entities[i];
-			if(entity){
+			if (entity) {
 				if (entity.active && entity.motion && entity.position) {
 					entity.position.x += entity.motion.vx * dt;
 					entity.position.y += entity.motion.vy * dt;
 					entity.position.rotation += entity.motion.av * dt;
 					//
-					//damping
-					entity.motion.vx = entity.motion.vx * entity.motion.damping;
-					entity.motion.vy = entity.motion.vy * entity.motion.damping;
+					if (entity.motion.damping < 1) {
+						entity.motion.vx = entity.motion.vx * entity.motion.damping;
+						entity.motion.vy = entity.motion.vy * entity.motion.damping;
+					}
 				}
 			}
 		}

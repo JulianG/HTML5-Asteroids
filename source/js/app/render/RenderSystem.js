@@ -25,7 +25,6 @@ define(function () {
 
 			if (entity.view && entity.position) {
 				var sp = entity.view;
-
 				if (entity.active) {
 					if (!this.container.contains(sp)) {
 						this.container.addChild(sp);
@@ -38,9 +37,7 @@ define(function () {
 						this.container.removeChild(sp);
 					}
 				}
-
 				if (entity.viewController) entity.viewController.update(entity, dt);
-
 			}
 		}
 	};

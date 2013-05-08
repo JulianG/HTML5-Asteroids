@@ -14,7 +14,7 @@ define(['lib/KeyPoll'], function (KeyPoll) {
 
 	var api = SpaceshipControl.prototype;
 
-	api.processInput = function processInput(entity, dt) {
+	api.update = function update(entity, dt) {
 
 		// check which keys are down, and modify the entity.motion object;
 		if (entity.motion) {

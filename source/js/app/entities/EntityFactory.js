@@ -10,13 +10,12 @@ define(['app/render/SpaceshipViewController'], function (SpaceshipViewController
 	function EntityFactory(atlas, pool) {
 		this.atlas = atlas;
 		this.availableObjects = pool;
-
-		this.asteroidSymbols = ['asteroid-00','asteroid-01','asteroid-02','asteroid-03'];
+		this.asteroidSymbols = ['asteroid-00', 'asteroid-01', 'asteroid-02', 'asteroid-03'];
 	}
 
 	var api = EntityFactory.prototype;
 
-	api.createShip = function createShip(){
+	api.createShip = function createShip() {
 		var entity = this.availableObjects.getEntity();
 
 		var view = new createjs.Container();
@@ -42,16 +41,16 @@ define(['app/render/SpaceshipViewController'], function (SpaceshipViewController
 		entity.viewController = null;
 		entity.state = '';
 
-		var symbol = this.asteroidSymbols[Math.floor(Math.random()*this.asteroidSymbols.length)];
+		var symbol = this.asteroidSymbols[Math.floor(Math.random() * this.asteroidSymbols.length)];
 		entity.view = this.atlas.getDisplayObject(symbol);
 		entity.view.regX = 45;
 		entity.view.regY = 45;
 
-		var scale = size/3;
+		var scale = size / 3;
 		entity.view.scaleX = entity.view.scaleY = scale;
 
 		entity.motion.va = 50;
-		entity.collider.radius = scale * 3 * 45/2;
+		entity.collider.radius = scale * 3 * 45 / 2;
 
 		return entity;
 	};

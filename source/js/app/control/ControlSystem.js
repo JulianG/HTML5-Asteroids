@@ -18,18 +18,13 @@ define(function () {
 
 		var n = board.entities.length;
 		for (var i = 0; i < n; i++) {
-
 			var entity = board.entities[i];
-
 			if (entity) {
 				if (entity.control) {
-					entity.control.processInput(entity, dt);
+					entity.control.update(entity, dt);
 				}
-			}else{
-				console.log("...");
 			}
 		}
-
 	};
 
 	return ControlSystem;
