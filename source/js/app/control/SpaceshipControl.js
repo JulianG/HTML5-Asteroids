@@ -16,8 +16,7 @@ define(['lib/KeyPoll'], function (KeyPoll) {
 	api.processInput = function processInput(entity, dt) {
 
 		// check which keys are down, and modify the entity.motion object;
-		if(entity.motion)
-		{
+		if (entity.motion) {
 			var thruster = false;
 			var steering = 0;
 
@@ -26,8 +25,8 @@ define(['lib/KeyPoll'], function (KeyPoll) {
 			if (this.keypoll.isDown(KeyPoll.LEFT)) steering = -1;
 			if (this.keypoll.isDown(KeyPoll.RIGHT)) steering = 1;
 
-			entity.motion.thruster = thruster;
-			entity.motion.steering = steering;
+			entity.motion.av = steering;
+			//entity.motion.thruster = thruster;
 
 		}
 

@@ -12,7 +12,7 @@ define([], function () {
 
 		api.update = function update(board, dt) {
 
-			console.log('BoardAnalyser.analyse... must check collisions after ' + dt);
+			//console.log('BoardAnalyser.analyse... must check collisions after ' + dt);
 
 
 		};

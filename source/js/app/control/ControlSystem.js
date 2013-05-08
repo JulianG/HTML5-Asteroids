@@ -14,7 +14,7 @@ define(function () {
 	var api = ControlSystem.prototype;
 
 	api.update = function update( board, dt ){
-		console.log('ControlSystem.processInput...' );
+		//console.log('ControlSystem.processInput...' );
 
 		var n = board.entities.length;
 		for (var i = 0; i < n; i++) {
