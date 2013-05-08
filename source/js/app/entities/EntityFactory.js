@@ -31,6 +31,7 @@ define(['app/render/SpaceshipViewController'], function (SpaceshipViewController
 		entity.view = view;
 		entity.viewController = new SpaceshipViewController();
 		entity.state = 'idle';
+		entity.collider.active = true;
 		entity.collider.radius = 15;
 
 		return entity;
@@ -50,6 +51,7 @@ define(['app/render/SpaceshipViewController'], function (SpaceshipViewController
 		entity.view.scaleX = entity.view.scaleY = scale;
 
 		entity.motion.va = 50;
+		entity.collider.active = false;
 		entity.collider.radius = scale * 3 * 45 / 2;
 
 		return entity;

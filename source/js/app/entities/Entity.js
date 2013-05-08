@@ -11,7 +11,7 @@ define(function () {
 		this.active = true;
 		this.state = '';
 		this.position = {x: 0, y: 0, rotation: 0};
-		this.collider = {radius: 0};
+		this.collider = {active:false, radius: 0};
 		this.motion = {vx: 0, vy: 0, av: 0, damping: 1};
 		this.control = null;
 		this.view = null;
