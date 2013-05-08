@@ -42,17 +42,17 @@ define(['lib/KeyPoll'], function (KeyPoll) {
 				var speed = Math.sqrt(vx * vx + vy * vy);
 
 				if (speed > this.config.shipMaxSpeed) {
-					speed = this.config.shipMaxSpeed;
-					vx = speed * cosA;
-					vy = speed * sinA;
+					var m = speed / this.config.shipMaxSpeed;
+					vx = vx / m;
+					vy = vy / m;
 				}
 
 				entity.motion.vx = vx;
 				entity.motion.vy = vy;
-				entity.motion.damping = this.config.shipFriction;
+				entity.motion.damping = 1;
 				entity.state = 'thrusting';
 			} else {
-				entity.motion.damping = 1;
+				entity.motion.damping = this.config.shipFriction;
 				entity.state = 'idle';
 			}
 		}
