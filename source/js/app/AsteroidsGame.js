@@ -5,10 +5,10 @@
  * Time: 16:44
  * To change this template use File | Settings | File Templates.
  */
-define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/systems/ControlSystem', 'app/systems/MotionSystem',
+define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/systems/StateSystem', 'app/systems/ControlSystem', 'app/systems/MotionSystem',
 	'app/systems/SpaceSystem', 'app/rules/CollisionRules', 'app/systems/CollisionSystem', 'app/systems/TimeoutSystem', 'app/systems/RenderSystem',
 	'app/entities/EntityPool', 'app/entities/EntityFactory', 'app/LevelGenerator', 'app/control/SpaceshipControl'],
-	function (KeyPoll, Config, GameLoop, GameBoard, ControlSystem, MotionSystem, SpaceSystem, CollisionRules, CollisionSystem, TimeoutSystem, RenderSystem, EntityPool, EntityFactory, LevelGenerator, SpaceshipControl) {
+	function (KeyPoll, Config, GameLoop, GameBoard, StateSystem, ControlSystem, MotionSystem, SpaceSystem, CollisionRules, CollisionSystem, TimeoutSystem, RenderSystem, EntityPool, EntityFactory, LevelGenerator, SpaceshipControl) {
 
 		function AsteroidsGame() {
 			this.stage = null;
@@ -37,15 +37,17 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 
 			var board = new GameBoard(c.spaceWidth, c.spaceHeight, c.spaceWrapMargin);
 			this.board = board;
+			var state = new StateSystem(board);
 			var input = new ControlSystem(board);
 			var motion = new MotionSystem(board);
 			var space = new SpaceSystem(board);
 			var collisions = new CollisionSystem(board);
 			var timeout = new TimeoutSystem(board);
 			var render = new RenderSystem(this.stage, board);
-			
+
 			var game_loop = new GameLoop();
 			game_loop.addSystem(board);
+			game_loop.addSystem(state);
 			game_loop.addSystem(input);
 			game_loop.addSystem(motion);
 			game_loop.addSystem(space);

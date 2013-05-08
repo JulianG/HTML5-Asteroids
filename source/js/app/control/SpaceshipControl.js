@@ -55,11 +55,10 @@ define(['lib/KeyPoll'], function (KeyPoll) {
 				entity.motion.vx = vx;
 				entity.motion.vy = vy;
 				entity.motion.damping = 1;
-				entity.state = 'thrusting';
 			} else {
 				entity.motion.damping = this.config.shipFriction;
-				entity.state = 'idle';
 			}
+			entity.state.thruster = thruster;
 		}
 
 	};

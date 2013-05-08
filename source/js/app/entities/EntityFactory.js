@@ -5,7 +5,7 @@
  * Time: 10:34
  */
 
-define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipViewController'], function (SpaceshipViewController, ExplodingSpaceshipViewController) {
+define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipViewController', 'app/components/SpaceshipState'], function (SpaceshipViewController, ExplodingSpaceshipViewController, SpaceshipState) {
 
 	function EntityFactory(atlas, pool) {
 		this.atlas = atlas;
@@ -30,7 +30,7 @@ define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipView
 		view.addChild(thruster);
 		entity.view = view;
 		entity.viewController = new SpaceshipViewController(view);
-		entity.state = 'idle';
+		entity.state = new SpaceshipState();
 		entity.collider.active = true;
 		entity.collider.radius = 15;
 		entity.timeout.active = false;

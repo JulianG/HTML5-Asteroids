@@ -22,8 +22,7 @@ define(function () {
 	};
 
 	api.update = function update(entity, dt) {
-		var thrusting = (entity.state == 'thrusting');
-		if (this.thruster)  this.thruster.visible = thrusting;
+		if (this.thruster)  this.thruster.visible = entity.state.thruster;
 	};
 	return SpaceshipViewController;
 });

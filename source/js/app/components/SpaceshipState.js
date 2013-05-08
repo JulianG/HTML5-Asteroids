@@ -8,7 +8,7 @@
 define(function () {
 
 	function SpaceshipState() {
-		this.thrust = false;
+		this.thruster = false;
 		this.weapon = null;
 	}
 
@@ -17,6 +17,7 @@ define(function () {
 	api.update = function update(dt) {
 
 		// handle thruster and weapon
+		//console.log('updating spaceship');
 	};
 
 	return SpaceshipState;
