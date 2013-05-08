@@ -10,6 +10,7 @@ define(function () {
 	function Collider(){
 		this.active = false;
 		this.radius = 0;
+		this.group = '';
 	}
 
 	return Collider;

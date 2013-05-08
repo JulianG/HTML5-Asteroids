@@ -67,7 +67,7 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 			var factory = new EntityFactory(this.atlas, new EntityPool());
 			this.levelGenerator = new LevelGenerator(factory);
 
-			this._initShip(factory);
+			this._initShip(factory, board);
 
 			this._startLevel(1);
 
@@ -79,8 +79,8 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 
 		};
 
-		api._initShip = function _initShip(factory) {
-			this.ship = factory.createShip();
+		api._initShip = function _initShip(factory, board) {
+			this.ship = factory.createShip(board);
 			this.ship.position.x = this.config.spaceWidth / 2;
 			this.ship.position.y = this.config.spaceHeight / 2;
 			this.ship.control = new SpaceshipControl(this.config, this.keypoll);

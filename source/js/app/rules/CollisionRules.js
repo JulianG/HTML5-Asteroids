@@ -17,19 +17,24 @@ define(function () {
 	var api = CollisionRules.prototype;
 
 	api.handleCollision = function handleCollision(active_entity, passive_entity) {
-		if (active_entity == this.ship) {
-
+		if (active_entity == this.ship && passive_entity.collider.group != 'bullet') {
+			// kill spaceship
 			this.explodingShip.position.clone(this.ship.position);
 			this.explodingShip.motion.clone(this.ship.motion);
 			this.explodingShip.motion.damping = 0.95;
 			this.board.removeEntity(this.ship);
 			this.board.addEntity(this.explodingShip);
+		} else {
+			// probably a bullet
+			this.board.removeEntity(active_entity);
 		}
 
 		if (passive_entity) {
-			this.board.removeEntity(passive_entity);
-			this._breakAsteroid(passive_entity);
-			this._addExplosion(passive_entity);
+			if (passive_entity.collider.group == 'asteroid') {
+				this.board.removeEntity(passive_entity);
+				this._breakAsteroid(passive_entity);
+				this._addExplosion(passive_entity);
+			}
 		}
 
 	};
@@ -44,7 +49,7 @@ define(function () {
 
 	api._breakAsteroid = function _breakAsteroid(asteroid) {
 		var size = asteroid.state;
-		if (size > 0) {
+		if (size > 1) {
 			var debris0 = this._addAsteroidAt(asteroid.position, size - 1);
 			var debris1 = this._addAsteroidAt(asteroid.position, size - 1);
 			if (debris0 && debris1) {

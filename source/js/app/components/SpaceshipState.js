@@ -15,9 +15,9 @@ define(function () {
 	var api = SpaceshipState.prototype;
 
 	api.update = function update(dt) {
-
-		// handle thruster and weapon
-		//console.log('updating spaceship');
+		if(this.weapon && this.weapon.update){
+			this.weapon.update(dt);
+		}
 	};
 
 	return SpaceshipState;

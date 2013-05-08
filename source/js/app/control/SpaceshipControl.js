@@ -27,9 +27,14 @@ define(['lib/KeyPoll'], function (KeyPoll) {
 			if (this.keypoll.isDown(KeyPoll.LEFT)) steering = -this.config.shipSteeringSpeed;
 			if (this.keypoll.isDown(KeyPoll.RIGHT)) steering = this.config.shipSteeringSpeed;
 
-			if (this.keypoll.isDown(KeyPoll.FIRE)) fire = true;
-			if (this.keypoll.isDown(KeyPoll.FIRE1)) fire = true;
-			if (this.keypoll.isDown(KeyPoll.FIRE2)) fire = true;
+			if(entity.state.weapon){
+				if (this.keypoll.isDown(KeyPoll.FIRE)) fire = true;
+				if (this.keypoll.isDown(KeyPoll.FIRE1)) fire = true;
+				if (this.keypoll.isDown(KeyPoll.FIRE2)) fire = true;
+
+				entity.state.weapon.triggerDown = fire;
+			}
+
 
 			entity.motion.av = steering;
 

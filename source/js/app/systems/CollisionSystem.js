@@ -12,11 +12,18 @@ define([], function () {
 		var api = CollisionSystem.prototype;
 
 		api.update = function update(dt) {
+			var count = 0;
 			var n = this.board.entities.length;
-			for (i = 0; i < n; i++) {
+			for (var i = 0; i < n; i++) {
 				var entity = this.board.entities[i];
 				if (entity && entity.active) {
+
+					if(entity.state=='bullet')
+					{
+						console.log("a bullet?");
+					}
 					if (entity.collider.active) {
+						count++;
 						this._checkCollisionsFor(entity);
 					}
 				}
