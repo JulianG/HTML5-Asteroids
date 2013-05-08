@@ -25,17 +25,17 @@ define(function () {
 	};
 
 	api._wrapAround = function _wrapAround(position) {
-		if (position.x > this.boardwidth + this.boardwrapMargin) {
-			position.x = position.x - this.boardwidth - this.boardwrapMargin * 2;
+		if (position.x > this.board.width + this.board.wrapMargin) {
+			position.x = position.x - this.board.width - this.board.wrapMargin * 2;
 		}
-		if (position.x < -this.boardwrapMargin) {
-			position.x = position.x + this.boardwidth + this.boardwrapMargin * 2;
+		if (position.x < -this.board.wrapMargin) {
+			position.x = position.x + this.board.width + this.board.wrapMargin * 2;
 		}
-		if (position.y > this.boardheight + this.boardwrapMargin) {
-			position.y = position.y - this.boardheight - this.boardwrapMargin * 2;
+		if (position.y > this.board.height + this.board.wrapMargin) {
+			position.y = position.y - this.board.height - this.board.wrapMargin * 2;
 		}
-		if (position.y < -this.boardwrapMargin) {
-			position.y = position.y + this.boardheight + this.boardwrapMargin * 2;
+		if (position.y < -this.board.wrapMargin) {
+			position.y = position.y + this.board.height + this.board.wrapMargin * 2;
 		}
 	}
 
