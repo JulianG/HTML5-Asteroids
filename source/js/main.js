@@ -23,6 +23,7 @@ requirejs(['lib/easeljs/EaselJSAtlasLoader', 'lib/KeyPoll', 'app/AsteroidsGame']
 		var loader = new EaselJSAtlasLoader();
 		loader.complete.add(function (atlas) {
 			console.log('Asteroids Main - atlas loaded');
+			console.log(atlas.data);
 			bdg.init('canvas', atlas, keypoll);
 		});
 		loader.load('./assets/', 'asteroids.json');

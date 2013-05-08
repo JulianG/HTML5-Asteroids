@@ -22,8 +22,8 @@ define(['lib/KeyPoll'], function (KeyPoll) {
 
 			if (this.keypoll.isDown(KeyPoll.UP)) thruster = true;
 
-			if (this.keypoll.isDown(KeyPoll.LEFT)) steering = -1;
-			if (this.keypoll.isDown(KeyPoll.RIGHT)) steering = 1;
+			if (this.keypoll.isDown(KeyPoll.LEFT)) steering = -250;
+			if (this.keypoll.isDown(KeyPoll.RIGHT)) steering = 250;
 
 			entity.motion.av = steering;
 			//entity.motion.thruster = thruster;

@@ -13,7 +13,7 @@ define(function () {
 
 	var api = ControlSystem.prototype;
 
-	api.update = function update( board, dt ){
+	api.update = function update(board, dt) {
 		//console.log('ControlSystem.processInput...' );
 
 		var n = board.entities.length;
@@ -21,9 +21,12 @@ define(function () {
 
 			var entity = board.entities[i];
 
-			if(entity.control)
-			{
-				entity.control.processInput(entity, dt);
+			if (entity) {
+				if (entity.control) {
+					entity.control.processInput(entity, dt);
+				}
+			}else{
+				console.log("...");
 			}
 		}
 

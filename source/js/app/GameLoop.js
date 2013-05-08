@@ -19,6 +19,7 @@ define(function () {
 
 		this.controlSystem.update(this.board, dt);
 		this.motionSystem.update(this.board, dt);
+		this.board.update(dt);
 		this.collisionSystem.update(this.board, dt);
 		this.renderSystem.update(this.board, dt);
 	};
