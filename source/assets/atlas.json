@@ -1,0 +1,37 @@
+{
+"images": ["atlas.png"],
+"frames": [
+
+    [96, 32, 32, 32], 
+    [64, 32, 32, 32], 
+    [32, 96, 32, 32], 
+    [32, 64, 32, 32], 
+    [32, 32, 32, 32], 
+    [96, 0, 32, 32], 
+    [64, 0, 32, 32], 
+    [32, 0, 32, 32], 
+    [0, 96, 32, 32], 
+    [0, 64, 32, 32], 
+    [0, 32, 32, 32], 
+    [0, 0, 32, 32]
+],
+"animations": {
+    
+        "air":[0], 
+        "brick":[1], 
+        "diamond/0000":[2], 
+        "diamond/0001":[3], 
+        "enemy/enemy-1":[4], 
+        "enemy/enemy-2":[5], 
+        "enemy/enemy-3":[6], 
+        "exit-open":[7], 
+        "hero":[8], 
+        "metal":[9], 
+        "rock":[10], 
+        "soil":[11]
+},
+"texturepacker": [
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:a76758a844b3932a20726c1a41b7200c$",
+        "Created with TexturePacker (http://www.texturepacker.com) for EasalJS"
+]
+}

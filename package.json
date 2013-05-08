@@ -1,0 +1,9 @@
+{
+    "name":"ptorotiling",
+    "descriptiont":"Prototiling",
+    "version":"0.1.0",
+    "devDependencies":{
+        "requirejs":"~2.1.5",
+        "jshint":""
+    }
+}

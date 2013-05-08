@@ -1,0 +1,22 @@
+# WebStorm
+.idea
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Eclipse project files
+.classpath
+.project
+
+# built application files
+*.apk
+*.ap_
+
+# generated files
+bin/
+gen/
+node_modules
+build/
+
+# OS X folders
+.DS_Store

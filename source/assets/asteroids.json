@@ -1,5 +1,5 @@
 {
-"images": ["asteroids-easeljs.png"],
+"images": ["asteroids.png"],
 "frames": [
 
     [94, 309, 90, 90], 
@@ -125,7 +125,7 @@
         "title":[58]
 },
 "texturepacker": [
-        "SmartUpdateHash: $TexturePacker:SmartUpdate:af42eb4f36977dba20ec425ca2af7460$",
+        "SmartUpdateHash: $TexturePacker:SmartUpdate:7b63c8b76d8482b864d508cd2d8433bc$",
         "Created with TexturePacker (http://www.texturepacker.com) for EasalJS"
 ]
 }

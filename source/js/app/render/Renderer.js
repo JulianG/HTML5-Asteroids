@@ -1,0 +1,46 @@
+/**
+ * Created with JetBrains WebStorm.
+ * User: julian
+ * Date: 25/02/13
+ * Time: 16:56
+ * To change this template use File | Settings | File Templates.
+ */
+define(function () {
+
+	function Renderer(container, board) {
+		this.container = container;
+		this.board = board;
+		//
+	}
+
+	var api = Renderer.prototype;
+
+	api.renderBoard = function renderBoard(board, dt) {
+		//console.log("Renderer.renderBoard...");
+
+		var n = board.entities.length;
+		for (var i = 0; i < n; i++) {
+
+			var entity = board.entities[i];
+
+			if (entity.view && entity.position) {
+				var sp = entity.view;
+
+				if (entity.active) {
+					if (!this.container.contains(sp)) {
+						this.container.addChild(sp);
+					}
+					sp.x = entity.position.x;
+					sp.y = entity.position.y;
+					sp.rotation = entity.position.rotation;
+				} else {
+					if (this.container.contains(sp)) {
+						this.container.removeChild(sp);
+					}
+				}
+			}
+		}
+	};
+
+	return Renderer;
+});

@@ -22,7 +22,7 @@
         <key>dataFormat</key>
         <string>easaljs</string>
         <key>textureFileName</key>
-        <filename>asteroids-easeljs.png</filename>
+        <filename>../../source/assets/asteroids.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>ditherType</key>
@@ -111,7 +111,7 @@
             <enum type="AndEngine::MagFilter">MagLinear</enum>
         </struct>
         <key>dataFileName</key>
-        <filename>asteroids-easeljs.json</filename>
+        <filename>../../source/assets/asteroids.json</filename>
         <key>mainExtension</key>
         <string></string>
         <key>forceIdenticalLayout</key>
@@ -140,7 +140,7 @@
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMode</key>
-            <enum type="SpriteSettings::TrimMode">Trim</enum>
+            <enum type="SpriteSettings::TrimMode">None</enum>
             <key>heuristicMask</key>
             <false/>
         </struct>
