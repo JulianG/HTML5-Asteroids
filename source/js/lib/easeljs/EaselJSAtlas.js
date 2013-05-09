@@ -24,31 +24,36 @@ define(['lib/easeljs/DisplayObjectPool'], function (DisplayObjectPool) {
 		this._initAnimations(this.spriteSheet);
 
 		var completed = this.completed;
-		this.spriteSheet.addEventListener('complete', function () {
+
+		if (this.spriteSheet.complete) {
 			completed.dispatch();
-		});
+		} else {
+			this.spriteSheet.addEventListener('complete', function () {
+				completed.dispatch();
+			});
+		}
 	};
 
 	api.getDisplayObjectList = function getDisplayObjectList() {
 		return this.spriteSheet.getAnimations();
 	};
 
-	api.getDisplayObject = function getDisplayObject(name){
+	api.getDisplayObject = function getDisplayObject(name) {
 		var obj = null;
 		var pool = this.objectPools[name];
-		if(pool){
+		if (pool) {
 			obj = pool.getObject();
 			obj.gotoAndPlay(name);
 			obj.poolname = name;
-		}else{
+		} else {
 			throw('[EaselJSAtlas] Error. Cannot find an object availableObjects named: ' + name);
 		}
 		return obj;
 	};
 
-	api.disposeDisplayObject = function disposeDisplayObject(obj){
+	api.disposeDisplayObject = function disposeDisplayObject(obj) {
 		var pool = this.objectPools[obj.poolname];
-		if(pool){
+		if (pool) {
 			pool.disposeObject(obj);
 		}
 	};
@@ -87,26 +92,26 @@ define(['lib/easeljs/DisplayObjectPool'], function (DisplayObjectPool) {
 			var anim = ss.getAnimation(name);
 			self._initBitmapAnimation(ss, name);
 			/*if (anim.frames.length == 1) {
-				self._initBitmap(ss, name);
-			} else {
-				self._initBitmapAnimation(ss, name);
-			}*/
+			 self._initBitmap(ss, name);
+			 } else {
+			 self._initBitmapAnimation(ss, name);
+			 }*/
 		});
 	};
 
 	/*api._initBitmap = function _initBitmap(ss, name) {
-		var availableObjects = new DisplayObjectPool();
-		availableObjects.instantiate = function(){
-			return new createjs.Bitmap();
-		};
-		availableObjects.init(10);
-		this.objectPools[name] = availableObjects;
-	};*/
+	 var availableObjects = new DisplayObjectPool();
+	 availableObjects.instantiate = function(){
+	 return new createjs.Bitmap();
+	 };
+	 availableObjects.init(10);
+	 this.objectPools[name] = availableObjects;
+	 };*/
 	api._initBitmapAnimation = function _initBitmapAnimation(ss, name) {
 		//var bmpa = new createjs.BitmapAnimation(ss);
 		//bmpa.gotoAndPlay(name, 0);
 		var pool = new DisplayObjectPool();
-		pool.instantiate = function instantiate(){
+		pool.instantiate = function instantiate() {
 			return new createjs.BitmapAnimation(ss);
 		};
 		pool.init(10);

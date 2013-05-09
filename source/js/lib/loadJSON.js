@@ -12,16 +12,13 @@ define(function () {
 		var http_request = new XMLHttpRequest();
 		http_request.open("GET", url, true);
 		http_request.onreadystatechange = function () {
-
 			//console.log("http_request.readyState:" + http_request.readyState);
 			//console.log("http_request.status:" + http_request.status);
-
 			if (http_request.readyState == 4 && http_request.status == 200) {
 				if (callback) callback(JSON.parse(http_request.responseText));
 			}
 		};
 		http_request.send(null);
 	}
-
 	return loadJSON;
 });

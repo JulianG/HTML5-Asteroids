@@ -7,18 +7,18 @@
  */
 define(['lib/loadJSON', 'lib/easeljs/EaselJSAtlas'], function (loadJSON, EaselJSAtlas) {
 
-	function EaselJSAtlasLoader(){
+	function EaselJSAtlasLoader() {
 		this.complete = new signals.Signal();
 		this.atlas = null;
 	}
 
 	var api = EaselJSAtlasLoader.prototype;
 
-	api.load = function load(path, filename){
+	api.load = function load(path, filename) {
 		var self = this;
 		this._loadAtlas(path, filename, function (obj, path) {
-			self._buildAtlas(obj, path, function(){
-				self.complete.dispatch( self.atlas );
+			self._buildAtlas(obj, path, function () {
+				self.complete.dispatch(self.atlas);
 			});
 		});
 	};
@@ -34,9 +34,7 @@ define(['lib/loadJSON', 'lib/easeljs/EaselJSAtlas'], function (loadJSON, EaselJS
 		var self = this;
 		this.atlas = new EaselJSAtlas();
 		if (callback) this.atlas.completed.add(callback);
-
 		this.atlas.init(obj, path, '/');
-
 	};
 
 	return EaselJSAtlasLoader;

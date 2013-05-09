@@ -8,34 +8,28 @@
 define(function () {
 
 	/**
-	 * Preloads SoundFX. To play them back use createjs.Sound.play(id);
+	 * Preloads sound effects. To play them back use createjs.Sound.play(id);
 	 * @constructor
 	 */
-	function SoundFX() {
+	function SoundPreloader() {
+		this.loaded = new signals.Signal();
 	}
 
-	var api = SoundFX.prototype;
+	var api = SoundPreloader.prototype;
 
-	api.init = function init() {
+	api.init = function init(manifest) {
 		var self = this;
 		var queue = new createjs.LoadQueue();
 		queue.installPlugin(createjs.Sound);
 		queue.addEventListener("complete", function () {
 			self._handleLoadComplete();
 		});
-
-		var path = './assets/audio/';
-		queue.loadManifest([
-			{id: "button", src: path + "button.mp3"},
-			{id: "explosion", src: path + "explosion.mp3"},
-			{id: "laser", src: path + "laser.mp3"},
-			{id: "thruster", src: path + "thruster.mp3"}
-		]);
-
+		queue.loadManifest(manifest);
 	};
 
 	api._handleLoadComplete = function _handleLoadComplete() {
+		this.loaded.dispatch();
 	};
 
-	return SoundFX;
+	return SoundPreloader;
 });

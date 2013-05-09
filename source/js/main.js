@@ -11,8 +11,8 @@ requirejs.config({
 });
 
 // Start the main app logic.
-requirejs(['lib/easeljs/EaselJSAtlasLoader', 'lib/KeyPoll', 'app/AsteroidsGame'],
-	function (EaselJSAtlasLoader, KeyPoll, AsteroidsGame) {
+requirejs(['lib/easeljs/EaselJSAtlasLoader', 'lib/SoundPreloader', 'lib/KeyPoll', 'app/AsteroidsGame'],
+	function (EaselJSAtlasLoader, SoundPreloader, KeyPoll, AsteroidsGame) {
 
 		console.log('Asteroids Main');
 
@@ -20,12 +20,26 @@ requirejs(['lib/easeljs/EaselJSAtlasLoader', 'lib/KeyPoll', 'app/AsteroidsGame']
 
 		var bdg = new AsteroidsGame();
 
-		var loader = new EaselJSAtlasLoader();
-		loader.complete.add(function (atlas) {
-			console.log('Asteroids Main - atlas loaded');
-			console.log(atlas.data);
-			bdg.init('canvas', atlas, keypoll);
+		var sound_loader = new SoundPreloader();
+		var atlas_loader = new EaselJSAtlasLoader();
+
+		var path = './assets/audio/';
+		var sound_manifest = [
+			{id: "button", src: path + "button.mp3"},
+			{id: "explosion", src: path + "explosion.mp3"},
+			{id: "laser", src: path + "laser.mp3"},
+			{id: "thruster", src: path + "thruster.mp3"}
+		];
+
+		atlas_loader.complete.add(function (atlas) {
+			console.log('Asteroids Main - graphics loaded');
+			//console.log(atlas.data);
+			sound_loader.loaded.add(function () {
+				console.log('Asteroids Main - sounds loaded');
+				bdg.init('canvas', atlas, keypoll);
+			});
+			sound_loader.init(sound_manifest);
 		});
-		loader.load('./assets/', 'asteroids.json');
+		atlas_loader.load('./assets/', 'asteroids.json');
 
 	});
