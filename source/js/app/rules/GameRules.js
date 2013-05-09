@@ -7,15 +7,19 @@
  */
 define(function () {
 
-	function CollisionRules(board, ship, exploding_ship, factory) {
+	function GameRules(config, board, ship, exploding_ship, factory) {
+		this.config = config;
+		this.pointsRewarded = new signals.Signal();
 		this.shipDestroyed = new signals.Signal();
+		this.levelCompleted = new signals.Signal();
+		//
 		this.board = board;
 		this.ship = ship;
 		this.explodingShip = exploding_ship;
 		this.factory = factory;
 	}
 
-	var api = CollisionRules.prototype;
+	var api = GameRules.prototype;
 
 	api.handleCollision = function handleCollision(active_entity, passive_entity) {
 		var shipDestroyed = this.shipDestroyed;
@@ -35,10 +39,17 @@ define(function () {
 
 		if (passive_entity) {
 			if (passive_entity.collider.group == 'asteroid') {
-				this.board.removeEntity(passive_entity);
-				this._breakAsteroid(passive_entity);
-				this._addExplosion(passive_entity);
+				var asteroid = passive_entity;
+				this.board.removeEntity(asteroid);
+				this._breakAsteroid(asteroid);
+				this._addExplosion(asteroid);
 				createjs.Sound.play('explosion');
+				//
+				var size = asteroid.state;
+				var points = this.config.getAsteroidReward(size);
+				this.pointsRewarded.dispatch(points);
+				//
+				this._checkLevelComplete();
 			}
 		}
 
@@ -81,5 +92,17 @@ define(function () {
 		return asteroid;
 	};
 
-	return CollisionRules;
+	api._checkLevelComplete = function _checkLevelComplete() {
+		var asteroid_count = 0;
+		var n = this.board.entities.length;
+		for (var i = 0; i < n; i++) {
+			var entity = this.board.entities[i];
+			if (entity && entity.active && entity.collider && entity.collider.group == 'asteroid') {
+				asteroid_count++;
+			}
+		}
+		if (asteroid_count == 0) this.levelCompleted.dispatch();
+	};
+
+	return GameRules;
 });

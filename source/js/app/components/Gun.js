@@ -12,7 +12,7 @@ define(function () {
 		this.holder = holder;
 		this.factory = factory;
 
-		this.reloadTime = 0.25;
+		this.reloadTime = 0.15;
 		this.elapsed = 0;
 		this.bulletSpeed = 300;
 

@@ -26,7 +26,7 @@ define(function () {
 		this.hyperspaceTime = 1000;
 
 		this.shipInitialLives = 3;
-		this.shipAcceleration = 90;
+		this.shipAcceleration = 150;
 		this.shipSteeringSpeed = 300;
 		this.shipMaxSpeed = 200;
 		this.shipFriction = 0.99;
@@ -58,8 +58,7 @@ define(function () {
 		return this._asteroidRewards[scale];
 	};
 
-	api.getNumAsteroids = function getNumAsteroids(level)
-	{
+	api.getNumAsteroids = function getNumAsteroids(level) {
 		return 3 + level;
 	};
 

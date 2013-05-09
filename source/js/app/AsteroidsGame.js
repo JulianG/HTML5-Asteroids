@@ -32,7 +32,7 @@ define(['app/screens/MainMenu', 'app/screens/GameScreen'],
 			});
 			this.stage.addChild(this.gameScreen.view);
 			this.stage.addChild(this.menuScreen.view);
-
+			//
 			this.gameScreen.startDemo();
 		};
 
