@@ -39,8 +39,8 @@ define(['lib/easeljs/EaselJSAtlasLoader'], function (EaselJSAtlasLoader) {
 		console.log(atlas.getDisplayObjectList());
 
 
-		var bmpa1 = null;
-		bmpa1 = atlas.getDisplayObject("asteroid-02");
+		//var bmpa1 = null;
+		bmpa1 = atlas.getDisplayObject("ship-explosion");
 
 		bmpa1.regX = 45;
 		bmpa1.regY = 45;

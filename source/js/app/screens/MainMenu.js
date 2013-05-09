@@ -13,11 +13,15 @@ define(function () {
 		this.atlas = atlas;
 		this.view = new createjs.Container();
 
-		this.title = this.atlas.getDisplayObject('title');
-		this.title.x = (800 - 430) / 2;
-		this.title.y = 100;
+		var title = this.atlas.getDisplayObject('title');
+		title.x = (800 - 430) / 2;
+		title.y = 100;
+		this.view.addChild(title);
 
-		this.view.addChild(this.title);
+		var controls = this.atlas.getDisplayObject('controls-icon');
+		controls.x = 10;
+		controls.y = 480-37;
+		this.view.addChild(controls);
 
 		this.playBtn = this.atlas.getDisplayObject('play-btn');
 		this.playBtn.x = (800 - 123) / 2;

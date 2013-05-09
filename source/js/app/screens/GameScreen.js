@@ -102,6 +102,7 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 
 		api.startGame = function startGame() {
 			this._clearAsteroids();
+			this._resetShip();
 			this.playerLives = this.config.initialLives;
 			this.playerScore = 0;
 			this.currentLevel = 1;
@@ -111,7 +112,7 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 
 			var self = this;
 			createjs.Tween.get({}).wait(1000).call(function () {
-				self._resetShip();
+
 				self._startLevel(self.currentLevel);
 			});
 		};
@@ -137,6 +138,11 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 			this.board.addEntities(asteroids);
 			//
 			this.osd.setLevel(this.currentLevel);
+			//
+			var self = this;
+			createjs.Tween.get({}).wait(100).call(function () {
+				self._hackPlaceShipOnTop();
+			});
 		};
 
 		api._clearAsteroids = function _clearAsteroids() {
@@ -176,7 +182,15 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 			this.ship.position.rotation = -90;
 			this.ship.motion.stop();
 			this.board.addEntity(this.ship);
-		}
+		};
+
+		api._hackPlaceShipOnTop = function _hackPlaceShipOnTop() {
+			var view = this.ship.view;
+			if (view.parent) {
+				var n = view.parent.getNumChildren();
+				view.parent.setChildIndex(view, n-1);
+			}
+		};
 
 		return GameScreen;
 	});

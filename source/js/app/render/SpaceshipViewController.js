@@ -8,16 +8,16 @@
 define(function () {
 
 	function SpaceshipViewController(view) {
-		//this.view = view;
+		this.view = view;
 		this.thruster = view.getChildByName('thruster');
 	}
 
 	var api = SpaceshipViewController.prototype;
 
-	api.handleAdded = function handleAdded(entity){
+	api.handleAdded = function handleAdded(entity) {
 
 	};
-	api.handleRemoved = function handleRemoved(entity){
+	api.handleRemoved = function handleRemoved(entity) {
 
 	};
 

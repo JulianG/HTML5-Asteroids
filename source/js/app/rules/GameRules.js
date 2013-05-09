@@ -22,20 +22,6 @@ define(function () {
 	var api = GameRules.prototype;
 
 	api.handleCollision = function handleCollision(active_entity, passive_entity) {
-		var shipDestroyed = this.shipDestroyed;
-		if (active_entity == this.ship && passive_entity.collider.group != 'bullet') {
-			// kill spaceship
-			this.explodingShip.position.clone(this.ship.position);
-			this.explodingShip.motion.clone(this.ship.motion);
-			this.explodingShip.motion.damping = 0.95;
-			this.board.removeEntity(this.ship);
-			this.board.addEntity(this.explodingShip);
-			createjs.Sound.play('explosion');
-			shipDestroyed.dispatch();
-		} else {
-			// probably a bullet
-			if (active_entity.collider.group == 'bullet') this.board.removeEntity(active_entity);
-		}
 
 		if (passive_entity) {
 			if (passive_entity.collider.group == 'asteroid') {
@@ -51,6 +37,24 @@ define(function () {
 				//
 				this._checkLevelComplete();
 			}
+		}
+
+		var shipDestroyed = this.shipDestroyed;
+		if (active_entity == this.ship && passive_entity.collider.group != 'bullet') {
+			// kill spaceship
+			this.explodingShip.position.clone(this.ship.position);
+			this.explodingShip.motion.clone(this.ship.motion);
+			this.explodingShip.motion.damping = 0.95;
+			this.board.removeEntity(this.ship);
+
+			this.explodingShip.timeout.active = true;
+			this.explodingShip.timeout.remainingTime = 0.5;
+			this.board.addEntity(this.explodingShip);
+			createjs.Sound.play('explosion');
+			shipDestroyed.dispatch();
+		} else {
+			// probably a bullet
+			if (active_entity.collider.group == 'bullet') this.board.removeEntity(active_entity);
 		}
 
 	};

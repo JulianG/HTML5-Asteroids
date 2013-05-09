@@ -33,6 +33,8 @@ define(['app/screens/MainMenu', 'app/screens/GameScreen'],
 			this.stage.addChild(this.gameScreen.view);
 			this.stage.addChild(this.menuScreen.view);
 			//
+			//this.stage.setChildIndex(this.gameScreen.view,1);
+			//
 			this.gameScreen.startDemo();
 		};
 
