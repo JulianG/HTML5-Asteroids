@@ -27,7 +27,7 @@ define(function () {
 			createjs.Sound.play('explosion');
 		} else {
 			// probably a bullet
-			this.board.removeEntity(active_entity);
+			if (active_entity.collider.group == 'bullet') this.board.removeEntity(active_entity);
 		}
 
 		if (passive_entity) {
