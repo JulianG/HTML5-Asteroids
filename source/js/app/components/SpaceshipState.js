@@ -20,7 +20,7 @@ define(function () {
 			this.weapon.update(dt);
 		}
 
-		if (this.thrusterSound == null) this.thrusterSound = createjs.Sound.createInstance('thruster');
+		if (this.thrusterSound === null) this.thrusterSound = createjs.Sound.createInstance('thruster');
 
 		if (this.thruster && this.thrusterSound.playState == createjs.Sound.PLAY_FINISHED) {
 			this.thrusterSound.play('thruster', 'none', 0, 0, 100);

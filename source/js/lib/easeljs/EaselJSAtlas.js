@@ -91,22 +91,9 @@ define(['lib/easeljs/DisplayObjectPool'], function (DisplayObjectPool) {
 		animations.forEach(function (name) {
 			var anim = ss.getAnimation(name);
 			self._initBitmapAnimation(ss, name);
-			/*if (anim.frames.length == 1) {
-			 self._initBitmap(ss, name);
-			 } else {
-			 self._initBitmapAnimation(ss, name);
-			 }*/
 		});
 	};
 
-	/*api._initBitmap = function _initBitmap(ss, name) {
-	 var availableObjects = new DisplayObjectPool();
-	 availableObjects.instantiate = function(){
-	 return new createjs.Bitmap();
-	 };
-	 availableObjects.init(10);
-	 this.objectPools[name] = availableObjects;
-	 };*/
 	api._initBitmapAnimation = function _initBitmapAnimation(ss, name) {
 		//var bmpa = new createjs.BitmapAnimation(ss);
 		//bmpa.gotoAndPlay(name, 0);

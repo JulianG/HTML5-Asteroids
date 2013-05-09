@@ -21,6 +21,6 @@ define(function () {
 				if(entity.state.update) entity.state.update(dt);
 			}
 		}
-	}
+	};
 	return StateSystem;
 });

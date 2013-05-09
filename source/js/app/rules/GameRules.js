@@ -101,7 +101,7 @@ define(function () {
 				asteroid_count++;
 			}
 		}
-		if (asteroid_count == 0) this.levelCompleted.dispatch();
+		if (asteroid_count === 0) this.levelCompleted.dispatch();
 	};
 
 	return GameRules;

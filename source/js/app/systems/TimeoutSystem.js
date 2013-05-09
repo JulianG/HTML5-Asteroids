@@ -21,7 +21,7 @@ define(function () {
 				var t = entity.timeout;
 				if (t) {
 					t.update(dt);
-					if (t.active && t.remainingTime == 0) {
+					if (t.active && t.remainingTime === 0) {
 						this.board.removeEntity(entity);
 					}
 				}

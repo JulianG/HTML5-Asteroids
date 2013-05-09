@@ -6,8 +6,8 @@
  * To change this template use File | Settings | File Templates.
  */
 define(function () {
-	
-	function Gun(board,holder,factory){
+
+	function Gun(board, holder, factory) {
 		this.board = board;
 		this.holder = holder;
 		this.factory = factory;
@@ -21,16 +21,15 @@ define(function () {
 
 	var api = Gun.prototype;
 
-	api.update = function update(dt){
+	api.update = function update(dt) {
 		this.elapsed += dt;
-		if(this.triggerDown && this.holder) this.shoot( this.holder.position.rotation );
+		if (this.triggerDown && this.holder) this.shoot(this.holder.position.rotation);
 	};
 
 
-	api.shoot = function shoot(angle){
+	api.shoot = function shoot(angle) {
 		var rsp;
-		if (this._isIdle())
-		{
+		if (this._isIdle()) {
 			this.elapsed = 0;
 			rsp = this._getBullet(angle);
 			createjs.Sound.play('laser');
@@ -38,12 +37,12 @@ define(function () {
 		return rsp;
 	};
 
-	api._getBullet  = function _getBullet(angle)	{
+	api._getBullet = function _getBullet(angle) {
 
 		var bullet = this.factory.createBullet();
 		//bullet.reset();
 		bullet.rotation = angle;
-		var angle = bullet.rotation * Math.PI / 180;
+		angle = bullet.rotation * Math.PI / 180;
 		var cos = Math.cos(angle);
 		var sin = Math.sin(angle);
 		bullet.motion.vx = cos * this.bulletSpeed;
@@ -55,7 +54,7 @@ define(function () {
 		return bullet;
 	};
 
-	api._isIdle = function _isIdle(){
+	api._isIdle = function _isIdle() {
 		return this.holder && this.elapsed > this.reloadTime;
 	};
 

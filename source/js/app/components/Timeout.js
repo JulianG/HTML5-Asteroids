@@ -16,7 +16,7 @@ define(function () {
 
 	api.update = function update(dt) {
 		this.remainingTime = Math.max(this.remainingTime - dt, 0);
-	}
+	};
 
 	return Timeout;
 });

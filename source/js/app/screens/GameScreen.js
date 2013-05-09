@@ -87,7 +87,7 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 			});
 
 			game_rules.pointsRewarded.add(function (points) {
-				self.playerScore += points
+				self.playerScore += points;
 				self.osd.setPoints(self.playerScore);
 				console.log("points:" + self.playerScore);
 			});

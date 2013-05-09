@@ -30,7 +30,7 @@ define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipView
 		view.addChild(thruster);
 		entity.view = view;
 		entity.viewController = new SpaceshipViewController(view);
-		entity.state = new SpaceshipState()
+		entity.state = new SpaceshipState();
 		entity.state.weapon = new Gun(board, entity, this);
 		entity.collider.active = true;
 		entity.collider.radius = 15;

@@ -37,7 +37,7 @@ define(function () {
 		if (position.y < -this.board.wrapMargin) {
 			position.y = position.y + this.board.height + this.board.wrapMargin * 2;
 		}
-	}
+	};
 
 	return SpaceSystem;
 });

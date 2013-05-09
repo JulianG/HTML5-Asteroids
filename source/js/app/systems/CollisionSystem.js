@@ -41,13 +41,13 @@ define([], function () {
 			var distance = this._getDistance(active_entity.position, passive_entity.position);
 			var threshold = active_entity.collider.radius + passive_entity.collider.radius;
 			return (distance < threshold);
-		}
+		};
 
 		api._getDistance = function _getDistance(position_a, position_b) {
 			var dx = position_a.x - position_b.x;
 			var dy = position_a.y - position_b.y;
 			return Math.sqrt(dx * dx + dy * dy);
-		}
+		};
 
 		return CollisionSystem;
 
