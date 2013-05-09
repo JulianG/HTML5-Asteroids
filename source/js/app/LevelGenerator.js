@@ -16,7 +16,7 @@ define(function () {
 	api.buildLevel = function buildLevel(position, num_asteroids, asteroid_speed, asteroid_av) {
 		var list = [];
 		for (var i = 0; i < num_asteroids; i++) {
-			target_center = (i % 3 == 0); // one in three asteroids move towards the center
+			target_center = (i % 4 == 0); // one in four asteroids move towards the center
 			var asteroid = this.getAsteroid(position, asteroid_speed, asteroid_av, target_center);
 			list.push(asteroid);
 		}
@@ -27,7 +27,7 @@ define(function () {
 		var asteroid = this.factory.createAsteroid(3);
 
 		var position_angle = Math.random() * Math.PI * 2;
-		var distance_from_center = Math.random() * 100 + 100;
+		var distance_from_center = Math.random() * 100 + 150;
 		asteroid.position.x = position.x + Math.cos(position_angle) * distance_from_center;
 		asteroid.position.y = position.y + Math.sin(position_angle) * distance_from_center;
 

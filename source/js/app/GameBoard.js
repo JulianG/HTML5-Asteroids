@@ -14,6 +14,7 @@ define(function () {
 		this.wrapMargin = wrap_margin;
 		this.entities = [];
 
+		this._fresh = [];
 		this._trash = [];
 	}
 
@@ -22,8 +23,7 @@ define(function () {
 	api.addEntity = function addEntity(entity) {
 		if (entity !== null) {
 			entity.active = true;
-			this.entities.push(entity);
-			this.entityAdded.dispatch(entity);
+			this._fresh.push(entity);
 		}
 	};
 
@@ -44,6 +44,7 @@ define(function () {
 
 	api.update = function update(dt) {
 		this._emptyTrash();
+		this._addFresh();
 	};
 
 	api._emptyTrash = function _emptyTrash() {
@@ -52,9 +53,23 @@ define(function () {
 		for (i = 0; i < n; i++) {
 			var entity = this._trash[i];
 			var index = this.entities.indexOf(entity);
-			this.entities.splice(index, 1);
+			if (index >= 0) this.entities.splice(index, 1);
 		}
 		for (i = 0; i < n; i++) this._trash.pop();
+	};
+
+	api._addFresh = function _addFresh() {
+		var i;
+		var n = this._fresh.length;
+		for (i = 0; i < n; i++) {
+			var entity = this._fresh[i];
+			var index = this.entities.indexOf(entity);
+			if (index == -1) {
+				this.entities.push(entity);
+				this.entityAdded.dispatch(entity);
+			}
+		}
+		for (i = 0; i < n; i++) this._fresh.pop();
 	};
 
 

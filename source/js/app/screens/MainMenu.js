@@ -24,6 +24,7 @@ define(function () {
 		this.playBtn.y = 240;
 		var signal = this.startGameRequested;
 		this.playBtn.onPress = function (mouseEvent) {
+			createjs.Sound.play('button');
 			signal.dispatch();
 		};
 		this.view.addChild(this.playBtn);

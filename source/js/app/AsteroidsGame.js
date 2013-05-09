@@ -23,7 +23,7 @@ define(['app/screens/MainMenu', 'app/screens/GameScreen'],
 			createjs.Ticker.addListener(this.stage);
 
 			this.gameScreen = new GameScreen(atlas, keypoll);
-			this.gameScreen.gameFinised.add(function (points) {
+			this.gameScreen.gameFinished.add(function (points) {
 				self.showGameOver(points);
 			});
 			this.menuScreen = new MainMenu(atlas, keypoll);

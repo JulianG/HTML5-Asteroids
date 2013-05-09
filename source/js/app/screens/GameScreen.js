@@ -12,7 +12,7 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 
 
 		function GameScreen(atlas, keypoll) {
-			this.gameFinised = new signals.Signal();
+			this.gameFinished = new signals.Signal();
 			//
 			this.atlas = atlas;
 			this.keypoll = keypoll;
@@ -20,8 +20,12 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 			this.view = new createjs.Container();
 			this.container = new createjs.Container();
 
+			this.currentLevel = 0;
+			this.playerScore = 0;
+			this.playerLives = 0;
+
 			this.osd = null;
-			this.osd = new OSD();
+			this.osd = new OSD(atlas);
 
 			this.view.addChild(this.container);
 			this.view.addChild(this.osd.view);
@@ -39,8 +43,6 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 		api.init = function init() {
 			var c = new Config();
 			this.config = c;
-			this.currentLevel = 0;
-			this.playerScore = 0;
 
 			var board = new GameBoard(c.spaceWidth, c.spaceHeight, c.spaceWrapMargin);
 			this.board = board;
@@ -80,7 +82,7 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 			});
 			var self = this;
 			game_rules.shipDestroyed.add(function () {
-				self.gameFinised.dispatch(0);
+				self._handleLifeLost();
 			});
 			game_rules.levelCompleted.add(function () {
 				self._handleLevelComplete();
@@ -89,7 +91,6 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 			game_rules.pointsRewarded.add(function (points) {
 				self.playerScore += points;
 				self.osd.setPoints(self.playerScore);
-				console.log("points:" + self.playerScore);
 			});
 		};
 
@@ -101,16 +102,20 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 
 		api.startGame = function startGame() {
 			this._clearAsteroids();
-			this.ship.position.x = this.config.spaceWidth / 2;
-			this.ship.position.y = this.config.spaceHeight / 2;
-			this.ship.position.rotation = -90;
-			this.ship.motion.stop();
+			this.playerLives = this.config.initialLives;
 			this.playerScore = 0;
 			this.currentLevel = 1;
-			this._startLevel(this.currentLevel);
-			this.board.addEntity(this.ship);
+
 			this.osd.setPoints(this.playerScore);
+			this.osd.setLives(this.playerLives);
+
+			var self = this;
+			createjs.Tween.get({}).wait(1000).call(function () {
+				self._resetShip();
+				self._startLevel(self.currentLevel);
+			});
 		};
+
 		api.startDemo = function startDemo() {
 			var num_asteroids = this.config.getNumAsteroids(3);
 			var asteroid_speed = this.config.getAsteroidSpeed(3);
@@ -119,6 +124,7 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 			var asteroids = this.levelGenerator.buildLevel(pos, num_asteroids, asteroid_speed, av);
 			this.board.addEntities(asteroids);
 		};
+
 		api._startLevel = function _startLevel(level) {
 			createjs.Sound.play('levelstart');
 			this.currentLevel = level;
@@ -132,6 +138,7 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 			//
 			this.osd.setLevel(this.currentLevel);
 		};
+
 		api._clearAsteroids = function _clearAsteroids() {
 			var n = this.board.entities.length;
 			for (var i = 0; i < n; i++) {
@@ -149,6 +156,27 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 				self._startLevel(self.currentLevel);
 			});
 		};
+
+		api._handleLifeLost = function _handleLifeLost() {
+			var self = this;
+			self.playerLives--;
+			self.osd.setLives(self.playerLives);
+			createjs.Tween.get({}).wait(1000).call(function () {
+				if (self.playerLives === 0) {
+					self.gameFinished.dispatch(self.playerScore);
+				} else {
+					self._resetShip();
+				}
+			});
+		};
+
+		api._resetShip = function _resetShip() {
+			this.ship.position.x = this.config.spaceWidth / 2;
+			this.ship.position.y = this.config.spaceHeight / 2;
+			this.ship.position.rotation = -90;
+			this.ship.motion.stop();
+			this.board.addEntity(this.ship);
+		}
 
 		return GameScreen;
 	});
