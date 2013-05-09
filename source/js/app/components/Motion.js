@@ -23,9 +23,15 @@ define(function () {
 		this.damping = that.damping;
 	};
 
+	api.stop = function stop() {
+		this.vx = 0;
+		this.vy = 0;
+		this.av = 0;
+	};
+
 	api.getSpeed = function getSpeed() {
 		return Math.sqrt(this.vx * this.vx + this.vy * this.vy);
-	}
+	};
 
 	return Motion;
 });

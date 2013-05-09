@@ -28,7 +28,8 @@ requirejs(['lib/easeljs/EaselJSAtlasLoader', 'lib/SoundPreloader', 'lib/KeyPoll'
 			{id: "button", src: path + "button.mp3"},
 			{id: "explosion", src: path + "explosion.mp3"},
 			{id: "laser", src: path + "laser.mp3"},
-			{id: "thruster", src: path + "thruster.mp3"}
+			{id: "thruster", src: path + "thruster.mp3"},
+			{id: "levelstart", src: path + "levelstart.mp3"}
 		];
 
 		atlas_loader.complete.add(function (atlas) {

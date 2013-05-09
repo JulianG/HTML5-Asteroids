@@ -21,7 +21,7 @@ define(function () {
 
 		this.playBtn = this.atlas.getDisplayObject('play-btn');
 		this.playBtn.x = (800 - 123) / 2;
-		this.playBtn.y = 300;
+		this.playBtn.y = 240;
 		var signal = this.startGameRequested;
 		this.playBtn.onPress = function(mouseEvent) {
 			signal.dispatch();

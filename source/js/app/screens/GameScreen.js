@@ -12,23 +12,23 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 
 
 		function GameScreen(atlas, keypoll) {
+			this.gameFinised = new signals.Signal();
+			//
 			this.atlas = atlas;
 			this.keypoll = keypoll;
 
 			this.view = new createjs.Container();
 
-			this.board = null;
-			this.keypoll = null;
 			this.levelGenerator = null;
 			this.config = null;
 			this.ship = null;
 
-			//
+			this.init();
+		}
 
-			this.atlas = atlas;
-			this.keypoll = keypoll;
+		var api = GameScreen.prototype;
 
-
+		api.init = function init() {
 			var c = new Config();
 			this.config = c;
 
@@ -68,34 +68,53 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 			collisions.collisionDetected.add(function (active, passive) {
 				collisionRules.handleCollision(active, passive);
 			});
-		}
-
-		var api = GameScreen.prototype;
+			var self = this;
+			collisionRules.shipDestroyed.add(function () {
+				self.gameFinised.dispatch(0);
+			});
+		};
 
 		api._initShip = function _initShip(factory, board) {
 			this.ship = factory.createShip(board);
-			this.ship.position.x = this.config.spaceWidth / 2;
-			this.ship.position.y = this.config.spaceHeight / 2;
 			this.ship.control = new SpaceshipControl(this.config, this.keypoll);
-
 			this.explodingShip = factory.createExplodingShip();
 		};
 
-		api.startLevel = function startLevel(level) {
+		api.startGame = function startGame() {
+			this._clearAsteroids();
+			this.ship.position.x = this.config.spaceWidth / 2;
+			this.ship.position.y = this.config.spaceHeight / 2;
+			this.ship.position.rotation = -90;
+			this.ship.motion.stop();
+			this._startLevel(1);
+			this.board.addEntity(this.ship);
+		};
+		api.startDemo = function startDemo() {
+			this._startLevel(2);
+		};
+		api._startLevel = function _startLevel(level) {
+			createjs.Sound.play('levelstart');
 			this.currentLevel = level;
 			var num_asteroids = this.config.getNumAsteroids(level);
 			var asteroid_speed = this.config.getAsteroidSpeed(level);
 			var av = this.config.asteroidAngularSpeed;
 
-			var pos = {x: 400, y: 240};
+
+			if (this.ship) pos = this.ship.position;
 			var asteroids = this.levelGenerator.buildLevel(pos, num_asteroids, asteroid_speed, av);
 			this.board.addEntities(asteroids);
 
-			//_levelStartSound.play();
 			//_osd.setLevel(_currentLevel);
 			//_gameRules.startLevel((level > 0));
-
-			this.board.addEntity(this.ship);
+		};
+		api._clearAsteroids = function _clearAsteroids() {
+			var n = this.board.entities.length;
+			for (var i = 0; i < n; i++) {
+				var entity = this.board.entities[i];
+				if(entity && entity.collider && entity.collider.group=='asteroid'){
+					this.board.removeEntity(entity);
+				}
+			}
 		};
 
 		return GameScreen;

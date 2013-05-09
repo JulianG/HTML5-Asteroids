@@ -19,8 +19,13 @@ define(['app/screens/MainMenu', 'app/screens/GameScreen'],
 		api.init = function init(canvas_id, atlas, keypoll) {
 			var self = this;
 			this.stage = new createjs.Stage(canvas_id);
+			createjs.Ticker.setFPS(60);
+			createjs.Ticker.addListener(this.stage);
 
 			this.gameScreen = new GameScreen(atlas, keypoll);
+			this.gameScreen.gameFinised.add(function(points){
+				self.showGameOver(points);
+			});
 			this.menuScreen = new MainMenu(atlas, keypoll);
 			this.menuScreen.startGameRequested.add(function () {
 				self.startGame();
@@ -28,16 +33,16 @@ define(['app/screens/MainMenu', 'app/screens/GameScreen'],
 			this.stage.addChild(this.gameScreen.view);
 			this.stage.addChild(this.menuScreen.view);
 
-			//var tit = atlas.getDisplayObject('asteroid-00');
-			//this.stage.addChild(tit);
-
-			createjs.Ticker.setFPS(60);
-			createjs.Ticker.addListener(this.stage);
+			this.gameScreen.startDemo();
 		};
 
 		api.startGame = function startGame(){
 			this.stage.removeChild(this.menuScreen.view);
-			this.gameScreen.startLevel(1);
+			this.gameScreen.startGame();
+		};
+
+		api.showGameOver = function showGameOver(points){
+			this.stage.addChild(this.menuScreen.view);
 		};
 
 		return AsteroidsGame;

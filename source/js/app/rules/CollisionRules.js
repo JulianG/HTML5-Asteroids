@@ -8,6 +8,7 @@
 define(function () {
 
 	function CollisionRules(board, ship, exploding_ship, factory) {
+		this.shipDestroyed = new signals.Signal();
 		this.board = board;
 		this.ship = ship;
 		this.explodingShip = exploding_ship;
@@ -17,6 +18,7 @@ define(function () {
 	var api = CollisionRules.prototype;
 
 	api.handleCollision = function handleCollision(active_entity, passive_entity) {
+		var shipDestroyed = this.shipDestroyed;
 		if (active_entity == this.ship && passive_entity.collider.group != 'bullet') {
 			// kill spaceship
 			this.explodingShip.position.clone(this.ship.position);
@@ -25,6 +27,7 @@ define(function () {
 			this.board.removeEntity(this.ship);
 			this.board.addEntity(this.explodingShip);
 			createjs.Sound.play('explosion');
+			shipDestroyed.dispatch();
 		} else {
 			// probably a bullet
 			if (active_entity.collider.group == 'bullet') this.board.removeEntity(active_entity);
