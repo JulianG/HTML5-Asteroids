@@ -36,7 +36,7 @@ define(function () {
 	};
 
 	api.setLevel = function setLevel(level) {
-		this.txtLevel.text = "LEVEL " + level.toString();
+		this.txtLevel.text = (level > 0) ? "LEVEL " + level.toString() : '';
 	};
 
 	api.setLives = function setLives(lives) {

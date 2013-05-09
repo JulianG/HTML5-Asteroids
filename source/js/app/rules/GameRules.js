@@ -34,8 +34,6 @@ define(function () {
 				var size = asteroid.state;
 				var points = this.config.getAsteroidReward(size);
 				this.pointsRewarded.dispatch(points);
-				//
-				this._checkLevelComplete();
 			}
 		}
 
@@ -87,6 +85,8 @@ define(function () {
 			}
 			this.board.addEntity(debris0);
 			this.board.addEntity(debris1);
+		} else {
+			this._checkLevelComplete();
 		}
 	};
 

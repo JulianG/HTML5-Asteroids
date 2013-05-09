@@ -20,14 +20,14 @@ define(['lib/easeljs/EaselJSAtlasLoader'], function (EaselJSAtlasLoader) {
 		this._initStage();
 
 		this.loader = new EaselJSAtlasLoader();
-		this.loader.complete.add( function( atlas ){
+		this.loader.complete.add(function (atlas) {
 			self._handleAtlasReady(atlas);
 		});
 		this.loader.load('./assets/', 'asteroids.json');
 
 	};
 
-	api._initStage = function _initStage(){
+	api._initStage = function _initStage() {
 		this.stage = new createjs.Stage('canvas');
 		createjs.Ticker.setFPS(60);
 		createjs.Ticker.addListener(this.stage);
@@ -52,19 +52,21 @@ define(['lib/easeljs/EaselJSAtlasLoader'], function (EaselJSAtlasLoader) {
 
 		this.stage.addChild(bmpa1);
 
-		createjs.Ticker.addEventListener("tick", function (event) { bmpa1.rotation++; });
+		createjs.Ticker.addEventListener("tick", function (event) {
+			bmpa1.rotation++;
+		});
 		/*
-		var bmpa = null;
-		bmpa = atlas.getDisplayObject("diamond");
-		bmpa.x = 32;
+		 var bmpa = null;
+		 bmpa = atlas.getDisplayObject("diamond");
+		 bmpa.x = 32;
 
-		this.stage.addChild(bmpa);
+		 this.stage.addChild(bmpa);
 
-		var bmpa2 = null;
-		bmpa2 = atlas.getDisplayObject("enemy");
-		bmpa2.x = 64;
-		this.stage.addChild(bmpa2);
-		*/
+		 var bmpa2 = null;
+		 bmpa2 = atlas.getDisplayObject("enemy");
+		 bmpa2.x = 64;
+		 this.stage.addChild(bmpa2);
+		 */
 		this.atlas = atlas;
 	};
 

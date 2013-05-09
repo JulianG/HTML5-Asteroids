@@ -109,6 +109,7 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 
 			this.osd.setPoints(this.playerScore);
 			this.osd.setLives(this.playerLives);
+			this.osd.setLevel(0);
 
 			var self = this;
 			createjs.Tween.get({}).wait(1000).call(function () {
@@ -188,7 +189,7 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 			var view = this.ship.view;
 			if (view.parent) {
 				var n = view.parent.getNumChildren();
-				view.parent.setChildIndex(view, n-1);
+				view.parent.setChildIndex(view, n - 1);
 			}
 		};
 
