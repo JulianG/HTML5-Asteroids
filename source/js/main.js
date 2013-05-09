@@ -33,7 +33,7 @@ requirejs(['lib/easeljs/EaselJSAtlasLoader', 'lib/SoundPreloader', 'lib/KeyPoll'
 
 		atlas_loader.complete.add(function (atlas) {
 			console.log('Asteroids Main - graphics loaded');
-			//console.log(atlas.data);
+			console.log(atlas.data);
 			sound_loader.loaded.add(function () {
 				console.log('Asteroids Main - sounds loaded');
 				bdg.init('canvas', atlas, keypoll);
