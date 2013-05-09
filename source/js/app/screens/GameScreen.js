@@ -111,7 +111,7 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 			var n = this.board.entities.length;
 			for (var i = 0; i < n; i++) {
 				var entity = this.board.entities[i];
-				if(entity && entity.collider && entity.collider.group=='asteroid'){
+				if (entity && entity.collider && entity.collider.group == 'asteroid') {
 					this.board.removeEntity(entity);
 				}
 			}

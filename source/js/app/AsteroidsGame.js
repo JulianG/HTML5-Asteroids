@@ -23,7 +23,7 @@ define(['app/screens/MainMenu', 'app/screens/GameScreen'],
 			createjs.Ticker.addListener(this.stage);
 
 			this.gameScreen = new GameScreen(atlas, keypoll);
-			this.gameScreen.gameFinised.add(function(points){
+			this.gameScreen.gameFinised.add(function (points) {
 				self.showGameOver(points);
 			});
 			this.menuScreen = new MainMenu(atlas, keypoll);
@@ -36,12 +36,12 @@ define(['app/screens/MainMenu', 'app/screens/GameScreen'],
 			this.gameScreen.startDemo();
 		};
 
-		api.startGame = function startGame(){
+		api.startGame = function startGame() {
 			this.stage.removeChild(this.menuScreen.view);
 			this.gameScreen.startGame();
 		};
 
-		api.showGameOver = function showGameOver(points){
+		api.showGameOver = function showGameOver(points) {
 			this.stage.addChild(this.menuScreen.view);
 		};
 

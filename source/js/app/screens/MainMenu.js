@@ -23,7 +23,7 @@ define(function () {
 		this.playBtn.x = (800 - 123) / 2;
 		this.playBtn.y = 240;
 		var signal = this.startGameRequested;
-		this.playBtn.onPress = function(mouseEvent) {
+		this.playBtn.onPress = function (mouseEvent) {
 			signal.dispatch();
 		};
 		this.view.addChild(this.playBtn);

@@ -31,7 +31,7 @@ define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipView
 		entity.view = view;
 		entity.viewController = new SpaceshipViewController(view);
 		entity.state = new SpaceshipState()
-		entity.state.weapon = new Gun(board,entity,this);
+		entity.state.weapon = new Gun(board, entity, this);
 		entity.collider.active = true;
 		entity.collider.radius = 15;
 		entity.collider.group = 'ship';
@@ -109,7 +109,7 @@ define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipView
 		return entity;
 	};
 
-	api.createBullet = function createBullet(){
+	api.createBullet = function createBullet() {
 		var entity = this.availableObjects.getEntity();
 		entity.viewController = null;
 
