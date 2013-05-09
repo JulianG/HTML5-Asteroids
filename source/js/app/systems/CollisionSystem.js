@@ -17,11 +17,6 @@ define([], function () {
 			for (var i = 0; i < n; i++) {
 				var entity = this.board.entities[i];
 				if (entity && entity.active) {
-
-					if(entity.state=='bullet')
-					{
-						console.log("a bullet?");
-					}
 					if (entity.collider.active) {
 						count++;
 						this._checkCollisionsFor(entity);

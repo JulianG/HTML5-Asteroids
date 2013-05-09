@@ -24,6 +24,7 @@ define(function () {
 			this.explodingShip.motion.damping = 0.95;
 			this.board.removeEntity(this.ship);
 			this.board.addEntity(this.explodingShip);
+			createjs.Sound.play('explosion');
 		} else {
 			// probably a bullet
 			this.board.removeEntity(active_entity);
@@ -34,6 +35,7 @@ define(function () {
 				this.board.removeEntity(passive_entity);
 				this._breakAsteroid(passive_entity);
 				this._addExplosion(passive_entity);
+				createjs.Sound.play('explosion');
 			}
 		}
 

@@ -33,6 +33,7 @@ define(function () {
 		{
 			this.elapsed = 0;
 			rsp = this._getBullet(angle);
+			createjs.Sound.play('laser');
 		}
 		return rsp;
 	};
