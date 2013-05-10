@@ -1,0 +1,1 @@
+&name1=asteroids&score1=0

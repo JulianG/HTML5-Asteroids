@@ -13,10 +13,27 @@ requirejs.config({
 var test = null;
 
 // Start the main app logic.
-requirejs(['tests/AtlasTest'], function (AtlasTest) {
-	console.log("Main (AtlasTest)");
-	test = new AtlasTest();
-	test.init();
+requirejs(['tests/AtlasTest','lib/SoundPreloader'], function (AtlasTest, SoundPreloader) {
+	console.log("Main Test");
+	//test = new AtlasTest();
+	//test.init();
 
+	var sound_loader = new SoundPreloader();
+
+	var path = './assets/audio/';
+	var sound_manifest = [
+		{id: "button", src: path + "button.mp3"},
+		{id: "explosion", src: path + "explosion.mp3"},
+		{id: "laser", src: path + "laser.mp3"},
+		{id: "thruster", src: path + "thruster.mp3"},
+		{id: "levelstart", src: path + "levelstart.mp3"},
+		{id: "big-ufo", src: path + "big-ufo.ogg"},
+		{id: "small-ufo", src: path + "small-ufo.ogg"}
+	];
+
+	sound_loader.loaded.add(function () {
+		console.log('Asteroids Main - sounds loaded');
+	});
+	sound_loader.init(sound_manifest);
 
 });

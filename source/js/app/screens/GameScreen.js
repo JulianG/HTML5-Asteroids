@@ -26,6 +26,7 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 
 			this.osd = null;
 			this.osd = new OSD(atlas);
+			this.gameRules = null;
 
 			this.view.addChild(this.container);
 			this.view.addChild(this.osd.view);
@@ -41,10 +42,10 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 		var api = GameScreen.prototype;
 
 		api.init = function init() {
-			var c = new Config();
-			this.config = c;
+			var config = new Config();
+			this.config = config;
 
-			var board = new GameBoard(c.spaceWidth, c.spaceHeight, c.spaceWrapMargin);
+			var board = new GameBoard(config.spaceWidth, config.spaceHeight, config.spaceWrapMargin);
 			this.board = board;
 			var state = new StateSystem(board);
 			var input = new ControlSystem(board);
@@ -54,24 +55,7 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 			var timeout = new TimeoutSystem(board);
 			var render = new RenderSystem(this.container, board);
 
-			var game_loop = new GameLoop();
-			game_loop.addSystem(board);
-			game_loop.addSystem(state);
-			game_loop.addSystem(input);
-			game_loop.addSystem(motion);
-			game_loop.addSystem(space);
-			game_loop.addSystem(collisions);
-			game_loop.addSystem(timeout);
-			game_loop.addSystem(render);
-
-			// stage updates
-			createjs.Ticker.addEventListener("tick", function (event) {
-				// Actions carried out each frame
-				var dt = event.delta / 1000;
-				game_loop.update(dt);
-			});
-
-			var factory = new EntityFactory(this.atlas, new EntityPool());
+			var factory = new EntityFactory(this.atlas, new EntityPool(), config);
 			this.levelGenerator = new LevelGenerator(factory);
 
 			this._initShip(factory, board);
@@ -92,6 +76,27 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 				self.playerScore += points;
 				self.osd.setPoints(self.playerScore);
 			});
+
+			//////////////////////////////
+
+			var game_loop = new GameLoop();
+			game_loop.addSystem(board);
+			game_loop.addSystem(state);
+			game_loop.addSystem(input);
+			game_loop.addSystem(motion);
+			game_loop.addSystem(space);
+			game_loop.addSystem(collisions);
+			game_loop.addSystem(timeout);
+			game_loop.addSystem(render);
+			game_loop.addSystem(game_rules);
+			// stage updates
+			createjs.Ticker.addEventListener("tick", function (event) {
+				// Actions carried out each frame
+				var dt = event.delta / 1000;
+				game_loop.update(dt);
+			});
+
+			this.gameRules = game_rules;
 		};
 
 		api._initShip = function _initShip(factory, board) {
@@ -139,6 +144,7 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 			this.board.addEntities(asteroids);
 			//
 			this.osd.setLevel(this.currentLevel);
+			this.gameRules.handleLevelStart(level);
 			//
 			var self = this;
 			createjs.Tween.get({}).wait(100).call(function () {
@@ -170,6 +176,7 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 			self.osd.setLives(self.playerLives);
 			createjs.Tween.get({}).wait(1000).call(function () {
 				if (self.playerLives === 0) {
+					self.gameRules.handleGameEnded();
 					self.gameFinished.dispatch(self.playerScore);
 				} else {
 					self._resetShip();

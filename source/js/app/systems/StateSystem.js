@@ -9,18 +9,31 @@ define(function () {
 
 	function StateSystem(board) {
 		this.board = board;
+
+		var self = this;
+		this.board.entityRemoved.add(function (entity) {
+			self.remove(entity);
+		});
+		this.board.entityAdded.add(function (entity) {
+			self.add(entity);
+		});
 	}
 
 	var api = StateSystem.prototype;
 
-	api.update = function update(dt) {
-		var n = this.board.entities.length;
-		for (var i = 0; i < n; i++) {
-			var entity = this.board.entities[i];
-			if(entity && entity.active && entity.state){
-				if(entity.state.update) entity.state.update(dt);
-			}
-		}
+	api.add = function add(entity){
+			if(entity && entity.active && entity.state && entity.state.handleAdded) entity.state.handleAdded(entity);
 	};
+
+	api.update = function update(dt) {
+		this.board.entities.forEach( function(entity,index,entities){
+			if(entity && entity.active && entity.state && entity.state.update) entity.state.update(dt);
+		});
+	};
+
+	api.remove = function remove(entity){
+			if(entity && entity.active && entity.state && entity.state.handleRemoved) entity.state.handleRemoved(entity);
+	};
+
 	return StateSystem;
 });

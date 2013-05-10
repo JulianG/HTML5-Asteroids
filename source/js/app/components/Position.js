@@ -8,9 +8,7 @@
 define(function () {
 
 	function Position() {
-		this.x = 0;
-		this.y = 0;
-		this.rotation = 0;
+		this.reset();
 	}
 
 	var api = Position.prototype;
@@ -19,6 +17,12 @@ define(function () {
 		this.x = that.x;
 		this.y = that.y;
 		this.rotation = that.rotation;
+	};
+
+	api.reset = function reset(){
+		this.x = 0;
+		this.y = 0;
+		this.rotation = 0;
 	};
 
 	return Position;

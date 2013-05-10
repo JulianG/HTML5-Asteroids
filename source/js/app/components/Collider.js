@@ -8,10 +8,16 @@
 define(function () {
 
 	function Collider(){
+		this.reset();
+	}
+
+	var api = Collider.prototype;
+
+	api.reset = function reset(){
 		this.active = false;
 		this.radius = 0;
 		this.group = '';
-	}
+	};
 
 	return Collider;
 });

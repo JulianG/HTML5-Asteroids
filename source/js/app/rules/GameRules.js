@@ -17,9 +17,31 @@ define(function () {
 		this.ship = ship;
 		this.explodingShip = exploding_ship;
 		this.factory = factory;
+		//
+		this.gameStarted = false;
+		this.elapsed = 0;
 	}
 
 	var api = GameRules.prototype;
+
+	api.update = function update(dt) {
+		if(!this.gameStarted) return;
+		//
+		this.elapsed += dt;
+		var elapsed_seconds = Math.round(this.elapsed);
+		if (elapsed_seconds > this.config.ufoDelay && elapsed_seconds % this.config.ufoFrequency === 0 && this._countUFOs() < 1) {
+			this._addUFO();
+		}
+	};
+
+	api.handleLevelStart = function handleLevelStart(level) {
+		this.gameStarted = true;
+		this.elapsed = 0;
+	};
+
+	api.handleGameEnded = function handleGameEnded(){
+		this.gameStarted = false;
+	};
 
 	api.handleCollision = function handleCollision(active_entity, passive_entity) {
 
@@ -28,17 +50,23 @@ define(function () {
 				var asteroid = passive_entity;
 				this.board.removeEntity(asteroid);
 				this._breakAsteroid(asteroid);
-				this._addExplosion(asteroid);
+				this._addAsteroidExplosion(asteroid);
 				createjs.Sound.play('explosion');
 				//
-				var size = asteroid.state;
-				var points = this.config.getAsteroidReward(size);
-				this.pointsRewarded.dispatch(points);
+				this.pointsRewarded.dispatch(asteroid.rewardPoints);
+			}
+			if (passive_entity.collider.group == 'ufo') {
+				var ufo = passive_entity;
+				this.board.removeEntity(ufo);
+				this._addUFOExplosion(ufo);
+				createjs.Sound.play('explosion');
+				//
+				this.pointsRewarded.dispatch(ufo.rewardPoints);
 			}
 		}
 
 		var shipDestroyed = this.shipDestroyed;
-		if (active_entity == this.ship && passive_entity.collider.group != 'bullet') {
+		if (active_entity == this.ship && passive_entity.collider.group != 'ship-bullet') {
 			// kill spaceship
 			this.explodingShip.position.clone(this.ship.position);
 			this.explodingShip.motion.clone(this.ship.motion);
@@ -52,16 +80,23 @@ define(function () {
 			shipDestroyed.dispatch();
 		} else {
 			// probably a bullet
-			if (active_entity.collider.group == 'bullet') this.board.removeEntity(active_entity);
+			if (active_entity.collider.group == 'ship-bullet') this.board.removeEntity(active_entity);
+			if (active_entity.collider.group == 'ufo-bullet') this.board.removeEntity(active_entity);
 		}
-
 	};
 
-	api._addExplosion = function _addExplosion(asteroid) {
+	api._addAsteroidExplosion = function _addAsteroidExplosion(asteroid) {
 		var size = asteroid.state;
 		var expl = this.factory.createExplodingAsteroid(size);
 		expl.position.clone(asteroid.position);
 		expl.motion.clone(asteroid.motion);
+		this.board.addEntity(expl);
+	};
+
+	api._addUFOExplosion = function _addUFOExplosion(ufo) {
+		var expl = this.factory.createExplodingAsteroid(2);
+		expl.position.clone(ufo.position);
+		expl.motion.clone(ufo.motion);
 		this.board.addEntity(expl);
 	};
 
@@ -96,7 +131,29 @@ define(function () {
 		return asteroid;
 	};
 
-	api._checkLevelComplete = function _checkLevelComplete() {
+	api._addUFO = function _addUFO() {
+		console.log('adding ufo');
+		var ufo = null;
+		ufo = this.factory.createUFO(this.board, (this._countAsteroids()>=2), this.ship);
+		ufo.motion.vx = (Math.random() > 0.5) ? this.config.ufoSpeed : -this.config.ufoSpeed;
+		ufo.motion.vy = this.config.ufoSpeed / 5 + (Math.random() * this.config.ufoSpeed / 10);
+		ufo.position.x = (ufo.motion.vx > 0) ? ufo.state.leftLimit : ufo.state.rightLimit;
+		ufo.position.y = this.board.height * (Math.random() * 0.50 + 0.25);
+		this.board.addEntity(ufo);
+	};
+
+	api._countUFOs = function _countUFOs() {
+		var ufo_count = 0;
+
+		this.board.entities.forEach(function (entity, index, entities) {
+			if (entity && entity.active && entity.collider && entity.collider.group == 'ufo') {
+				ufo_count++;
+			}
+		});
+		return ufo_count;
+	};
+
+	api._countAsteroids = function _countAsteroids() {
 		var asteroid_count = 0;
 		var n = this.board.entities.length;
 		for (var i = 0; i < n; i++) {
@@ -105,6 +162,11 @@ define(function () {
 				asteroid_count++;
 			}
 		}
+		return asteroid_count;
+	};
+
+	api._checkLevelComplete = function _checkLevelComplete() {
+		var asteroid_count = this._countAsteroids();
 		if (asteroid_count === 0) this.levelCompleted.dispatch();
 	};
 

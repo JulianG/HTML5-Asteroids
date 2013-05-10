@@ -55,18 +55,18 @@ define(['lib/easeljs/EaselJSAtlasLoader'], function (EaselJSAtlasLoader) {
 		createjs.Ticker.addEventListener("tick", function (event) {
 			bmpa1.rotation++;
 		});
-		/*
-		 var bmpa = null;
-		 bmpa = atlas.getDisplayObject("diamond");
-		 bmpa.x = 32;
+/*
+		var bmpa = null;
+		bmpa = atlas.getDisplayObject("diamond");
+		bmpa.x = 32;
 
-		 this.stage.addChild(bmpa);
+		this.stage.addChild(bmpa);
 
-		 var bmpa2 = null;
-		 bmpa2 = atlas.getDisplayObject("enemy");
-		 bmpa2.x = 64;
-		 this.stage.addChild(bmpa2);
-		 */
+		var bmpa2 = null;
+		bmpa2 = atlas.getDisplayObject("enemy");
+		bmpa2.x = 64;
+		this.stage.addChild(bmpa2);
+*/
 		this.atlas = atlas;
 	};
 

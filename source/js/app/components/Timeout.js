@@ -14,6 +14,11 @@ define(function () {
 
 	var api = Timeout.prototype;
 
+	api.reset = function reset(){
+		this.active = false;
+		this.remainingTime = 0;
+	};
+
 	api.update = function update(dt) {
 		this.remainingTime = Math.max(this.remainingTime - dt, 0);
 	};

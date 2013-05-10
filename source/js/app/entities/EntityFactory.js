@@ -5,9 +5,12 @@
  * Time: 10:34
  */
 
-define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipViewController', 'app/components/SpaceshipState', 'app/components/Gun'], function (SpaceshipViewController, ExplodingSpaceshipViewController, SpaceshipState, Gun) {
+define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipViewController', 'app/render/UFOViewController',
+	'app/components/SpaceshipState',
+	'app/components/UFOState', 'app/components/Gun'], function (SpaceshipViewController, ExplodingSpaceshipViewController, UFOViewController, SpaceshipState, UFOState, Gun) {
 
-	function EntityFactory(atlas, pool) {
+	function EntityFactory(atlas, pool, config) {
+		this.config = config;
 		this.atlas = atlas;
 		this.availableObjects = pool;
 		this.asteroidSymbols = ['asteroid-00', 'asteroid-01', 'asteroid-02', 'asteroid-03'];
@@ -31,14 +34,14 @@ define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipView
 		entity.view = view;
 		entity.viewController = new SpaceshipViewController(view);
 		entity.state = new SpaceshipState();
-		entity.state.weapon = new Gun(board, entity, this);
+		entity.state.weapon = new Gun(board, entity, 'ship-bullet', this);
+
 		entity.collider.active = true;
 		entity.collider.radius = 15;
 		entity.collider.group = 'ship';
 		entity.timeout.active = false;
 		entity.timeout.remainingTime = 0;
-
-		entity.active = true;
+		entity.rewardPoints = 0;
 		return entity;
 	};
 
@@ -55,8 +58,8 @@ define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipView
 		entity.collider.group = '';
 		entity.timeout.active = true;
 		entity.timeout.remainingTime = 0.5;
+		entity.rewardPoints = 0;
 
-		entity.active = true;
 		return entity;
 	};
 
@@ -80,8 +83,8 @@ define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipView
 
 		entity.timeout.active = false;
 		entity.timeout.remainingTime = 0;
+		entity.rewardPoints = this.config.getAsteroidReward(size);
 
-		entity.active = true;
 		return entity;
 	};
 
@@ -105,29 +108,77 @@ define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipView
 		entity.timeout.active = true;
 		entity.timeout.remainingTime = 0.233;
 
+		entity.rewardPoints = 0;
+		return entity;
+	};
+
+	api.createUFO = function createUFO(board, big, target) {
+		var entity = this.availableObjects.getEntity();
+
+		entity.motion.av = 0;
+		entity.collider.active = false;
+		entity.collider.radius = 25;
+		entity.collider.group = 'ufo';
+
+		entity.timeout.active = false;
+		entity.timeout.remainingTime = 0;
+
+		if (big) {
+			entity.state = new UFOState(board);
+			entity.state.weapon = new Gun(board, entity, 'ufo-bullet', this);
+			entity.state.weapon.reloadTime = this.config.ufoBulletReloadTime;
+			entity.state.weapon.bulletSpeed = this.config.ufoBulletSpeed;
+			entity.view = this.atlas.getDisplayObject('big-ufo');
+			entity.viewController = new UFOViewController(entity.view, 'big-ufo');
+			entity.view.regX = 33;
+			entity.view.regY = 25;
+			entity.rewardPoints = this.config.bigUFOReward;
+			//
+			entity.state.aim = function aim(weapon){
+				weapon.rotation = Math.random() * 360;
+			};
+		} else {
+			entity.state = new UFOState(board);
+			entity.state.weapon = new Gun(board, entity, 'ufo-bullet', this);
+			entity.state.weapon.reloadTime = this.config.miniUfoBulletReloadTime;
+			entity.state.weapon.bulletSpeed = this.config.ufoBulletSpeed;
+			entity.view = this.atlas.getDisplayObject('small-ufo');
+			entity.viewController = new UFOViewController(entity.view, 'big-ufo');
+			entity.view.regX = 23;
+			entity.view.regY = 15;
+			entity.rewardPoints = this.config.smallUFOReward;
+			//
+			entity.state.aim = function aim(weapon){
+				var dx = target.position.x - weapon.holder.position.x;
+				var dy = target.position.y - weapon.holder.position.y;
+				var angle = Math.atan2(dy,dx);
+				weapon.rotation = angle * 180 / Math.PI;
+			};
+		}
+
 		entity.active = true;
 		return entity;
 	};
 
-	api.createBullet = function createBullet() {
+	api.createBullet = function createBullet(group) {
 		var entity = this.availableObjects.getEntity();
 		entity.viewController = null;
 
-		var symbol = 'bullet';
-		entity.view = this.atlas.getDisplayObject(symbol);
+		entity.view = this.atlas.getDisplayObject(group);
 		entity.view.regX = 6;
 		entity.view.regY = 2;
 
 		entity.motion.av = 0;
 		entity.collider.active = true;
 		entity.collider.radius = 2;
-		entity.collider.group = 'bullet';
+		entity.collider.group = group;
 
 		entity.timeout.active = true;
 		entity.timeout.remainingTime = 2;
 
 		entity.state = 'bullet';
 		entity.active = true;
+		entity.rewardPoints = 0;
 		return entity;
 	};
 

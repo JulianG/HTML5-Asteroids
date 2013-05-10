@@ -8,6 +8,7 @@
 define(function () {
 
 	function SpaceshipState() {
+		this.entity = null;
 		this.thruster = false;
 		this.weapon = null;
 		this.thrusterSound = null;
@@ -15,19 +16,28 @@ define(function () {
 
 	var api = SpaceshipState.prototype;
 
+	api.handleAdded = function handleAdded(entity) {
+		this.entity = entity;
+	};
+
 	api.update = function update(dt) {
 		if (this.weapon && this.weapon.update) {
+			this.weapon.rotation = this.entity.position.rotation;
 			this.weapon.update(dt);
 		}
 
 		if (this.thrusterSound === null) this.thrusterSound = createjs.Sound.createInstance('thruster');
 
 		if (this.thruster && this.thrusterSound.playState == createjs.Sound.PLAY_FINISHED) {
-			this.thrusterSound.play('thruster', 'none', 0, 0, 100);
+			this.thrusterSound.play(createjs.Sound.INTERRUPT_NONE, 0, 0, 100);
 		}
 		if (!this.thruster && this.thrusterSound.playState !== createjs.Sound.PLAY_FINISHED) {
 			this.thrusterSound.stop();
 		}
+	};
+
+	api.handleRemoved = function handleRemoved(entity) {
+
 	};
 
 	return SpaceshipState;

@@ -36,16 +36,14 @@ define(function () {
 		this.ufoDelay = 10;
 		this.ufoFrequency = 10;
 
-		this.ufoMaxNumBullets = 1;
 		this.ufoBulletSpeed = 150;
 		this.ufoBulletReloadTime = 0.75;
-		this.ufoBulletLifespan = 2;
-
-		this.miniUFOCoolOffPeriod = 2;
+		this.miniUfoBulletReloadTime = 2.00;
+		//this.miniUFOCoolOffPeriod = 2;
 
 		this._asteroidRewards = [0, 100, 50, 20];
-		this.ufoReward = 500;
-		this.miniUFOReward = 1000;
+		this.bigUFOReward = 500;
+		this.smallUFOReward = 1000;
 	}
 
 	var api = Config.prototype;

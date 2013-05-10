@@ -29,6 +29,11 @@ define(function () {
 		this.av = 0;
 	};
 
+	api.reset = function reset(){
+		this.stop();
+		this.damping = 1;
+	};
+
 	api.getSpeed = function getSpeed() {
 		return Math.sqrt(this.vx * this.vx + this.vy * this.vy);
 	};

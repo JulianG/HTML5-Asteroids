@@ -18,7 +18,10 @@ define(function () {
 	var api = SoundPreloader.prototype;
 
 	api.init = function init(manifest) {
+		createjs.Sound.registerPlugins([createjs.WebAudioPlugin, createjs.HTMLAudioPlugin, createjs.FlashPlugin]);
+
 		var self = this;
+
 		var queue = new createjs.LoadQueue();
 		queue.installPlugin(createjs.Sound);
 		queue.addEventListener("complete", function () {
