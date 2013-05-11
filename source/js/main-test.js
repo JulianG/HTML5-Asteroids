@@ -22,11 +22,11 @@ requirejs(['tests/AtlasTest','lib/SoundPreloader'], function (AtlasTest, SoundPr
 
 	var path = './assets/audio/';
 	var sound_manifest = [
-		{id: "button", src: path + "button.mp3"},
-		{id: "explosion", src: path + "explosion.mp3"},
-		{id: "laser", src: path + "laser.mp3"},
-		{id: "thruster", src: path + "thruster.mp3"},
-		{id: "levelstart", src: path + "levelstart.mp3"},
+		{id: "button", src: path + "button.ogg"},
+		{id: "explosion", src: path + "explosion.ogg"},
+		{id: "laser", src: path + "laser.ogg"},
+		{id: "thruster", src: path + "thruster.ogg"},
+		{id: "levelstart", src: path + "levelstart.ogg"},
 		{id: "big-ufo", src: path + "big-ufo.ogg"},
 		{id: "small-ufo", src: path + "small-ufo.ogg"}
 	];

@@ -18,7 +18,10 @@ define(function () {
 	var api = SoundPreloader.prototype;
 
 	api.init = function init(manifest) {
-		createjs.Sound.registerPlugins([createjs.WebAudioPlugin, createjs.HTMLAudioPlugin, createjs.FlashPlugin]);
+
+		var cap = createjs.Sound.getCapabilities();
+		console.log("cap:");
+		console.log(cap);
 
 		var self = this;
 

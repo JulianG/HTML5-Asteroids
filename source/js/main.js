@@ -1,5 +1,5 @@
 requirejs.config({
-	//By default load any module IDs from js/lib
+	//By default load any module IDs from
 	//baseUrl: './lib',
 
 	//except, if the module ID starts with "app",
@@ -24,25 +24,51 @@ requirejs(['lib/easeljs/EaselJSAtlasLoader', 'lib/SoundPreloader', 'lib/KeyPoll'
 		var atlas_loader = new EaselJSAtlasLoader();
 
 		var path = './assets/audio/';
-		var sound_manifest = [
-			{id: "button", src: path + "button.mp3"},
-			{id: "explosion", src: path + "explosion.mp3"},
-			{id: "laser", src: path + "laser.mp3"},
-			{id: "thruster", src: path + "thruster.mp3"},
-			{id: "levelstart", src: path + "levelstart.mp3"},
-			{id: "big-ufo", src: path + "big-ufo.ogg"},
-			{id: "small-ufo", src: path + "small-ufo.ogg"}
-		];
 
 		atlas_loader.complete.add(function (atlas) {
 			console.log('Asteroids Main - graphics loaded');
-			console.log(atlas.data);
-			sound_loader.loaded.add(function () {
-				console.log('Asteroids Main - sounds loaded');
-				bdg.init('canvas', atlas, keypoll);
-			});
-			sound_loader.init(sound_manifest);
+			//console.log(atlas.data);
+			loadSounds(atlas);
 		});
 		atlas_loader.load('./assets/', 'asteroids.json');
+
+		function loadSounds(atlas) {
+			var sound_manifest = [];
+			createjs.FlashPlugin.BASE_PATH = "./libs/soundjs/";
+			createjs.Sound.registerPlugins([createjs.WebAudioPlugin, createjs.FlashPlugin, createjs.HTMLAudioPlugin]);
+			var cap = createjs.Sound.getCapabilities();
+
+			var ext = '';
+			if (cap.ogg) {
+				ext = ".ogg";
+			}else{
+				if (cap.mp3) {
+					ext = ".mp3";
+				}
+			}
+
+			sound_manifest = [
+				{id: "button", src: path + "button" + ext},
+				{id: "explosion", src: path + "explosion" + ext},
+				{id: "laser", src: path + "laser" + ext},
+				{id: "thruster", src: path + "thruster" + ext},
+				{id: "levelstart", src: path + "levelstart" + ext},
+				{id: "big-ufo", src: path + "big-ufo" + ext},
+				{id: "small-ufo", src: path + "small-ufo" + ext}
+			];
+			sound_loader.loaded.add(function () {
+				console.log('Asteroids Main - ALL sounds loaded');
+				bdg.init('canvas', atlas, keypoll);
+			});
+
+			if(ext=''){
+				console.log('Asteroids Main - not loading sounds');
+				bdg.init('canvas', atlas, keypoll);
+			}else{
+				console.log("Asteroids Main - loading " + sound_manifest.length + " sounds.");
+				sound_loader.init(sound_manifest);
+			}
+
+		}
 
 	});

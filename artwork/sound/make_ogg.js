@@ -38,11 +38,13 @@ for(var i=0; i<n; i++)
 
 function convertFile(src)
 {
-	var dst = src.replace('.wav','.mp3');
+	//var dst = src.replace('.wav','.mp3');
 	//var cmd = 'ffmpeg -y -i ' + src + ' ' + dst_path + dst;
+	
+	var dst = src.replace('.wav','.ogg');
 	var cmd = 'ffmpeg -i ' + src + ' -acodec libvorbis ' + dst_path + dst;
 	
-	//console.log(cmd);
+	console.log(cmd);
 	exec(cmd, function callback(error, stdout, stderr){
 		if(error==null)
 		{
