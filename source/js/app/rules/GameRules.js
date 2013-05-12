@@ -64,7 +64,7 @@ define(function () {
 				this._addAsteroidExplosion(passive_entity);
 				createjs.Sound.play('explosion');
 				//
-				this.pointsRewarded.dispatch(asteroid.rewardPoints);
+				this.pointsRewarded.dispatch(passive_entity.rewardPoints);
 			}
 			if (passive_entity.collider.group == 'ufo') {
 				this.board.removeEntity(passive_entity);
