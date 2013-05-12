@@ -37,8 +37,6 @@ define(['lib/easeljs/EaselJSAtlasLoader'], function (EaselJSAtlasLoader) {
 		console.log("drawing...");
 		console.log(atlas.getDisplayObjectList());
 
-
-		//var bmpa1 = null;
 		bmpa1 = atlas.getDisplayObject("ship-explosion");
 
 		bmpa1.regX = 45;
@@ -54,18 +52,6 @@ define(['lib/easeljs/EaselJSAtlasLoader'], function (EaselJSAtlasLoader) {
 		createjs.Ticker.addEventListener("tick", function (event) {
 			bmpa1.rotation++;
 		});
-		/*
-		 var bmpa = null;
-		 bmpa = atlas.getDisplayObject("diamond");
-		 bmpa.x = 32;
-
-		 this.stage.addChild(bmpa);
-
-		 var bmpa2 = null;
-		 bmpa2 = atlas.getDisplayObject("enemy");
-		 bmpa2.x = 64;
-		 this.stage.addChild(bmpa2);
-		 */
 		this.atlas = atlas;
 	};
 
