@@ -7,6 +7,10 @@
  */
 define(['app/entities/Entity'], function (Entity) {
 
+	/**
+	 * An ObjectPool for Entity instances.
+	 * @constructor
+	 */
 	function EntityPool() {
 		this.availableObjects = [];
 	}

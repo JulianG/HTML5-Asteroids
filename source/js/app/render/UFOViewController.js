@@ -3,10 +3,15 @@
  * User: julian
  * Date: 10/05/13
  * Time: 11:07
- * To change this template use File | Settings | File Templates.
  */
 define(function () {
 
+	/**
+	 * Controls a DisplayObject representing a UFO.
+	 * @param view
+	 * @param sound_id
+	 * @constructor
+	 */
 	function UFOViewController(view, sound_id) {
 		this.view = view;
 		this.sound = createjs.Sound.createInstance(sound_id);

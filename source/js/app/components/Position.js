@@ -2,11 +2,13 @@
  * Created with JetBrains WebStorm.
  * User: julian
  * Date: 08/05/13
- * Time: 15:38
- * To change this template use File | Settings | File Templates.
- */
+ * Time: 15:38 */
 define(function () {
 
+	/**
+	 * USed by RenderSystem, MotionSystem and probably others.
+	 * @constructor
+	 */
 	function Position() {
 		this.reset();
 	}

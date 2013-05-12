@@ -3,10 +3,15 @@
  * User: julian
  * Date: 08/05/13
  * Time: 14:09
- * To change this template use File | Settings | File Templates.
  */
 define(function () {
 
+	/**
+	 * Controls a DisplayObject displaying an animation for an exploding spaceship.
+	 * @param view
+	 * @param atlas
+	 * @constructor
+	 */
 	function ExplodingSpaceshipViewController(view, atlas) {
 		this.view = view;
 

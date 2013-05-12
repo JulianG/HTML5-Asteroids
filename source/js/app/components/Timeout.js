@@ -3,10 +3,13 @@
  * User: julian
  * Date: 08/05/13
  * Time: 16:15
- * To change this template use File | Settings | File Templates.
  */
 define(function () {
 
+	/**
+	 * Used by the TimeoutSystem
+	 * @constructor
+	 */
 	function Timeout() {
 		this.active = false;
 		this.remainingTime = 0;

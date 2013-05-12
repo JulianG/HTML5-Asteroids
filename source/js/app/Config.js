@@ -3,10 +3,13 @@
  * User: julian
  * Date: 08/05/13
  * Time: 12:30
- * To change this template use File | Settings | File Templates.
  */
 define(function () {
 
+	/**
+	 * Contains all the magic numbers.
+	 * @constructor
+	 */
 	function Config() {
 
 		this.initialLives = 3;
@@ -25,7 +28,6 @@ define(function () {
 		this.bulletLifespan = 1.15;
 		this.hyperspaceTime = 1000;
 
-		this.shipInitialLives = 3;
 		this.shipAcceleration = 150;
 		this.shipSteeringSpeed = 300;
 		this.shipMaxSpeed = 200;

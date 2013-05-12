@@ -3,10 +3,14 @@
  * User: julian
  * Date: 08/05/13
  * Time: 14:09
- * To change this template use File | Settings | File Templates.
  */
 define(function () {
 
+	/**
+	 * Controls a DisplayObject representing the player's spaceship.
+	 * @param view
+	 * @constructor
+	 */
 	function SpaceshipViewController(view) {
 		this.view = view;
 		this.thruster = view.getChildByName('thruster');

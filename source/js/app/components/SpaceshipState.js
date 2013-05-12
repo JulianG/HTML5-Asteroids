@@ -3,10 +3,13 @@
  * User: julian
  * Date: 08/05/13
  * Time: 18:42
- * To change this template use File | Settings | File Templates.
  */
 define(function () {
 
+	/**
+	 * Used by the StateSystem
+	 * @constructor
+	 */
 	function SpaceshipState() {
 		this.entity = null;
 		this.thruster = false;

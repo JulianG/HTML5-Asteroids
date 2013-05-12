@@ -7,7 +7,11 @@
 define(function () {
 
 	/**
-	 * 
+	 * This object works as a referee.
+	 * It decides what happens when two entities collide.
+	 * It decides when to spawn a new UFO, and which type.
+	 * It dispatches signals when points are rewarded, when the level is completed or the ship is killed.
+	 *
 	 * @param config
 	 * @param board
 	 * @param ship
@@ -55,21 +59,19 @@ define(function () {
 
 		if (passive_entity) {
 			if (passive_entity.collider.group == 'asteroid') {
-				var asteroid = passive_entity;
-				this.board.removeEntity(asteroid);
-				this._breakAsteroid(asteroid);
-				this._addAsteroidExplosion(asteroid);
+				this.board.removeEntity(passive_entity);
+				this._breakAsteroid(passive_entity);
+				this._addAsteroidExplosion(passive_entity);
 				createjs.Sound.play('explosion');
 				//
 				this.pointsRewarded.dispatch(asteroid.rewardPoints);
 			}
 			if (passive_entity.collider.group == 'ufo') {
-				var ufo = passive_entity;
-				this.board.removeEntity(ufo);
-				this._addUFOExplosion(ufo);
+				this.board.removeEntity(passive_entity);
+				this._addUFOExplosion(passive_entity);
 				createjs.Sound.play('explosion');
 				//
-				this.pointsRewarded.dispatch(ufo.rewardPoints);
+				this.pointsRewarded.dispatch(passive_entity.rewardPoints);
 			}
 		}
 
@@ -141,8 +143,7 @@ define(function () {
 
 	api._addUFO = function _addUFO() {
 		console.log('adding ufo');
-		var ufo = null;
-		ufo = this.factory.createUFO(this.board, (this._countAsteroids()>=2), this.ship);
+		var ufo = this.factory.createUFO(this.board, (this._countAsteroids()>=2), this.ship);
 		ufo.motion.vx = (Math.random() > 0.5) ? this.config.ufoSpeed : -this.config.ufoSpeed;
 		ufo.motion.vy = this.config.ufoSpeed / 5 + (Math.random() * this.config.ufoSpeed / 10);
 		ufo.position.x = (ufo.motion.vx > 0) ? ufo.state.leftLimit : ufo.state.rightLimit;

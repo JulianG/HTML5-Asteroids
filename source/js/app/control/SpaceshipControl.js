@@ -3,10 +3,15 @@
  * User: julian
  * Date: 26/02/13
  * Time: 10:41
- * To change this template use File | Settings | File Templates.
  */
 define(['lib/KeyPoll'], function (KeyPoll) {
 
+	/**
+	 * Uses a KeyPoll object to control the players spaceship based on keyboard input.
+	 * @param config
+	 * @param keypoll
+	 * @constructor
+	 */
 	function SpaceshipControl(config, keypoll) {
 		this.config = config;
 		this.keypoll = keypoll;
@@ -27,14 +32,13 @@ define(['lib/KeyPoll'], function (KeyPoll) {
 			if (this.keypoll.isDown(KeyPoll.LEFT)) steering = -this.config.shipSteeringSpeed;
 			if (this.keypoll.isDown(KeyPoll.RIGHT)) steering = this.config.shipSteeringSpeed;
 
-			if(entity.state.weapon){
+			if (entity.state.weapon) {
 				if (this.keypoll.isDown(KeyPoll.FIRE)) fire = true;
 				if (this.keypoll.isDown(KeyPoll.FIRE1)) fire = true;
 				if (this.keypoll.isDown(KeyPoll.FIRE2)) fire = true;
 
 				entity.state.weapon.triggerDown = fire;
 			}
-
 
 			entity.motion.av = steering;
 

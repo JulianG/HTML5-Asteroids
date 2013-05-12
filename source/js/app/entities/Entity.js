@@ -3,10 +3,15 @@
  * User: julian
  * Date: 08/05/13
  * Time: 10:31
- * To change this template use File | Settings | File Templates.
  */
 define(['app/components/Position', 'app/components/Motion', 'app/components/Collider', 'app/components/Timeout'], function (Position, Motion, Collider, Timeout) {
 
+	/**
+	 * Every "actor" in the game is an Entity.
+	 * Entities contain different components that are handled by different systems. See the systems directory.
+	 *
+	 * @constructor
+	 */
 	function Entity() {
 		this.position = new Position();
 		this.collider = new Collider();
@@ -17,7 +22,7 @@ define(['app/components/Position', 'app/components/Motion', 'app/components/Coll
 
 	var api = Entity.prototype;
 
-	api.reset = function reset(){
+	api.reset = function reset() {
 		this.active = true;
 		this.state = '';
 		this.control = null;

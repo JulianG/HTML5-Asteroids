@@ -3,10 +3,13 @@
  * User: julian
  * Date: 09/05/13
  * Time: 08:38
- * Preloads sound effects. To play them back use createjs.Sound.play(id);
  */
 define(function () {
 
+	/**
+	 * Preloads sound effects. To play them back use createjs.Sound.play(id);
+	 * @constructor
+	 */
 	function SoundPreloader() {
 		this.loaded = new signals.Signal();
 	}

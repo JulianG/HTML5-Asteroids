@@ -3,10 +3,14 @@
  * User: julian
  * Date: 08/05/13
  * Time: 11:55
- * To change this template use File | Settings | File Templates.
  */
 define(function () {
 
+	/**
+	 * This class builds a level by providing an Array of Asteroid entities (buildLevel method).
+	 * @param factory
+	 * @constructor
+	 */
 	function LevelGenerator(factory) {
 		this.factory = factory;
 	}
@@ -41,7 +45,7 @@ define(function () {
 		}
 		asteroid.motion.vx = speed * Math.cos(angle);
 		asteroid.motion.vy = speed * Math.sin(angle);
-		asteroid.motion.av = (Math.random()>0.5)? av : -av ;
+		asteroid.motion.av = (Math.random() > 0.5) ? av : -av;
 
 		return asteroid;
 	};

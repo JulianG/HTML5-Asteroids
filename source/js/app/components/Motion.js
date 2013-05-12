@@ -3,10 +3,13 @@
  * User: julian
  * Date: 08/05/13
  * Time: 15:38
- * To change this template use File | Settings | File Templates.
  */
 define(function () {
 
+	/**
+	 * USed by MotionSystem and probably others.
+	 * @constructor
+	 */
 	function Motion() {
 		this.vx = 0;
 		this.vy = 0;
@@ -29,7 +32,7 @@ define(function () {
 		this.av = 0;
 	};
 
-	api.reset = function reset(){
+	api.reset = function reset() {
 		this.stop();
 		this.damping = 1;
 	};

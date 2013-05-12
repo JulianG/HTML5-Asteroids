@@ -9,6 +9,15 @@ define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipView
 	'app/components/SpaceshipState',
 	'app/components/UFOState', 'app/components/Gun'], function (SpaceshipViewController, ExplodingSpaceshipViewController, UFOViewController, SpaceshipState, UFOState, Gun) {
 
+	/**
+	 * This object creates and configures entities by picking one from the object pool, and then confguring it to represent different game actors:
+	 * Ship, Asteroid, UFO, etc.
+	 *
+	 * @param atlas
+	 * @param pool
+	 * @param config
+	 * @constructor
+	 */
 	function EntityFactory(atlas, pool, config) {
 		this.config = config;
 		this.atlas = atlas;
@@ -134,7 +143,7 @@ define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipView
 			entity.view.regY = 25;
 			entity.rewardPoints = this.config.bigUFOReward;
 			//
-			entity.state.aim = function aim(weapon){
+			entity.state.aim = function aim(weapon) {
 				weapon.rotation = Math.random() * 360;
 			};
 		} else {
@@ -148,10 +157,10 @@ define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipView
 			entity.view.regY = 15;
 			entity.rewardPoints = this.config.smallUFOReward;
 			//
-			entity.state.aim = function aim(weapon){
+			entity.state.aim = function aim(weapon) {
 				var dx = target.position.x - weapon.holder.position.x;
 				var dy = target.position.y - weapon.holder.position.y;
-				var angle = Math.atan2(dy,dx);
+				var angle = Math.atan2(dy, dx);
 				weapon.rotation = angle * 180 / Math.PI;
 			};
 		}

@@ -3,10 +3,17 @@
  * User: julian
  * Date: 08/05/13
  * Time: 22:28
- * To change this template use File | Settings | File Templates.
  */
 define(function () {
 
+	/**
+	 * Used by SpaceShip and UFOs.
+	 * @param board
+	 * @param holder
+	 * @param bullet_group
+	 * @param factory
+	 * @constructor
+	 */
 	function Gun(board, holder, bullet_group, factory) {
 		this.board = board;
 		this.holder = holder;
@@ -40,7 +47,6 @@ define(function () {
 	api._getBullet = function _getBullet() {
 
 		var bullet = this.factory.createBullet(this.bulletGroup);
-		//bullet.reset();
 		bullet.position.rotation = this.rotation;
 		var angle = bullet.position.rotation * Math.PI / 180;
 		var cos = Math.cos(angle);
@@ -56,7 +62,6 @@ define(function () {
 	api.isIdle = function isIdle() {
 		return this.holder && this.elapsed > this.reloadTime;
 	};
-
 
 	return Gun;
 });

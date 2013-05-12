@@ -3,10 +3,14 @@
  * User: julian
  * Date: 10/05/13
  * Time: 09:13
- * To change this template use File | Settings | File Templates.
  */
 define(function () {
 
+	/**
+	 * Used by the StateSystem. This object controls the behaviour of UFOs big and small.
+	 * @param board
+	 * @constructor
+	 */
 	function UFOState(board) {
 		this.board = board;
 		this.entity = null;
@@ -41,7 +45,6 @@ define(function () {
 		if (this.entity.position.x <= this.leftLimit && this.entity.motion.vx < 0) {
 			this.board.removeEntity(this.entity);
 		}
-
 	};
 
 	api.handleRemoved = function handleRemoved(entity) {
