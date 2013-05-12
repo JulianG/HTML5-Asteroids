@@ -3,10 +3,19 @@
  * User: julian
  * Date: 08/05/13
  * Time: 11:34
- * To change this template use File | Settings | File Templates.
  */
 define(function () {
 
+	/**
+	 * This object performs a very basic kinematics calculations.
+	 * The position.x and position.y is updated according to the motion.vx and motion.vy
+	 * So only entities containing both a position and a motion component are affected.
+	 *
+	 * Oh, there's also damping but that's not been resolved very well.
+	 *
+	 * @param board
+	 * @constructor
+	 */
 	function MotionSystem(board) {
 		this.board = board;
 	}

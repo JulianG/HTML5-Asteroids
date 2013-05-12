@@ -3,10 +3,14 @@
  * User: julian
  * Date: 25/02/13
  * Time: 17:04
- * To change this template use File | Settings | File Templates.
  */
 define(function () {
 
+	/**
+	 * Well this one is very simple. It calls the update method on the control component of each entity that has a control component.
+	 * @param board
+	 * @constructor
+	 */
 	function ControlSystem(board) {
 		this.board = board;
 	}
@@ -14,8 +18,6 @@ define(function () {
 	var api = ControlSystem.prototype;
 
 	api.update = function update(dt) {
-		//console.log('ControlSystem.processInput...' );
-
 		var n = this.board.entities.length;
 		for (var i = 0; i < n; i++) {
 			var entity = this.board.entities[i];

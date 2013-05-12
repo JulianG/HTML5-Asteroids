@@ -4,6 +4,13 @@
  */
 define(function () {
 
+	/**
+	 * This object keeps a list of Systems (any object with an update method).
+	 * When the update method is called, it calls each system's update method.
+	 * That's all.
+	 *
+	 * @constructor
+	 */
 	function GameLoop() {
 		this.systems = [];
 	}

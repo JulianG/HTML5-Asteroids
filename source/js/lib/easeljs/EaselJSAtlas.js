@@ -3,10 +3,13 @@
  * User: julian
  * Date: 09/03/13
  * Time: 15:26
- * To change this template use File | Settings | File Templates.
  */
 define(['lib/easeljs/DisplayObjectPool'], function (DisplayObjectPool) {
 
+	/**
+	 * Provides methods to access all the sprites and animations in the atlas.
+	 * @constructor
+	 */
 	function EaselJSAtlas() {
 		this.completed = new signals.Signal();
 		this.spriteSheet = null;

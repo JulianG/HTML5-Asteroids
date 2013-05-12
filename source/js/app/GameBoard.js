@@ -4,6 +4,15 @@
  */
 define(function () {
 
+	/**
+	 * Keeps a list of entities.
+	 * It also keeps a queue of entities to be removed and entities to be added, and it processes these queues in its update method.
+	 * Most systems use the .entities property to affect all or some of the entities in the Board.
+	 * @param width
+	 * @param height
+	 * @param wrap_margin
+	 * @constructor
+	 */
 	function GameBoard(width, height, wrap_margin) {
 
 		this.entityRemoved = new signals.Signal();

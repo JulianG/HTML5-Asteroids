@@ -3,14 +3,10 @@
  * User: julian
  * Date: 09/05/13
  * Time: 08:38
- * To change this template use File | Settings | File Templates.
+ * Preloads sound effects. To play them back use createjs.Sound.play(id);
  */
 define(function () {
 
-	/**
-	 * Preloads sound effects. To play them back use createjs.Sound.play(id);
-	 * @constructor
-	 */
 	function SoundPreloader() {
 		this.loaded = new signals.Signal();
 	}
@@ -18,13 +14,7 @@ define(function () {
 	var api = SoundPreloader.prototype;
 
 	api.init = function init(manifest) {
-
-		var cap = createjs.Sound.getCapabilities();
-		console.log("cap:");
-		console.log(cap);
-
 		var self = this;
-
 		var queue = new createjs.LoadQueue();
 		queue.installPlugin(createjs.Sound);
 		queue.addEventListener("complete", function () {

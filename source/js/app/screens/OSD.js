@@ -3,7 +3,6 @@
  * User: julian
  * Date: 09/05/13
  * Time: 13:34
- * To change this template use File | Settings | File Templates.
  */
 define(function () {
 
@@ -12,7 +11,6 @@ define(function () {
 
 		this.txtPoints = new createjs.Text("", "18px Ubuntu", "#ffffff");
 		this.txtPoints.textAlign = 'left';
-		//this.txtPoints.textBaseline = "alphabetic";
 		this.txtPoints.x = 10;
 		this.txtPoints.y = 10;
 

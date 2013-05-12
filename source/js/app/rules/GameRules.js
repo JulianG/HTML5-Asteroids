@@ -3,10 +3,18 @@
  * User: julian
  * Date: 08/05/13
  * Time: 15:28
- * To change this template use File | Settings | File Templates.
  */
 define(function () {
 
+	/**
+	 * 
+	 * @param config
+	 * @param board
+	 * @param ship
+	 * @param exploding_ship
+	 * @param factory
+	 * @constructor
+	 */
 	function GameRules(config, board, ship, exploding_ship, factory) {
 		this.config = config;
 		this.pointsRewarded = new signals.Signal();

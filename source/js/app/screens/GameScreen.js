@@ -10,7 +10,20 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 	'app/entities/EntityPool', 'app/entities/EntityFactory', 'app/LevelGenerator', 'app/control/SpaceshipControl', 'app/screens/OSD'],
 	function (KeyPoll, Config, GameLoop, GameBoard, StateSystem, ControlSystem, MotionSystem, SpaceSystem, GameRules, CollisionSystem, TimeoutSystem, RenderSystem, EntityPool, EntityFactory, LevelGenerator, SpaceshipControl, OSD) {
 
-
+		/**
+		 * You can tell by the number of dependencies that this class is perhaps doing too much.
+		 *
+		 * It instantiates every system in the entity-system, and the GameLoop.
+		 * It instantiates the player's Ship
+		 * It keeps track of the currentLevel, and the player's score and lives
+		 * It also instantiates an on-screen-display and call updates on it.
+		 *
+		 * Fortunately, generating levels is delegated to a specific class "LevelGenerator".
+		 *
+		 * @param atlas
+		 * @param keypoll
+		 * @constructor
+		 */
 		function GameScreen(atlas, keypoll) {
 			this.gameFinished = new signals.Signal();
 			//
@@ -47,6 +60,7 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 
 			var board = new GameBoard(config.spaceWidth, config.spaceHeight, config.spaceWrapMargin);
 			this.board = board;
+
 			var state = new StateSystem(board);
 			var input = new ControlSystem(board);
 			var motion = new MotionSystem(board);
@@ -156,8 +170,10 @@ define(['lib/KeyPoll', 'app/Config', 'app/GameLoop', 'app/GameBoard', 'app/syste
 			var n = this.board.entities.length;
 			for (var i = 0; i < n; i++) {
 				var entity = this.board.entities[i];
-				if (entity && entity.collider && entity.collider.group == 'asteroid') {
-					this.board.removeEntity(entity);
+				if (entity && entity.collider) {
+					if (entity.collider.group == 'asteroid' || entity.collider.group == 'ufo') {
+						this.board.removeEntity(entity);
+					}
 				}
 			}
 		};

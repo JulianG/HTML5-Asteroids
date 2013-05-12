@@ -3,10 +3,15 @@
  * User: julian
  * Date: 08/05/13
  * Time: 18:49
- * To change this template use File | Settings | File Templates.
  */
 define(function () {
 
+	/**
+	 * This object simply takes care of wrapping the space, so that entities appear on the other side of the screen when they leave.
+	 *
+	 * @param board
+	 * @constructor
+	 */
 	function SpaceSystem(board) {
 		this.board = board;
 	}

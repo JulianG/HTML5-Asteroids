@@ -3,10 +3,13 @@
  * User: julian
  * Date: 12/03/13
  * Time: 09:21
- * To change this template use File | Settings | File Templates.
  */
 define(function () {
 
+	/**
+	 * Provides object-pooling for EaselJS DisplayObject instances.
+	 * @constructor
+	 */
 	function DisplayObjectPool() {
 		this.availableObjects = [];
 	}
@@ -34,7 +37,7 @@ define(function () {
 		this.availableObjects.push(obj);
 	};
 
-	api.instantiate = function instantiate(){
+	api.instantiate = function instantiate() {
 		return null;
 	};
 

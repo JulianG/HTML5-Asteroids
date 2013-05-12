@@ -3,10 +3,13 @@
  * User: julian
  * Date: 05/04/13
  * Time: 18:20
- * To change this template use File | Settings | File Templates.
  */
 define(['lib/loadJSON', 'lib/easeljs/EaselJSAtlas'], function (loadJSON, EaselJSAtlas) {
 
+	/**
+	 * Loads and parses a json atlas and then returns an instance of EaselJSAtlas.
+	 * @constructor
+	 */
 	function EaselJSAtlasLoader() {
 		this.complete = new signals.Signal();
 		this.atlas = null;

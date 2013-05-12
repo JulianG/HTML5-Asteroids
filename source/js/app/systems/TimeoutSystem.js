@@ -3,10 +3,16 @@
  * User: julian
  * Date: 08/05/13
  * Time: 16:13
- * To change this template use File | Settings | File Templates.
  */
 define(function () {
 
+	/**
+	 * This is used by entities that must be removed from the board after a certain time.
+	 * (Explosions, bullets, and things like that use a timeout component)
+	 *
+	 * @param board
+	 * @constructor
+	 */
 	function TimeoutSystem(board) {
 		this.board = board;
 	}

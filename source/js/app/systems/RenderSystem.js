@@ -3,10 +3,18 @@
  * User: julian
  * Date: 25/02/13
  * Time: 16:56
- * To change this template use File | Settings | File Templates.
  */
 define(function () {
 
+	/**
+	 * It renders all entities that cointain a "view" component.
+	 * It also removes them from the container when they're removed from the board.
+	 * On update, it -of course- updates their position and rotation.
+	 *
+	 * @param container
+	 * @param board
+	 * @constructor
+	 */
 	function RenderSystem(container, board) {
 		this.container = container;
 		this.board = board;

@@ -1,9 +1,14 @@
 /**
- * GameBoard
  * @author Julian
  */
 define([], function () {
 
+		/**
+		 * Checks collisions between entities in the game board. But only those with a collider component.
+		 *
+		 * @param board
+		 * @constructor
+		 */
 		function CollisionSystem(board) {
 			this.board = board;
 			this.collisionDetected = new signals.Signal();

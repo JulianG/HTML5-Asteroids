@@ -3,10 +3,16 @@
  * User: julian
  * Date: 08/05/13
  * Time: 21:54
- * To change this template use File | Settings | File Templates.
  */
 define(function () {
 
+	/**
+	 * This is a generic system that can be used for almost anything.
+	 * (It is used by UFOs and the Ship to keep their weapons and other stuff. but this class isn't aware of that, of course)
+	 *
+	 * @param board
+	 * @constructor
+	 */
 	function StateSystem(board) {
 		this.board = board;
 

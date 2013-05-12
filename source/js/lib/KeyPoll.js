@@ -1,8 +1,4 @@
 /**
- * Created with JetBrains WebStorm.
- * User: julian
- * Date: 26/02/13
- * Time: 11:11
  * Based on @brejep 's KeyPoll script.
  */
 define(function () {

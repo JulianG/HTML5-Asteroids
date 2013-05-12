@@ -3,11 +3,18 @@
  * User: julian
  * Date: 01/03/13
  * Time: 16:44
- * To change this template use File | Settings | File Templates.
  */
 define(['app/screens/MainMenu', 'app/screens/GameScreen'],
 	function (MainMenu, GameScreen) {
 
+		/**
+		 * Instantiates the GameScreen and the MenuScreen.
+		 * MenuScreen is then placed on top of the GameScreen.
+		 *
+		 * This object handles the start and restart of games.
+		 *
+		 * @constructor
+		 */
 		function AsteroidsGame() {
 			this.stage = null;
 			this.gameScreen = null;
@@ -32,8 +39,6 @@ define(['app/screens/MainMenu', 'app/screens/GameScreen'],
 			});
 			this.stage.addChild(this.gameScreen.view);
 			this.stage.addChild(this.menuScreen.view);
-			//
-			//this.stage.setChildIndex(this.gameScreen.view,1);
 			//
 			this.gameScreen.startDemo();
 		};
