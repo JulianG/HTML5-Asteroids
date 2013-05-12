@@ -10,7 +10,11 @@ I'm using [TexturePacker](http://www.codeandweb.com/texturepacker) for my sprite
 
 ![HTML5 Asteroids](https://lh6.googleusercontent.com/-kf04XitGt-A/UY31cZEUNsI/AAAAAAAAW-M/e3LSC5SO8yc/w800-h480-no/html5asteroids-00.png)
 
-## How to Build ##
+## Play online ##
+
+You can play HTML5 Asteroids [here](http://tubamuga.com/demos/html5/asteroids/).
+
+## How to Build/Optimize ##
 
 I'm not sure. I think it's like this:
 
@@ -25,10 +29,8 @@ I'm not sure. I think it's like this:
 
 The deployment files will be copied to the **build** directory.
 
+## License ##
 
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_GB"><img alt="Creative Commons Licence" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png"/></a>
 
-
-
-
-
-
+HTML5 Asteroids by [Julian Garamendy](http://tubamuga.com/demos/julian/) is licensed under a [Creative Commons Attribution-ShareAlike 3.0 Unported License](http://creativecommons.org/licenses/by-sa/3.0/deed.en_GB).
