@@ -16,6 +16,8 @@ define(function () {
 	 * @constructor
 	 */
 	function RenderSystem(container, board) {
+		this.entityRemoved = new signals.Signal();
+
 		this.container = container;
 		this.board = board;
 		//
@@ -73,6 +75,7 @@ define(function () {
 		if (entity.view) {
 			if (this.container.contains(entity.view)) {
 				this.container.removeChild(entity.view);
+				this.entityRemoved.dispatch(entity);
 			}
 		}
 		if (entity.viewController) entity.viewController.handleRemoved(entity);

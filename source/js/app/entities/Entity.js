@@ -13,6 +13,8 @@ define(['app/components/Position', 'app/components/Motion', 'app/components/Coll
 	 * @constructor
 	 */
 	function Entity() {
+		this.removed = new signals.Signal();
+
 		this.position = new Position();
 		this.collider = new Collider();
 		this.motion = new Motion();
@@ -33,6 +35,8 @@ define(['app/components/Position', 'app/components/Motion', 'app/components/Coll
 		this.collider.reset();
 		this.motion.reset();
 		this.timeout.reset();
+		//
+		this.removed.removeAll();
 	};
 
 	return Entity;

@@ -51,6 +51,7 @@ define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipView
 		entity.timeout.active = false;
 		entity.timeout.remainingTime = 0;
 		entity.rewardPoints = 0;
+
 		return entity;
 	};
 
@@ -118,6 +119,7 @@ define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipView
 		entity.timeout.remainingTime = 0.233;
 
 		entity.rewardPoints = 0;
+
 		return entity;
 	};
 
@@ -165,7 +167,6 @@ define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipView
 			};
 		}
 
-		entity.active = true;
 		return entity;
 	};
 
@@ -188,6 +189,7 @@ define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipView
 		entity.state = 'bullet';
 		entity.active = true;
 		entity.rewardPoints = 0;
+
 		return entity;
 	};
 

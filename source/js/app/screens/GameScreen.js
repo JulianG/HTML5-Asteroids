@@ -55,6 +55,7 @@ define(['lib/KeyPoll', 'app/Config', 'app/systems/GameLoop', 'app/systems/GameBo
 		var api = GameScreen.prototype;
 
 		api.init = function init() {
+			var self = this;
 			var config = new Config();
 			this.config = config;
 
@@ -69,6 +70,10 @@ define(['lib/KeyPoll', 'app/Config', 'app/systems/GameLoop', 'app/systems/GameBo
 			var timeout = new TimeoutSystem(board);
 			var render = new RenderSystem(this.container, board);
 
+			render.entityRemoved.add(function (entity) {
+				self.atlas.disposeDisplayObject(entity.view);
+			});
+
 			var factory = new EntityFactory(this.atlas, new EntityPool(), config);
 			this.levelGenerator = new LevelGenerator(factory);
 
@@ -78,7 +83,7 @@ define(['lib/KeyPoll', 'app/Config', 'app/systems/GameLoop', 'app/systems/GameBo
 			collisions.collisionDetected.add(function (active, passive) {
 				game_rules.handleCollision(active, passive);
 			});
-			var self = this;
+
 			game_rules.shipDestroyed.add(function () {
 				self._handleLifeLost();
 			});

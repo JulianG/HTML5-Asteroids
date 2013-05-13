@@ -18,20 +18,26 @@ define(['app/entities/Entity'], function (Entity) {
 	var api = EntityPool.prototype;
 
 	api.getEntity = function getEntity() {
-		var obj = null;
+		var entity = null;
 		if (this.availableObjects.length > 0) {
-			obj = this.availableObjects.pop();
+			entity = this.availableObjects.pop();
 		} else {
-			obj = this.instantiate();
+			entity = this.instantiate();
 		}
-		return obj;
+		entity.reset();
+		var self = this;
+		entity.removed.add(function () {
+			self.disposeEntity(entity);
+			entity.removed.removeAll();
+		});
+		return entity;
 	};
 
 	api.disposeEntity = function returnEntity(entity) {
 		this.availableObjects.push(entity);
 	};
 
-	api.instantiate = function instantiate(){
+	api.instantiate = function instantiate() {
 		return new Entity();
 	};
 
