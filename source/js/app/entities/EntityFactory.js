@@ -88,7 +88,7 @@ define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipView
 
 		entity.motion.av = 0;
 		entity.collider.active = false;
-		entity.collider.radius = scale * 3 * 22 / 2;
+		entity.collider.radius = scale * 42;
 		entity.collider.group = 'asteroid';
 
 		entity.timeout.active = false;
@@ -128,7 +128,7 @@ define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipView
 
 		entity.motion.av = 0;
 		entity.collider.active = false;
-		entity.collider.radius = 25;
+		entity.collider.radius = (big)? 20: 12;
 		entity.collider.group = 'ufo';
 
 		entity.timeout.active = false;
