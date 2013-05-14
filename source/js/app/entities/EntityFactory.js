@@ -58,7 +58,8 @@ define(['app/entities/Entity','app/render/SpaceshipViewController', 'app/render/
 	};
 
 	api.createExplodingShip = function createExplodingShip() {
-		var entity = this.availableObjects.getEntity();
+		// We don't use the object pool for the spaceship explosion either.
+		var entity = new Entity();
 
 		var view = new createjs.Container();
 		entity.viewController = new ExplodingSpaceshipViewController(view, this.atlas);
