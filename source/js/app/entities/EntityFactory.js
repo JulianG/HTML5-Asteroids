@@ -5,9 +5,9 @@
  * Time: 10:34
  */
 
-define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipViewController', 'app/render/UFOViewController',
+define(['app/entities/Entity','app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipViewController', 'app/render/UFOViewController',
 	'app/components/SpaceshipState',
-	'app/components/UFOState', 'app/components/Gun'], function (SpaceshipViewController, ExplodingSpaceshipViewController, UFOViewController, SpaceshipState, UFOState, Gun) {
+	'app/components/UFOState', 'app/components/Gun'], function (Entity, SpaceshipViewController, ExplodingSpaceshipViewController, UFOViewController, SpaceshipState, UFOState, Gun) {
 
 	/**
 	 * This object creates and configures entities by picking one from the object pool, and then confguring it to represent different game actors:
@@ -28,7 +28,9 @@ define(['app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipView
 	var api = EntityFactory.prototype;
 
 	api.createShip = function createShip(board) {
-		var entity = this.availableObjects.getEntity();
+		// We don't use the object pool for the spaceship because we only build one per session.
+		// and we don't want it returned to the pool when it's removed from the board.
+		var entity = new Entity();
 
 		var view = new createjs.Container();
 		var ship_body = this.atlas.getDisplayObject('spaceship');

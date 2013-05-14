@@ -40,7 +40,6 @@ define(function () {
 	};
 
 	api.handleRemoved = function handleRemoved(entity) {
-
 	};
 
 	return SpaceshipState;

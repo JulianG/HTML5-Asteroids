@@ -63,7 +63,7 @@ define(function () {
 			var entity = this._trash[i];
 			var index = this.entities.indexOf(entity);
 			if (index >= 0) this.entities.splice(index, 1);
-			entity.removed.dispatch();
+			entity.disposed.dispatch();
 		}
 		for (i = 0; i < n; i++) this._trash.pop();
 	};

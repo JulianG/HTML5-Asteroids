@@ -28,7 +28,7 @@ define(function () {
 	var api = StateSystem.prototype;
 
 	api.add = function add(entity){
-			if(entity && entity.active && entity.state && entity.state.handleAdded) entity.state.handleAdded(entity);
+			if(entity && entity.state && entity.state.handleAdded) entity.state.handleAdded(entity);
 	};
 
 	api.update = function update(dt) {
@@ -38,7 +38,7 @@ define(function () {
 	};
 
 	api.remove = function remove(entity){
-			if(entity && entity.active && entity.state && entity.state.handleRemoved) entity.state.handleRemoved(entity);
+			if(entity && entity.state && entity.state.handleRemoved) entity.state.handleRemoved(entity);
 	};
 
 	return StateSystem;

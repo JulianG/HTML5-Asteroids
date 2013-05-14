@@ -21,14 +21,15 @@ define(['app/entities/Entity'], function (Entity) {
 		var entity = null;
 		if (this.availableObjects.length > 0) {
 			entity = this.availableObjects.pop();
+			entity.reset();
 		} else {
 			entity = this.instantiate();
 		}
-		entity.reset();
+
 		var self = this;
-		entity.removed.add(function () {
+		entity.disposed.add(function () {
+			entity.disposed.removeAll();
 			self.disposeEntity(entity);
-			entity.removed.removeAll();
 		});
 		return entity;
 	};
