@@ -150,6 +150,7 @@
             <filename>spaceship</filename>
             <filename>ufos</filename>
             <filename>ui</filename>
+            <filename>social</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

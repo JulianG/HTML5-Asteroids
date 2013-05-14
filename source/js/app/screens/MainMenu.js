@@ -4,7 +4,7 @@
  * Date: 09/05/13
  * Time: 11:25
  */
-define(function () {
+define(['lib/easeljs/useHandCursor'], function (useHandCursor) {
 
 	function MainMenu(atlas) {
 		this.startGameRequested = new signals.Signal();
@@ -46,6 +46,7 @@ define(function () {
 		this.playBtn.x = (800 - 123) / 2;
 		this.playBtn.y = 260;
 		var signal = this.startGameRequested;
+		useHandCursor(this.playBtn);
 		this.playBtn.onPress = function (mouseEvent) {
 			createjs.Sound.play('button');
 			signal.dispatch();
