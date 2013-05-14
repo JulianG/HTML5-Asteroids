@@ -32,19 +32,19 @@ define(['lib/easeljs/useHandCursor','lib/SocialSharing'], function (useHandCurso
 		this.view.addChild(share);
 
 		var twitter_logo = this.atlas.getDisplayObject('twitter-logo');
-		twitter_logo.x = 330;
+		twitter_logo.x = 330 + 25;
 		twitter_logo.y = 290;
 		this.view.addChild(twitter_logo);
 
 		var fb_logo = this.atlas.getDisplayObject('fb-logo');
-		fb_logo.x = 380;
+		fb_logo.x = 380 + 25;
 		fb_logo.y = 290;
 		this.view.addChild(fb_logo);
 
 		var gplus_logo = this.atlas.getDisplayObject('gplus-logo');
 		gplus_logo.x = 430;
 		gplus_logo.y = 290;
-		this.view.addChild(gplus_logo);
+		//this.view.addChild(gplus_logo);
 
 		var back_btn = this.atlas.getDisplayObject('btn-background');
 		back_btn.x = 330;

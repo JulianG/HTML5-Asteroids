@@ -46,6 +46,7 @@ define(['app/screens/MainMenu', 'app/screens/GameScreen', 'app/screens/GameOverS
 			//
 			this.gameScreen.startDemo();
 			this.showMenu();
+			//this.showGameOver(1000);
 		};
 
 		api.startGame = function startGame() {

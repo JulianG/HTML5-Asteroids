@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="shortcut icon" href="asteroids.ico" type="image/x-icon"/>
+	<title>Asteroids - HTML5</title>
+	<script src="libs/signals.min.js"></script>
+	<script src="libs/easeljs-0.6.0.min.js"></script>
+	<script src="libs/tweenjs-0.4.0.min.js"></script>
+	<script src="libs/soundjs-0.4.0.min.js"></script>
+	<script src="libs/soundjs.flashplugin-0.4.0.min.js"></script>
+	<script src="libs/preloadjs-0.3.0.min.js"></script>
+	<link href='http://fonts.googleapis.com/css?family=Ubuntu' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Ubuntu+Condensed' rel='stylesheet' type='text/css'>
+	<script>
+		if (typeof console === "undefined" || typeof console.log === "undefined") {
+			console = {log: function () {
+			}};
+		}
+	</script>
+	<!-- data-main attribute tells require.js to load
+			 scripts/main.js after require.js loads. -->
+	<script data-main="js/main" src="libs/require.js"></script>
+	<style>
+		body {
+			background-color: #000000;
+			text-align: center;
+			color: #ffffff;
+			font-family: Ubuntu;
+			font-size: 12px;
+		}
+
+		p {
+			display: inline;
+			padding-left: 710px;
+			font-size: 12px;
+		}
+
+		a {
+			color: #ffffff;
+		}
+
+		#canvas {
+			background-color: #000000;
+			border: 1px solid #333333;
+		}
+
+		.license {
+			margin-top: 30px;
+		}
+
+		.license, .license a {
+			color: #999999;
+		}
+	</style>
+</head>
+<body>
+<div id="fb-root"></div>
+<canvas id="canvas" width="800" height="480">Canvas not supported. Please update your browser.</canvas>
+<br/>
+
+<p>( <a href="http://tubamuga.com/demos/julian/">more games</a> )</p>
+<a href="https://github.com/JulianG/HTML5-Asteroids"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
+
+<div class="license">
+	<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_GB"><img alt="Creative Commons Licence" style="border-width:0" src="http://i.creativecommons.org/l/by-sa/3.0/88x31.png"/></a><br/><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">HTML5 Asteroids</span> by
+	<a xmlns:cc="http://creativecommons.org/ns#" href="http://tubamuga.com/demos/julian/" property="cc:attributionName" rel="cc:attributionURL">Julian Garamendy</a> is licensed under a
+	<a rel="license" href="http://creativecommons.org/licenses/by-sa/3.0/deed.en_GB">Creative Commons Attribution-ShareAlike 3.0 Unported License</a>.
+</div>
+<script>
+	(function (i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r;
+		i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date();
+		a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0];
+		a.async = 1;
+		a.src = g;
+		m.parentNode.insertBefore(a, m)
+	})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+	ga('create', 'XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX', 'xxxxxxxxxxxxxxxxx.com');
+	ga('send', 'pageview');
+</script>
+<script>
+	window.fbAsyncInit = function () {
+		// init the FB JS SDK
+		FB.init({
+			appId: 'XXXXXXXXXXXX',                        // App ID from the app dashboard
+			channelUrl: '//XXXXXXXXXXXXX.com/channel.html', // Channel file for x-domain comms
+			status: false,                                 // Check Facebook Login status
+			xfbml: false                                  // Look for social plugins on the page
+		});
+
+		// Additional initialization code such as adding Event Listeners goes here
+	};
+
+	// Load the SDK asynchronously
+	(function (d, s, id) {
+		var js, fjs = d.getElementsByTagName(s)[0];
+		if (d.getElementById(id)) {
+			return;
+		}
+		js = d.createElement(s);
+		js.id = id;
+		js.src = "//connect.facebook.net/en_US/all.js";
+		fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));
+</script>
+</body>
+</html>

@@ -13,7 +13,7 @@ define(function () {
 			window.open("https://twitter.com/intent/tweet?text=I've just scored " + points + " points in HTML5 Asteroids! " + app_url + " pic.twitter.com/PFvO0Gzo0Z", //
 				'Share your score on Twitter!', // Twitter overwrites this
 				'width=500,height=260,menubar=no,location=no,resizable=no,scrollbars=auto,status=no');
-			if(callback) callback();
+			if (callback) callback();
 		},
 		facebook: function facebook(points, callback) {
 			FB.ui(
@@ -27,14 +27,17 @@ define(function () {
 				},
 				function (response) {
 					if (response && response.post_id) {
-						if(callback) callback();
+						if (callback) callback();
 						//console.log('Post was published.');
 					} else {
-						if(callback) callback();
+						if (callback) callback();
 						//console.log('Post was not published.');
 					}
 				}
 			);
+		},
+		googlePlus: function googlePlus(points, callback) {
+			if (callback) callback();
 		}
 	};
 

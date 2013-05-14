@@ -8,8 +8,6 @@ define(function () {
 
 	function useHandCursor( img ) {
 
-		console.log('useHandCursor called on ' + img.currentAnimation );
-
 		img.onMouseOver = function(e) {
 			document.body.style.cursor='pointer';
 		};
