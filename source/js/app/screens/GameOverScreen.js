@@ -4,7 +4,7 @@
  * Date: 09/05/13
  * Time: 11:25
  */
-define(['lib/easeljs/useHandCursor'], function (useHandCursor) {
+define(['lib/easeljs/useHandCursor','lib/SocialSharing'], function (useHandCursor, SocialSharing) {
 
 	function GameOverScreen(atlas) {
 		this.gotoMenuRequested = new signals.Signal();
@@ -19,7 +19,7 @@ define(['lib/easeljs/useHandCursor'], function (useHandCursor) {
 		gameover.y = 145;
 		this.view.addChild(gameover);
 
-		this.points = new createjs.Text("000000", "bold 45px Ubuntu", "#ffffff");
+		this.points = new createjs.Text("0", "bold 45px Ubuntu", "#ffffff");
 		this.points.textAlign = 'center';
 		this.points.x = 400;
 		this.points.y = 185;
@@ -61,30 +61,15 @@ define(['lib/easeljs/useHandCursor'], function (useHandCursor) {
 
 		useHandCursor(twitter_logo);
 		twitter_logo.onPress = function (mouseEvent) {
-			console.log("twitter");
+			SocialSharing.tweet( self.playerScore, function(){
+				self.gotoMenuRequested.dispatch();
+			} );
 		};
 		useHandCursor(fb_logo);
 		fb_logo.onPress = function (mouseEvent) {
-			console.log("facebook");
-			FB.ui(
-				{
-					method: 'feed',
-					name: 'HTML5 Asteroids',
-					caption: '',
-					description: (
-						"I've just scored " + self.playerScore + " points in HTML5 Asteroids"
-						),
-					link: 'http://tubamuga.com/demos/html5/asteroids/',
-					picture: 'http://tubamuga.com/demos/html5/asteroids/icon.png'
-				},
-				function (response) {
-					if (response && response.post_id) {
-						console.log('Post was published.');
-					} else {
-						console.log('Post was not published.');
-					}
-				}
-			);
+			SocialSharing.facebook( self.playerScore, function(){
+				self.gotoMenuRequested.dispatch();
+			} );
 		};
 		useHandCursor(gplus_logo);
 		gplus_logo.onPress = function (mouseEvent) {
