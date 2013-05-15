@@ -22,7 +22,7 @@ define(['lib/KeyPoll'], function (KeyPoll) {
 	api.update = function update(entity, dt) {
 
 		// check which keys are down, and modify the entity.motion object;
-		if (entity.motion) {
+		if (entity.motion && entity.state) {
 			var thruster = false;
 			var steering = 0;
 			var fire = false;
@@ -41,32 +41,6 @@ define(['lib/KeyPoll'], function (KeyPoll) {
 			}
 
 			entity.motion.av = steering;
-
-			if (thruster) {
-
-				var angle = entity.position.rotation * Math.PI / 180;
-				var cosA = Math.cos(angle);
-				var sinA = Math.sin(angle);
-
-				var xx = cosA * this.config.shipAcceleration * dt;
-				var yy = sinA * this.config.shipAcceleration * dt;
-
-				var vx = entity.motion.vx + xx;
-				var vy = entity.motion.vy + yy;
-				var speed = Math.sqrt(vx * vx + vy * vy);
-
-				if (speed > this.config.shipMaxSpeed) {
-					var m = speed / this.config.shipMaxSpeed;
-					vx = vx / m;
-					vy = vy / m;
-				}
-
-				entity.motion.vx = vx;
-				entity.motion.vy = vy;
-				entity.motion.damping = 1;
-			} else {
-				entity.motion.damping = this.config.shipFriction;
-			}
 			entity.state.thruster = thruster;
 		}
 

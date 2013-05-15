@@ -5,10 +5,12 @@
  * Time: 11:25
  * To change this template use File | Settings | File Templates.
  */
-define(['lib/KeyPoll', 'app/systems/GameLoop', 'app/systems/GameBoard', 'app/systems/StateSystem', 'app/systems/ControlSystem', 'app/systems/MotionSystem',
-	'app/systems/SpaceSystem', 'app/rules/GameRules', 'app/systems/CollisionSystem', 'app/systems/TimeoutSystem', 'app/systems/RenderSystem',
-	'app/entities/EntityPool', 'app/entities/EntityFactory', 'app/LevelGenerator', 'app/control/SpaceshipControl', 'app/screens/OSD'],
-	function (KeyPoll, GameLoop, GameBoard, StateSystem, ControlSystem, MotionSystem, SpaceSystem, GameRules, CollisionSystem, TimeoutSystem, RenderSystem, EntityPool, EntityFactory, LevelGenerator, SpaceshipControl, OSD) {
+define(['app/systems/GameLoop', 'app/systems/GameBoard', 'app/systems/StateSystem', 'app/systems/ControlSystem', //
+	'app/systems/MotionSystem', 'app/systems/SpaceSystem', 'app/rules/GameRules', 'app/systems/CollisionSystem', //
+	'app/systems/TimeoutSystem', 'app/systems/RenderSystem', 'app/entities/EntityPool', 'app/entities/EntityFactory', //
+	'app/LevelGenerator', 'app/screens/OSD'],
+	function (GameLoop, GameBoard, StateSystem, ControlSystem, MotionSystem, SpaceSystem, GameRules, CollisionSystem, //
+			  TimeoutSystem, RenderSystem, EntityPool, EntityFactory, LevelGenerator, OSD) {
 
 		/**
 		 * You can tell by the number of dependencies that this class is perhaps doing too much.
@@ -24,15 +26,15 @@ define(['lib/KeyPoll', 'app/systems/GameLoop', 'app/systems/GameBoard', 'app/sys
 		 * @param keypoll
 		 * @constructor
 		 */
-		function GameScreen(atlas, keypoll, config) {
+		function GameScreen(container, atlas, spaceship_ctrl, config) {
 			this.gameFinished = new signals.Signal();
 			//
 			this.atlas = atlas;
-			this.keypoll = keypoll;
+			this.spaceshipControl = spaceship_ctrl;
 			this.config = config;
 
 			this.view = new createjs.Container();
-			this.container = new createjs.Container();
+			this.container = container;
 
 			this.currentLevel = 0;
 			this.playerScore = 0;
@@ -67,6 +69,10 @@ define(['lib/KeyPoll', 'app/systems/GameLoop', 'app/systems/GameBoard', 'app/sys
 			var space = new SpaceSystem(board);
 			var collisions = new CollisionSystem(board);
 			var timeout = new TimeoutSystem(board);
+
+			var bg = new createjs.Shape();
+			bg.graphics.beginFill("#000000").drawRect(0, 0, config.spaceWidth, config.spaceHeight);
+			this.container.addChild(bg);
 			var render = new RenderSystem(this.container, board);
 
 			render.entityRemoved.add(function (entity) {
@@ -119,7 +125,8 @@ define(['lib/KeyPoll', 'app/systems/GameLoop', 'app/systems/GameBoard', 'app/sys
 
 		api._initShip = function _initShip(factory, board) {
 			this.ship = factory.createShip(board);
-			this.ship.control = new SpaceshipControl(this.config, this.keypoll);
+			this.ship.control = this.spaceshipControl;
+			//this.ship.control = new SpaceshipMouseControl(this.config, this.container);
 			this.explodingShip = factory.createExplodingShip();
 		};
 

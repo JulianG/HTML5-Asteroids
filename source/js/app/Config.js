@@ -14,6 +14,8 @@ define(function () {
 
 		this.version = 'v1.1.0';
 
+		this.touchDevice = false;
+
 		this.initialLives = 3;
 
 		this.spaceWidth = 800;

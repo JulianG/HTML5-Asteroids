@@ -4,8 +4,10 @@
  * Date: 01/03/13
  * Time: 16:44
  */
-define(['app/Config', 'app/screens/MainMenu', 'app/screens/GameScreen', 'app/screens/GameOverScreen'],
-	function (Config, MainMenu, GameScreen, GameOverScreen) {
+define(['lib/KeyPoll', 'app/control/SpaceshipControl', 'app/control/SpaceshipMouseControl', //
+	'app/screens/MainMenu', 'app/screens/GameScreen', 'app/screens/GameOverScreen'],
+	function (KeyPoll, SpaceshipControl, SpaceshipMouseControl, //
+			  MainMenu, GameScreen, GameOverScreen) {
 
 		/**
 		 * Instantiates the GameScreen and the MenuScreen.
@@ -25,16 +27,24 @@ define(['app/Config', 'app/screens/MainMenu', 'app/screens/GameScreen', 'app/scr
 
 		var api = AsteroidsGame.prototype;
 
-		api.init = function init(canvas_id, atlas, keypoll) {
+		api.init = function init(canvas_id, atlas, config) {
 			var self = this;
-
-			this.config = new Config();
+			this.config = config;
 
 			this.stage = new createjs.Stage(canvas_id);
 			createjs.Ticker.setFPS(this.fps);
 			createjs.Ticker.addListener(this.stage);
 
-			this.gameScreen = new GameScreen(atlas, keypoll, this.config);
+			var container = new createjs.Container();
+
+			var ctrl = null;
+			if (this.config.touchDevice) {
+				ctrl = new SpaceshipMouseControl(this.config, container);
+			} else {
+				var keypoll = new KeyPoll(document); // Based on @brejep 's KeyPoll script.
+				ctrl = new SpaceshipControl(this.config, keypoll);
+			}
+			this.gameScreen = new GameScreen(container, atlas, ctrl, this.config);
 			this.gameScreen.gameFinished.add(function (points) {
 				self.showGameOver(points);
 			});
@@ -71,11 +81,11 @@ define(['app/Config', 'app/screens/MainMenu', 'app/screens/GameScreen', 'app/scr
 			this._toggleMouseCursor(true);
 		};
 
-		api._toggleMouseCursor = function _toggleMouseCursor(b){
-			if(b){
+		api._toggleMouseCursor = function _toggleMouseCursor(b) {
+			if (b) {
 				this.stage.enableMouseOver(this.fps);
 				document.body.style.cursor = 'default';
-			}else{
+			} else {
 				this.stage.enableMouseOver(0);
 				document.body.style.cursor = 'none';
 			}

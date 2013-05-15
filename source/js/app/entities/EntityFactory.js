@@ -5,7 +5,7 @@
  * Time: 10:34
  */
 
-define(['app/entities/Entity','app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipViewController', 'app/render/UFOViewController',
+define(['app/entities/Entity', 'app/render/SpaceshipViewController', 'app/render/ExplodingSpaceshipViewController', 'app/render/UFOViewController',
 	'app/components/SpaceshipState',
 	'app/components/UFOState', 'app/components/Gun'], function (Entity, SpaceshipViewController, ExplodingSpaceshipViewController, UFOViewController, SpaceshipState, UFOState, Gun) {
 
@@ -44,7 +44,7 @@ define(['app/entities/Entity','app/render/SpaceshipViewController', 'app/render/
 		view.addChild(thruster);
 		entity.view = view;
 		entity.viewController = new SpaceshipViewController(view);
-		entity.state = new SpaceshipState();
+		entity.state = new SpaceshipState(this.config.shipMaxSpeed, this.config.shipAcceleration, this.config.shipFriction);
 		entity.state.weapon = new Gun(board, entity, 'ship-bullet', this);
 
 		entity.collider.active = true;
@@ -131,7 +131,7 @@ define(['app/entities/Entity','app/render/SpaceshipViewController', 'app/render/
 
 		entity.motion.av = 0;
 		entity.collider.active = false;
-		entity.collider.radius = (big)? 20: 12;
+		entity.collider.radius = (big) ? 20 : 12;
 		entity.collider.group = 'ufo';
 
 		entity.timeout.active = false;
