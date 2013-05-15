@@ -5,10 +5,10 @@
  * Time: 11:25
  * To change this template use File | Settings | File Templates.
  */
-define(['lib/KeyPoll', 'app/Config', 'app/systems/GameLoop', 'app/systems/GameBoard', 'app/systems/StateSystem', 'app/systems/ControlSystem', 'app/systems/MotionSystem',
+define(['lib/KeyPoll', 'app/systems/GameLoop', 'app/systems/GameBoard', 'app/systems/StateSystem', 'app/systems/ControlSystem', 'app/systems/MotionSystem',
 	'app/systems/SpaceSystem', 'app/rules/GameRules', 'app/systems/CollisionSystem', 'app/systems/TimeoutSystem', 'app/systems/RenderSystem',
 	'app/entities/EntityPool', 'app/entities/EntityFactory', 'app/LevelGenerator', 'app/control/SpaceshipControl', 'app/screens/OSD'],
-	function (KeyPoll, Config, GameLoop, GameBoard, StateSystem, ControlSystem, MotionSystem, SpaceSystem, GameRules, CollisionSystem, TimeoutSystem, RenderSystem, EntityPool, EntityFactory, LevelGenerator, SpaceshipControl, OSD) {
+	function (KeyPoll, GameLoop, GameBoard, StateSystem, ControlSystem, MotionSystem, SpaceSystem, GameRules, CollisionSystem, TimeoutSystem, RenderSystem, EntityPool, EntityFactory, LevelGenerator, SpaceshipControl, OSD) {
 
 		/**
 		 * You can tell by the number of dependencies that this class is perhaps doing too much.
@@ -24,11 +24,12 @@ define(['lib/KeyPoll', 'app/Config', 'app/systems/GameLoop', 'app/systems/GameBo
 		 * @param keypoll
 		 * @constructor
 		 */
-		function GameScreen(atlas, keypoll) {
+		function GameScreen(atlas, keypoll, config) {
 			this.gameFinished = new signals.Signal();
 			//
 			this.atlas = atlas;
 			this.keypoll = keypoll;
+			this.config = config;
 
 			this.view = new createjs.Container();
 			this.container = new createjs.Container();
@@ -45,7 +46,6 @@ define(['lib/KeyPoll', 'app/Config', 'app/systems/GameLoop', 'app/systems/GameBo
 			this.view.addChild(this.osd.view);
 
 			this.levelGenerator = null;
-			this.config = null;
 			this.ship = null;
 
 			this.init();
@@ -56,8 +56,7 @@ define(['lib/KeyPoll', 'app/Config', 'app/systems/GameLoop', 'app/systems/GameBo
 
 		api.init = function init() {
 			var self = this;
-			var config = new Config();
-			this.config = config;
+			var config = this.config;
 
 			var board = new GameBoard(config.spaceWidth, config.spaceHeight, config.spaceWrapMargin);
 			this.board = board;

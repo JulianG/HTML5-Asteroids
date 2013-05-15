@@ -4,8 +4,8 @@
  * Date: 01/03/13
  * Time: 16:44
  */
-define(['app/screens/MainMenu', 'app/screens/GameScreen', 'app/screens/GameOverScreen'],
-	function (MainMenu, GameScreen, GameOverScreen) {
+define(['app/Config', 'app/screens/MainMenu', 'app/screens/GameScreen', 'app/screens/GameOverScreen'],
+	function (Config, MainMenu, GameScreen, GameOverScreen) {
 
 		/**
 		 * Instantiates the GameScreen and the MenuScreen.
@@ -17,6 +17,7 @@ define(['app/screens/MainMenu', 'app/screens/GameScreen', 'app/screens/GameOverS
 		 */
 		function AsteroidsGame() {
 			this.fps = 60;
+			this.config = null;
 			this.stage = null;
 			this.gameScreen = null;
 			this.menuScreen = null;
@@ -26,15 +27,18 @@ define(['app/screens/MainMenu', 'app/screens/GameScreen', 'app/screens/GameOverS
 
 		api.init = function init(canvas_id, atlas, keypoll) {
 			var self = this;
+
+			this.config = new Config();
+
 			this.stage = new createjs.Stage(canvas_id);
 			createjs.Ticker.setFPS(this.fps);
 			createjs.Ticker.addListener(this.stage);
 
-			this.gameScreen = new GameScreen(atlas, keypoll);
+			this.gameScreen = new GameScreen(atlas, keypoll, this.config);
 			this.gameScreen.gameFinished.add(function (points) {
 				self.showGameOver(points);
 			});
-			this.menuScreen = new MainMenu(atlas, keypoll);
+			this.menuScreen = new MainMenu(atlas, this.config);
 			this.menuScreen.startGameRequested.add(function () {
 				self.startGame();
 			});

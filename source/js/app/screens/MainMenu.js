@@ -6,7 +6,7 @@
  */
 define(['lib/easeljs/useHandCursor'], function (useHandCursor) {
 
-	function MainMenu(atlas) {
+	function MainMenu(atlas, config) {
 		this.startGameRequested = new signals.Signal();
 		//
 		this.atlas = atlas;
@@ -41,6 +41,12 @@ define(['lib/easeljs/useHandCursor'], function (useHandCursor) {
 		credits.x = 400;
 		credits.y = 480 - 25;
 		this.view.addChild(credits);
+
+		var version = new createjs.Text(config.version, "12px Ubuntu", "#ffffff");
+		version.textAlign = 'right';
+		version.x = 790;
+		version.y = 480 - 25;
+		this.view.addChild(version);
 
 		this.playBtn = this.atlas.getDisplayObject('play-btn');
 		this.playBtn.x = (800 - 123) / 2;

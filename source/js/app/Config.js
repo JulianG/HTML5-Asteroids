@@ -12,6 +12,8 @@ define(function () {
 	 */
 	function Config() {
 
+		this.version = 'v1.1.0';
+
 		this.initialLives = 3;
 
 		this.spaceWidth = 800;
