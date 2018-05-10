@@ -10,10 +10,6 @@ I'm using [TexturePacker](http://www.codeandweb.com/texturepacker) for my sprite
 
 ![HTML5 Asteroids](https://lh6.googleusercontent.com/-kf04XitGt-A/UY31cZEUNsI/AAAAAAAAW-M/e3LSC5SO8yc/w800-h480-no/html5asteroids-00.png)
 
-## Play online ##
-
-You can play HTML5 Asteroids [here](http://tubamuga.com/demos/html5/asteroids/).
-
 ## How to Build/Optimize ##
 
 I'm not sure. I think it's like this:
